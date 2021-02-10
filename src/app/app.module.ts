@@ -10,6 +10,8 @@ import { LoginComponent } from './webPages/login/login.component';
 import { HomeComponent } from './webPages/home/home.component';
 import { SignUpComponent } from './webPages/sign-up/sign-up.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { EventComponent } from './webPages/event/event.component';
+import { ProfilComponent } from './webPages/profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {ReactiveFormsModule} from '@angular/forms';
     NavigationBarComponent,
     LoginComponent,
     HomeComponent,
-    SignUpComponent
+    SignUpComponent,
+    EventComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,

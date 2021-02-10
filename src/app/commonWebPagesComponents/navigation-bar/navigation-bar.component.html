@@ -6,7 +6,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <img class="nav-icon" src="assets/images/logocsid.svg">
+    <a routerLink="home">
+      <img class="nav-icon" src="assets/images/logocsid.svg">
+    </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSearch">
       <i class="fa fa-search fa-2x" aria-hidden="true"></i>
@@ -16,8 +18,8 @@
     <div class="collapse navbar-collapse col-md-7 col-lg-6 col-xl-8 " id="navbarSearch">
       <form class="form-inline my-2 my-lg-0 ">
 
-          <div class="mr-2">
-            <input class="form-control mr-sm-2" type="search" placeholder="Recherche rapide">
+          <div class="mr-2 flex-fill">
+            <input class="form-control mr-sm-2 w-100" type="search" placeholder="Recherche rapide">
           </div>
 
           <div>
@@ -35,7 +37,7 @@
             Créer un évènement
           </a>
           <div class="dropdown-menu col" aria-labelledby="helpDropdown">
-            <a class="dropdown-item" href="#">Connexion</a>
+            <a class="dropdown-item" routerLink="event">évènement</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Inscription</a>
           </div>
@@ -46,9 +48,9 @@
             Compte
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left right ml-lg-auto" aria-labelledby="accountDropdown">
-            <a class="dropdown-item " href="#">Connexion</a>
+            <a class="dropdown-item" routerLink="login">Connexion</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Inscription</a>
+            <a class="dropdown-item" routerLink="signup">Inscription</a>
           </div>
         </li>
 
