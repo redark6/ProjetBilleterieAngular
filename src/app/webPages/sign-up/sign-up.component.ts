@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {RegisterServiceService} from '../../service/register-service.service';
+import {Router} from '@angular/router';
+import { formatDate } from '@angular/common';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -10,14 +14,14 @@ export class SignUpComponent implements OnInit {
 
   registerForm: FormGroup;
 
-  constructor() {
+  constructor(private registerService: RegisterServiceService, private router: Router) {
 
     this.registerForm = new FormGroup({
-      firstname: new FormControl('', [Validators.required]),
-      lastname: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      userName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      username: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.minLength(10), Validators.maxLength(200)]),
+      birthDate: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
 
     });
@@ -27,6 +31,16 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addUser(): void {}
+  addUser(): void {
+    this.registerService.register(this.registerForm.value).subscribe(
+      (returnedId) => {
+        return this.router.navigate(['user/edit/' + returnedId]);
+      },
+      (error) => {
+        return;
+      }
+
+    );
+  }
 
 }

@@ -1,0 +1,24 @@
+<div>
+
+  <h3>{{identifiant}}</h3>
+
+  <div class="row justify-content-start " >
+    <div *ngFor="let number of numbers"  class="col-lg-3 col-md-4 col-6 my-3" >
+      <app-home-event></app-home-event>
+    </div>
+  </div>
+
+  <div class="row justify-content-start collapse " id="{{identifiant}}" >
+    <div *ngFor="let number of numbers"  class="col-lg-3 col-md-4 col-6 my-3" >
+      <app-home-event></app-home-event>
+    </div>
+  </div>
+
+
+</div>
+<div class="col text-center">
+  <button class="btn btn-primary" type="button" data-toggle="collapse" attr.data-target="{{idtarget}} ">
+    Button with data-target
+  </button>
+</div>
+
