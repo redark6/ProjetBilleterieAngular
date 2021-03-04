@@ -12,6 +12,9 @@ import { SignUpComponent } from './webPages/sign-up/sign-up.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { EventComponent } from './webPages/event/event.component';
 import { ProfilComponent } from './webPages/profil/profil.component';
+import { HomeEventListCategoryComponent } from './webPages/home/home-event-list-category/home-event-list-category.component';
+import { HomeEventComponent } from './webPages/home/home-event/home-event.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,13 +25,16 @@ import { ProfilComponent } from './webPages/profil/profil.component';
     HomeComponent,
     SignUpComponent,
     EventComponent,
-    ProfilComponent
+    ProfilComponent,
+    HomeEventListCategoryComponent,
+    HomeEventComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

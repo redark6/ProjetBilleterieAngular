@@ -9,10 +9,15 @@ import {ProfilComponent} from './webPages/profil/profil.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', component: HomeComponent },
+  { path: 'event', component: EventComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
+
   { path: 'event', component: EventComponent },
-  { path: 'profil', component: ProfilComponent}
+  { path: 'profil', component: ProfilComponent},
+
+  { path: 'profil', component: ProfilComponent }
+
   // { path: 'not-found', component: Error404Component },
   // { path: '**', redirectTo: 'not-found' }
 ];
