@@ -5,7 +5,7 @@ import {map} from 'rxjs/operators';
 import {User} from '../webPages/profil/user';
 
 interface ReturnedId{
-  createdId: string;
+  createdId: object;
 }
 
 @Injectable({
