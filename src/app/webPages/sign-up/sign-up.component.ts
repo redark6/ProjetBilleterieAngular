@@ -34,8 +34,9 @@ export class SignUpComponent implements OnInit {
 
   addUser(): void {
     this.registerService.register(this.registerForm.value).subscribe(
-      (returnedId) => {
-        return this.router.navigate(['user/edit/' + returnedId]);
+      (errors) => {
+        console.log(errors);
+        return;
       },
       (error) => {
         return;
