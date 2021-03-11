@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.authenticate.authenticate(this.loginForm.value).subscribe(
       (cookie) => {
-        return this.router.navigate(['user/edit/' + cookie]);
+        return this.router.navigate(['home']);
       },
       (error) => {
         return;
