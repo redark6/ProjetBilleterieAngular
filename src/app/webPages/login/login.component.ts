@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication.service';
-import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   private cookieValue: string;
 
-  constructor(private authenticate: AuthenticationService, private router: Router, private cookiService: CookieService) {
+  constructor(private authenticate: AuthenticationService, private router: Router) {
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.compose([
         Validators.required,
