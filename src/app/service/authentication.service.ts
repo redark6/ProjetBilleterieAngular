@@ -16,8 +16,18 @@ export class AuthenticationService {
 
 
   authenticate(value: object): Observable<Cookie>{
+
     return this.httpClient.post<Cookie>('http://localhost:8080/login', value);
+
   }
+
+  test(value: object): Observable<Cookie>{
+    console.log('pass');
+    return this.httpClient.get<Cookie>('http://localhost:8080/user/test/truc2', value);
+
+  }
+
+
 
 }
 

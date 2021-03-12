@@ -17,10 +17,18 @@ export class SignUpComponent implements OnInit {
   constructor(private registerService: RegisterServiceService, private router: Router) {
 
     this.registerForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(50)
+      ])),
       lastName: new FormControl('', [Validators.required]),
       userName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.email,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
+      ])),
       birthDate: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       passwordConfirm: new FormControl('', [Validators.required])

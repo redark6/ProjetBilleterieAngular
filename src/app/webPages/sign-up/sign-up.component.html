@@ -4,10 +4,10 @@
   <h1 class="mb-3">Inscription</h1>
   <div class="row">
     <div class="col-md-6 mb-3">
-      <input formControlName='firstName' type="text" class="form-control" placeholder="Prénom" value="">
-      <div class="invalid-feedback">
-        Valid first name is required.
-      </div>
+      <input [class.is-invalid] = "registerForm.get('firstName').invalid && registerForm.get('firstName').touched"
+             type="text" class="form-control" formControlName="firstName" placeholder="Prénom"/>
+
+
     </div>
     <div class="col-md-6 mb-3">
       <input formControlName="lastName" type="text" class="form-control"  placeholder="Nom" value="" >
@@ -27,10 +27,8 @@
   </div>
 
   <div class="mb-3">
-    <input formControlName="email" type="email" class="form-control" placeholder="Adresse-mail">
-    <div class="invalid-feedback">
-      Please enter a valid email address.
-    </div>
+    <input [class.is-invalid] = "registerForm.get('email').invalid && registerForm.get('email').touched"
+           type="email" class="form-control" formControlName="email" placeholder="Adresse-mail"/>
   </div>
 
   <div class="mb-3">
