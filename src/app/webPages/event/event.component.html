@@ -5,29 +5,33 @@
     <div class="col-lg-8">
 
       <div>
-        <img class="img-responsive " style=" height: 300px"  src="https://www.publicdomainpictures.net/pictures/320000/nahled/background-image.png">
+        <img class="img-responsive " style=" height: 300px"
+             src="https://www.publicdomainpictures.net/pictures/320000/nahled/background-image.png">
       </div>
 
 
     </div>
 
     <div class="col-lg-4 bg-light">
-        <div class="text-center">
-          <h1> titre evenement </h1>
-        </div>
+      <div class="text-center">
+        <h1> {{event.titre}} </h1>
+      </div>
       <hr/>
-        <div class="col-lg-4 py-2">
-          <h4>Type</h4>
+      <div class="row">
+        <div class="col-lg-12 py-2">
+          <h4>{{event.type}}</h4>
         </div>
-        <div class="col-lg-4 py-2">
-          <h4>Region</h4>
+
+        <div class="col-lg-12 py-2">
+          <h4>{{event.region}}</h4>
         </div>
-        <div class="col-lg-4 py-2">
-          <h4>Date</h4>
+        <div class="col-lg-12 py-2">
+          <h4>{{event.date|date}}</h4>
         </div>
-        <div class="col-lg-4 py-2">
-          <h4>Prix</h4>
+        <div class="col-lg-12 py-2">
+          <h4>{{event.prix}}</h4>
         </div>
+      </div>
     </div>
 
   </div>
@@ -36,45 +40,38 @@
 
     <div class="col-lg-8 px-3">
 
-     <h2>Présentation</h2>
+      <h2>Présentation</h2>
       <div>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a velit ut augue tincidunt venenatis a sed urna.
-        Duis sed erat ac nunc venenatis vulputate nec sit amet dui. Duis accumsan sagittis leo. In fermentum velit sed
-        purus tempus, non commodo mi faucibus. Donec augue mi, scelerisque in lectus eu, tempor pellentesque nulla. Cras
-        ultricies malesuada scelerisque. Vivamus imperdiet faucibus dui, id pharetra nulla. Nulla semper non risus quis
-        dignissim. Quisque interdum tempus augue, a consequat purus semper sed. Nunc egestas nisi sit amet eros gravida varius.
-        Aenean aliquam accumsan urna, nec egestas eros finibus non. Aenean volutpat purus nunc, ac congue odio facilisis ac.
-        Donec elit lacus, scelerisque in tortor vitae, sollicitudin commodo neque. Proin eu condimentum tortor,
-        vel sodales turpis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        {{event.description}}
       </div>
 
     </div>
 
 
-      <div class="col-lg-4 bg-light px-3 ">
+    <div class="col-lg-4 bg-light px-3 ">
 
-        <div class="py-3 bg text-center">
-          <h1>20</h1>
-          <div>
-            <h3>Restants</h3>
-          </div>
+      <div class="py-3 bg text-center">
+        <h1>{{event.nmbTicket}}</h1>
+        <div>
+          <h3>Restants</h3>
         </div>
+      </div>
 
-        <div class="text-center mb-5">
+      <div class="text-center mb-5">
         <button type="button" class="btn btn-primary btn-lg">Réserver</button>
-        </div>
+      </div>
 
-        <div class="col">
-          <div class="row">
-                <a href="#" id="share-fb" class="sharer button "><i class="fa fa-3x fa-facebook-square"></i></a>
-                <a href="#" id="share-tw" class="sharer button "><i class="fa fa-3x fa-twitter-square"></i></a>
-                <a href="#" id="share-ig" class="sharer button "><i class="fa fa-3x fa-instagram"></i></a>
-          </div>
+      <div class="col">
+        <div class="row">
+          <a href="#" id="share-fb" class="sharer button "><i class="fa fa-3x fa-facebook-square"></i></a>
+          <a href="#" id="share-tw" class="sharer button "><i class="fa fa-3x fa-twitter-square"></i></a>
+          <a href="#" id="share-ig" class="sharer button "><i class="fa fa-3x fa-instagram"></i></a>
         </div>
-
       </div>
 
     </div>
+
+  </div>
 
   <div class="calendar">
 
