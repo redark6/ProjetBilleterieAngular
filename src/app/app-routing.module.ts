@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
 
-  { path: 'event', component: EventComponent },
+  { path: 'event/:id', component: EventComponent },
   { path: 'profil', component: ProfilComponent},
 
   { path: 'profil', component: ProfilComponent }

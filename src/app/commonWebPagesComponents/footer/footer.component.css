@@ -1,3 +1,7 @@
 hr{
   background-color: white;
 }
+
+footer{
+  flex-shrink: 0;
+}

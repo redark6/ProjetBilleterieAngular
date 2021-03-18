@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication.service';
 import {HandleErrorsService} from '../../specialClass/handle-errors.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
