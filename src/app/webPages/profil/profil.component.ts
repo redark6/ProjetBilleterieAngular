@@ -16,6 +16,8 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = new User('', '', new Date(), '', '', new Date());
+
     this.profilService.get().subscribe(user => {
       this.user = user;
     });
