@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../service/authentication.service';
 import {HandleErrorsService} from '../../specialClass/handle-errors.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,7 +17,7 @@ export class LoginComponent implements OnInit {
   private cookieValue: string;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private authenticate: AuthenticationService, private router: Router, private formBuilder: FormBuilder, private error: HandleErrorsService) {
+  constructor(private authenticate: AuthenticationService, private formBuilder: FormBuilder, private error: HandleErrorsService) {
 
   }
 
@@ -50,15 +49,7 @@ export class LoginComponent implements OnInit {
 
 
   login(): void {
-    this.authenticate.authenticate(this.loginForm.value).subscribe(
-      (cookie) => {
-        return this.router.navigate(['home']);
-      },
-      (error) => {
-        return;
-      }
-
-    );
+    this.authenticate.login(this.loginForm.value);
   }
 
   showLoginError(): void{

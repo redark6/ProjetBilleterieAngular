@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {GlobalParameter} from './specialClass/global-parameter';
+import {AuthenticationService} from './service/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import {GlobalParameter} from './specialClass/global-parameter';
 export class AppComponent {
   title = 'projetBilleterieAngular';
 
-  constructor(private router: Router, private globalVar: GlobalParameter) {
+  constructor(private router: Router, private globalVar: GlobalParameter, private authenticationService: AuthenticationService) {
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
@@ -18,5 +19,7 @@ export class AppComponent {
         }
       }
     );
+    this.authenticationService.emitAuthStatus(false);
   }
+
 }

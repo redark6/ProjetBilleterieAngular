@@ -32,31 +32,18 @@
 
     <div class="collapse navbar-collapse col-md-5 col-lg-6 col-xl-4" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto ">
-        <li class="nav-item dropdown ">
-          <a class="nav-link dropdown-toggle " href="#" id="createEventDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Créer un évènement
-          </a>
-          <div class="dropdown-menu col" aria-labelledby="helpDropdown">
-            <a class="dropdown-item" routerLink="event">évènement</a>
-            <div class="dropdown-divider"></div>
-
-            <a class="dropdown-item" routerLink="profil">Profil</a>
-
-
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="event">Évènements</a>
         </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" >
-            Compte
-          </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left right ml-lg-auto" aria-labelledby="accountDropdown">
-            <a class="dropdown-item" routerLink="login">Connexion</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" routerLink="signup">Inscription</a>
-          </div>
+        <li class="nav-item"*ngIf="!isAuthenticate">
+          <a class="nav-link" routerLink="login">Connexion</a>
         </li>
-
+        <li class="nav-item" *ngIf="isAuthenticate">
+          <a class="nav-link" routerLink="profil">Profil</a>
+        </li>
+        <li class="nav-item pl-md-2" *ngIf="isAuthenticate" >
+          <button class="btn btn-outline-light " (click)="logout()" ><i class="fas fa-power-off logout-icon d-none d-md-block"></i><span class="d-md-none">Déconnexion</span></button>
+        </li>
       </ul>
 
     </div>

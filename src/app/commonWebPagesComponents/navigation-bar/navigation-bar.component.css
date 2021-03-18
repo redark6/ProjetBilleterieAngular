@@ -5,3 +5,8 @@
 nav{
   flex-shrink: 0;
 }
+
+.logout-icon {
+  line-height: unset;
+}
+
