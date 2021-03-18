@@ -16,6 +16,9 @@ import { HomeEventListCategoryComponent } from './webPages/home/home-event-list-
 import { HomeEventComponent } from './webPages/home/home-event/home-event.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpRequestInterceptor} from './specialClass/http-request-interceptor';
+import {GlobalParameter} from './specialClass/global-parameter';
+import {ToastrModule} from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,10 +38,16 @@ import {HttpRequestInterceptor} from './specialClass/http-request-interceptor';
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+    })
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
+    GlobalParameter
   ],
   bootstrap: [AppComponent]
 })

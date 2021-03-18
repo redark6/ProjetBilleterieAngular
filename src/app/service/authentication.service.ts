@@ -21,14 +21,6 @@ export class AuthenticationService {
 
   }
 
-  test(value: object): Observable<Cookie>{
-    console.log('pass');
-    return this.httpClient.get<Cookie>('http://localhost:8080/user/test/truc2', value);
-
-  }
-
-
-
 }
 
 

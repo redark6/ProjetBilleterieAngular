@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {RegisterServiceService} from '../../service/register-service.service';
 import {Router} from '@angular/router';
-import { formatDate } from '@angular/common';
-
+import {passwordsMatch, ageMatchRange} from '../../specialClass/custom-validator';
+import {HandleErrorsService} from '../../specialClass/handle-errors.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,43 +13,121 @@ import { formatDate } from '@angular/common';
 export class SignUpComponent implements OnInit {
 
   registerForm: FormGroup;
+  registerError = false;
 
-  constructor(private registerService: RegisterServiceService, private router: Router) {
-
-    this.registerForm = new FormGroup({
-      firstName: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(50)
-      ])),
-      lastName: new FormControl('', [Validators.required]),
-      userName: new FormControl('', [Validators.required]),
-      email: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.email,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
-      ])),
-      birthDate: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      passwordConfirm: new FormControl('', [Validators.required])
-    });
-
+  // tslint:disable-next-line:max-line-length
+  constructor(private registerService: RegisterServiceService, private router: Router, private formBuilder: FormBuilder, private error: HandleErrorsService) {
 
   }
 
   ngOnInit(): void {
+
+    this.error.error409Event
+      .subscribe((data: object) => {
+        this.showRegisterError(data);
+      });
+
+    this.registerForm = this.formBuilder.group({
+        firstName: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ])],
+        lastName: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ])],
+        userName: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(50)
+        ])],
+        email: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(50),
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
+        ])],
+        birthDate: ['', Validators.compose([
+          Validators.required,
+          ageMatchRange
+        ])],
+        password: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(16)
+        ])],
+        passwordConfirm: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(16)
+        ])]
+      }, {
+        validator: passwordsMatch('password', 'passwordConfirm')
+      }
+    );
+  }
+
+  get firstName(): AbstractControl {
+    return this.registerForm.get('firstName');
+  }
+
+  get lastName(): AbstractControl {
+    return this.registerForm.get('lastName');
+  }
+
+  get userName(): AbstractControl {
+    return this.registerForm.get('userName');
+  }
+
+  get email(): AbstractControl {
+    return this.registerForm.get('email');
+  }
+
+  get birthDate(): AbstractControl {
+    return this.registerForm.get('birthDate');
+  }
+
+  get password(): AbstractControl {
+    return this.registerForm.get('password');
+  }
+
+  get passwordConfirm(): AbstractControl {
+    return this.registerForm.get('passwordConfirm');
   }
 
   addUser(): void {
     this.registerService.register(this.registerForm.value).subscribe(
-      (errors) => {
-        console.log(errors);
-        return;
+      (cookie) => {
+        console.log(cookie);
+        return this.router.navigate(['home']);
       },
       (error) => {
+        console.log(error);
         return;
       }
-
     );
   }
+
+  showRegisterError(data: object): void {
+    this.registerError = false;
+    for (const [key, value] of Object.entries(data)) {
+      switch (key) {
+        case 'email':
+          this.email.setErrors({incorrect: true});
+          break;
+        case 'userName':
+          this.userName.setErrors({incorrect: true});
+          break;
+        case 'birthDate':
+          this.birthDate.setErrors({incorrect: true});
+          break;
+      }
+    }
+
+  }
+
 }
+
