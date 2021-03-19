@@ -59,9 +59,13 @@ export class UserService {
     );
   }
 
-  public getUserProfil(): Observable<User>{
-    return this.httpClient.get<User>(`http://localhost:8080/user/logeduser`);
+  getUserProfil(): Observable<User>{
+    return this.httpClient.get<User>('http://localhost:8080/user/logeduser');
   }
+
+ patch(value: object): Observable<any>{
+    return this.httpClient.patch('http://localhost:8080/user/patch', value);
+ }
 
   emitAuthStatus(state: boolean): void{
     this.authenticateEvent.next(state);

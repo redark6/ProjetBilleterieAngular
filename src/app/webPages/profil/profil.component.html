@@ -9,11 +9,20 @@
 
       </div>
       <div class="col-lg-8 col-md-0 bg-grey shadow">
+       <div class="row">
+        <div class="col-lg-11 col-md-11 col-sm-11">
         <h1>{{userProfilInfos.userName}}</h1>
+        </div>
+         <div class="col-lg-1 col-md-1 col-sm-1 cog mt-2">
+           <button class="buttoncog" (click)="open(content)">
+          <i class="fas fa-cog fa-2x"></i>
+           </button>
+        </div>
+       </div>
         <p>{{userProfilInfos.firstName}}</p>
         <p>{{userProfilInfos.lastName}}</p>
         <p>{{userProfilInfos.birthDate}}</p>
-        <p>On TicketHeure since: {{userProfilInfos.createdDate}}</p>
+        <p>{{userProfilInfos.createdDate}}</p>
       </div>
 
     </div>
@@ -47,6 +56,71 @@
 
   </div>
 
-</div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Modifier le profil</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
 
+    <div class="modal-body" [formGroup]="updateProfilForm">
+
+        <div class="mx-5">
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <input [class.is-invalid] = "updateProfilForm.get('firstName').invalid && updateProfilForm.get('firstName').touched"
+                     type="text" class="form-control" formControlName="firstName"  placeholder="Prénom"/>
+              <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty">
+                <small *ngIf="firstName.errors?.required" class="text-danger">Ce champ est requis</small>
+                <small *ngIf="firstName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
+                <small *ngIf="firstName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <input [class.is-invalid] = "updateProfilForm.get('lastName').invalid && updateProfilForm.get('lastName').touched"
+                     type="text" class="form-control" formControlName="lastName" placeholder="Nom"/>
+              <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty">
+                <small *ngIf="lastName.errors?.required" class="text-danger">Ce champ est requis</small>
+                <small *ngIf="lastName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
+                <small *ngIf="lastName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="input-group">
+              <input [class.is-invalid] = "updateProfilForm.get('userName').invalid && updateProfilForm.get('userName').touched"
+                     type="text" class="form-control" formControlName="userName" value="zzzz" placeholder="Nom d'utilisateur"/>
+            </div>
+            <div *ngIf="(userName.invalid && userName.touched) || userName.dirty">
+              <small *ngIf="userName.errors?.required" class="text-danger">Ce champ est requis</small>
+              <small *ngIf="userName.errors?.minlength" class="text-danger">La taille minimale est de 4 caractères</small>
+              <small *ngIf="userName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+              <small *ngIf="userName.errors?.incorrect" class="text-danger">Ce nom d'utilisateur est déjas pris</small>
+
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <input [class.is-invalid] = "updateProfilForm.get('birthDate').invalid && updateProfilForm.get('birthDate').touched"
+                   type="date" class="form-control" formControlName="birthDate"/>
+            <div *ngIf="(birthDate.invalid && birthDate.touched) || birthDate.dirty">
+              <small *ngIf="birthDate.errors?.required" class="text-danger">Ce champ est requis</small>
+              <small *ngIf="birthDate.errors?.birthDateInvalid ||birthDate.errors?.incorrect" class="text-danger">Vous devez avoir entre 18 et 122 ans</small>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    <div class="modal-footer">
+      <button [disabled]="updateProfilForm.invalid" type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click');">Enregistrer</button>
+    </div>
+  </ng-template>
+
+</div>
 
