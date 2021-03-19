@@ -19,6 +19,7 @@ import {HttpRequestInterceptor} from './specialClass/http-request-interceptor';
 import {GlobalParameter} from './specialClass/global-parameter';
 import {ToastrModule} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
-    GlobalParameter
+    GlobalParameter,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

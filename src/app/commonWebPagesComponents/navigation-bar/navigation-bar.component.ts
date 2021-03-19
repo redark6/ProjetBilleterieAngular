@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalParameter} from '../../specialClass/global-parameter';
-import {AuthenticationService} from '../../service/authentication.service';
+import {UserService} from '../../service/user.service';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -11,16 +11,16 @@ import {Subscription} from 'rxjs';
 export class NavigationBarComponent implements OnInit {
   isAuthenticate: boolean;
   authSubscription: Subscription;
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private user: UserService) { }
 
   ngOnInit(): void {
-    this.authSubscription = this.authenticationService.authListener().subscribe(state => {
+    this.authSubscription = this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
     });
   }
 
   logout(): void{
-    this.authenticationService.logout();
+    this.user.logout();
   }
 
 }

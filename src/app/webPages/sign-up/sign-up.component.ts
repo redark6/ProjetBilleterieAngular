@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {RegisterServiceService} from '../../service/register-service.service';
 import {Router} from '@angular/router';
 import {passwordsMatch, ageMatchRange} from '../../specialClass/custom-validator';
 import {HandleErrorsService} from '../../specialClass/handle-errors.service';
+import {UserService} from '../../service/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,7 +16,7 @@ export class SignUpComponent implements OnInit {
   registerError = false;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private registerService: RegisterServiceService, private router: Router, private formBuilder: FormBuilder, private error: HandleErrorsService) {
+  constructor(private user: UserService, private router: Router, private formBuilder: FormBuilder, private error: HandleErrorsService) {
 
   }
 
@@ -99,16 +99,7 @@ export class SignUpComponent implements OnInit {
   }
 
   addUser(): void {
-    this.registerService.register(this.registerForm.value).subscribe(
-      (cookie) => {
-        console.log(cookie);
-        return this.router.navigate(['home']);
-      },
-      (error) => {
-        console.log(error);
-        return;
-      }
-    );
+    this.user.register(this.registerForm.value);
   }
 
   showRegisterError(data: object): void {

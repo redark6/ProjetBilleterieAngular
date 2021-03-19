@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from './user';
-import {ProfileService} from '../../service/profile.service';
 import {ActivatedRoute} from '@angular/router';
+import {UserService} from '../../service/user.service';
 
 @Component({
   selector: 'app-profil',
@@ -10,14 +10,14 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProfilComponent implements OnInit {
 
-  public user: User;
+  public userProfilInfos: User;
 
-  constructor(private profilService: ProfileService) {
+  constructor(private user: UserService) {
   }
 
   ngOnInit(): void {
-    this.profilService.get().subscribe(user => {
-      this.user = user;
+    this.user.getUserProfil().subscribe(user => {
+      this.userProfilInfos = user;
     });
   }
 
