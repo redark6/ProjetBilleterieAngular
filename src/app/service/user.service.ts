@@ -63,8 +63,15 @@ export class UserService {
     return this.httpClient.get<User>('http://localhost:8080/user/logeduser');
   }
 
- patch(value: object): Observable<any>{
-    return this.httpClient.patch('http://localhost:8080/user/patch', value);
+ patch(value: object): void{
+    this.httpClient.patch('http://localhost:8080/user/patch', value).subscribe(
+      () => {
+        console.log('oui');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
  }
 
   emitAuthStatus(state: boolean): void{

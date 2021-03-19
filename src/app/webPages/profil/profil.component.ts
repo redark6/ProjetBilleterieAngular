@@ -52,10 +52,13 @@ export class ProfilComponent implements OnInit {
   }
 
   open(content): void {
-    this.firstName.setValue(this.userProfilInfos.firstName);
-    this.lastName.setValue(this.userProfilInfos.lastName);
-    this.userName.setValue(this.userProfilInfos.userName);
-    this.birthDate.setValue(this.userProfilInfos.birthDate);
+
+    this.updateProfilForm.setValue({
+      firstName: this.userProfilInfos.firstName,
+      lastName: this.userProfilInfos.lastName,
+      userName: this.userProfilInfos.userName,
+      birthDate: this.userProfilInfos.birthDate,
+    });
 
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
