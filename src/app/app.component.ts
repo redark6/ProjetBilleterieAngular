@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {GlobalParameter} from './specialClass/global-parameter';
-import {AuthenticationService} from './service/authentication.service';
+import {UserService} from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import {AuthenticationService} from './service/authentication.service';
 export class AppComponent {
   title = 'projetBilleterieAngular';
 
-  constructor(private router: Router, private globalVar: GlobalParameter, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private globalVar: GlobalParameter, private authenticationService: UserService) {
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
