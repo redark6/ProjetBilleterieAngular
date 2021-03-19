@@ -9,7 +9,8 @@ export class EventTicket {
     public prix: number;
     public nmbTicket: number;
 
-    constructor(titre: string, type: string, description: string, region: string, date: Date, prix: number, nmbTicket: number) {
+  constructor(id: number, titre: string, type: string, description: string, region: string, date: Date, prix: number, nmbTicket: number) {
+        this.id = id;
         this.titre = titre;
         this.type = type;
         this.description = description;

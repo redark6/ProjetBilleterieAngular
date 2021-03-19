@@ -1,4 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {EventTicket} from '../../event/eventTicket';
+import {EventService} from '../../../service/event.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-home-event-list-category',
@@ -11,14 +14,37 @@ export class HomeEventListCategoryComponent implements OnInit {
 
   public idtarget: string;
 
-  numbers: number[];
-  constructor() {
-    this.numbers = Array(4).fill(4); // [4,4,4,4,4]
-  }
+  public events: Array<EventTicket>;
 
+  public eventsSport: Array<EventTicket>;
+
+  public eventsMusic: Array<EventTicket>;
+
+  numbers: number[];
+  constructor(private eventService: EventService, private activatedRoute: ActivatedRoute) {
+
+    this.events = new Array<EventTicket>();
+    this.eventService.getAllRecent().subscribe(events => {
+      this.events = events;
+    });
+
+    this.eventsMusic = new Array<EventTicket>();
+    this.eventService.getAllMusic().subscribe(eventsMusic => {
+      this.eventsMusic = eventsMusic;
+    });
+
+    this.eventsSport = new Array<EventTicket>();
+    this.eventService.getAllSport().subscribe(eventsSport => {
+      this.eventsSport = eventsSport;
+    });
+
+  }
 
   ngOnInit(): void {
     this.idtarget = '#' + this.identifiant;
+
   }
+
+
 
 }
