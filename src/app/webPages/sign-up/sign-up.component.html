@@ -37,6 +37,8 @@
     </div>
   </div>
 
+    
+
   <div class="mb-3">
     <input [class.is-invalid] = "registerForm.get('email').invalid && registerForm.get('email').touched"
            type="email" class="form-control" formControlName="email" placeholder="Adresse-mail"/>
@@ -79,6 +81,10 @@
           <small *ngIf="passwordConfirm.errors?.passwordsmatch" class="text-danger">Les mots de passe doivent correspondrent</small>
         </div>
       </div>
+
+
+
+
 
     </div>
 
