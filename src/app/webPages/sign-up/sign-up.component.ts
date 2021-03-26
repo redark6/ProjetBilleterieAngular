@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {passwordsMatch, ageMatchRange} from '../../specialClass/custom-validator';
 import {HandleErrorsService} from '../../specialClass/handle-errors.service';
 import {UserService} from '../../service/user.service';
+import {MyErrorStateMatcher} from '../../specialClass/my-error-state-matcher';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -14,6 +16,7 @@ export class SignUpComponent implements OnInit {
 
   registerForm: FormGroup;
   registerError = false;
+  matcher = new MyErrorStateMatcher();
 
   // tslint:disable-next-line:max-line-length
   constructor(private user: UserService, private router: Router, private formBuilder: FormBuilder, private error: HandleErrorsService) {
@@ -43,16 +46,16 @@ export class SignUpComponent implements OnInit {
           Validators.minLength(4),
           Validators.maxLength(50)
         ])],
+        birthDate: ['', Validators.compose([
+          Validators.required,
+          ageMatchRange
+        ])],
         email: ['', Validators.compose([
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(50),
           Validators.email,
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
-        ])],
-        birthDate: ['', Validators.compose([
-          Validators.required,
-          ageMatchRange
         ])],
         password: ['', Validators.compose([
           Validators.required,
@@ -118,6 +121,13 @@ export class SignUpComponent implements OnInit {
       }
     }
 
+  }
+
+  date(birthDate): void {
+    const convertDate = new Date(birthDate.target.value).toISOString().substring(0, 10);
+    this.registerForm.get('birthDate').setValue(convertDate, {
+      onlyself: true
+    });
   }
 
 }

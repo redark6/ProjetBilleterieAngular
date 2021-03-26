@@ -19,7 +19,7 @@ export class AppComponent {
         }
       }
     );
-    this.authenticationService.emitAuthStatus(false);
+    this.authenticationService.isSessionValid();
   }
 
 }

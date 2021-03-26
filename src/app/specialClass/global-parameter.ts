@@ -4,4 +4,5 @@ import {Injectable} from '@angular/core';
 export class GlobalParameter {
   isAuthenticate = false;
   currentRoute = 'home';
+  userAuthority = '';
 }

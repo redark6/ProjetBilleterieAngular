@@ -10,6 +10,10 @@ interface ReturnedErrors{
   errors: object;
 }
 
+interface Authority{
+  authority: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +29,7 @@ export class UserService {
       () => {
         this.globalVar.isAuthenticate = true;
         this.emitAuthStatus(true);
+        this.getAuthority();
         return this.router.navigate(['home']);
       },
       (error) => {
@@ -74,6 +79,32 @@ export class UserService {
     );
  }
 
+  isSessionValid(): void{
+    this.httpClient.get('http://localhost:8080/user/sessionvalid').subscribe(
+      () => {
+        this.globalVar.isAuthenticate = true;
+        this.emitAuthStatus(true);
+      },
+      (error) => {
+        this.globalVar.isAuthenticate = false;
+        this.emitAuthStatus(false);
+      }
+    );
+
+  }
+
+  getAuthority(): void{
+    this.httpClient.get<Authority>('http://localhost:8080/user/authority').subscribe(
+      (authority) => {
+        this.globalVar.userAuthority = authority[0].authority;
+      },
+      (error) => {
+
+      }
+    );
+  }
+
+
   emitAuthStatus(state: boolean): void{
     this.authenticateEvent.next(state);
   }
@@ -82,16 +113,6 @@ export class UserService {
     return this.authenticateEvent.asObservable();
   }
 
-  // checkIfUserIsAuth(): void{
-      // if (this.cookie.get('JSESSIONID')) {
-        // if(){
-
-        // }
-
-      // }
-      // this.cookie.set( 'Test', 'Hello World' );
-      // this.cookieValue = this.cookieService.get('Test');
-    // }
 
 }
 

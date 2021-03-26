@@ -25,7 +25,8 @@ export function ageMatchRange(birthDate: AbstractControl): object {
     if (!birthDate.value) {
       return null;
     }
-    const birthDateSplit = birthDate.value.split('-');
+    const convertDate = new Date(birthDate.value).toISOString().substring(0, 10);
+    const birthDateSplit = convertDate.split('-');
     const dateBirthDate = new Date(parseInt(birthDateSplit[0], 10), parseInt(birthDateSplit[1], 10), parseInt(birthDateSplit[2], 10));
     const finalBirthDate = dateBirthDate.getTime();
     const yearMS = 365 * (1000 * 60 * 60 * 24); // 365 days
