@@ -20,6 +20,7 @@ import {GlobalParameter} from './specialClass/global-parameter';
 import {ToastrModule} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieService } from 'ngx-cookie-service';
+import { EventFormComponent } from './webPages/event-form/event-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CookieService } from 'ngx-cookie-service';
     EventComponent,
     ProfilComponent,
     HomeEventListCategoryComponent,
-    HomeEventComponent
+    HomeEventComponent,
+    EventFormComponent
   ],
   imports: [
     BrowserModule,

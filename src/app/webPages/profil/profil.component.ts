@@ -94,4 +94,8 @@ export class ProfilComponent implements OnInit {
     return this.updateProfilForm.get('birthDate');
   }
 
+  getAuthority(): string {
+    return this.user.getAuthority().toString();
+  }
+
 }

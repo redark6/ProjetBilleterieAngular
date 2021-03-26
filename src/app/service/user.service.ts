@@ -93,6 +93,10 @@ export class UserService {
       // this.cookieValue = this.cookieService.get('Test');
     // }
 
+   getAuthority(): Observable<Array<string>> {
+    return this.httpClient.get<Array<string>>(`http://localhost:8080/user/getauthority`);
+  }
+
 }
 
 
