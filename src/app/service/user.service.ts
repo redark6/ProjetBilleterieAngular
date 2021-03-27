@@ -10,6 +10,10 @@ interface ReturnedErrors{
   errors: object;
 }
 
+interface Authority{
+  authority: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +21,7 @@ interface ReturnedErrors{
 export class UserService {
 
   private authenticateEvent = new BehaviorSubject<boolean>(false);
+  private authorityStatus = new BehaviorSubject<string>('');
 
   constructor(private httpClient: HttpClient, private router: Router, private globalVar: GlobalParameter, private cookie: CookieService) { }
 
@@ -25,6 +30,7 @@ export class UserService {
       () => {
         this.globalVar.isAuthenticate = true;
         this.emitAuthStatus(true);
+        this.getAuthority();
         return this.router.navigate(['home']);
       },
       (error) => {
@@ -74,29 +80,49 @@ export class UserService {
     );
  }
 
+  isSessionValid(): void{
+    this.httpClient.get('http://localhost:8080/user/sessionvalid').subscribe(
+      () => {
+        this.globalVar.isAuthenticate = true;
+        this.emitAuthStatus(true);
+      },
+      (error) => {
+        this.globalVar.isAuthenticate = false;
+        this.emitAuthStatus(false);
+      }
+    );
+
+  }
+
+  getAuthority(): void{
+    this.httpClient.get<Authority>('http://localhost:8080/user/authority').subscribe(
+      (authority) => {
+        this.globalVar.userAuthority = authority[0].authority;
+        console.log('authority: ' + authority[0].authority);
+        this.emitRoleStatus(this.globalVar.userAuthority);
+      },
+      (error) => {
+
+      }
+    );
+  }
+
+
   emitAuthStatus(state: boolean): void{
     this.authenticateEvent.next(state);
+  }
+
+  emitRoleStatus(auth: string): void{
+    this.authorityStatus.next(auth);
   }
 
   authListener(): Observable<any>{
     return this.authenticateEvent.asObservable();
   }
 
-  // checkIfUserIsAuth(): void{
-      // if (this.cookie.get('JSESSIONID')) {
-        // if(){
-
-        // }
-
-      // }
-      // this.cookie.set( 'Test', 'Hello World' );
-      // this.cookieValue = this.cookieService.get('Test');
-    // }
-
-   getAuthority(): Observable<Array<string>> {
-    return this.httpClient.get<Array<string>>(`http://localhost:8080/user/getauthority`);
+  roleListener(): Observable<any>{
+    return this.authorityStatus.asObservable();
   }
-
 }
 
 

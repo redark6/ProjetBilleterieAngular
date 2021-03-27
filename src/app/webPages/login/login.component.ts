@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {UserService} from '../../service/user.service';
+import {MyErrorStateMatcher} from '../../specialClass/my-error-state-matcher';
 import {HandleErrorsService} from '../../specialClass/handle-errors.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginError = false;
   loginErrorMessage: string;
-  private cookieValue: string;
+  matcher = new MyErrorStateMatcher();
 
   // tslint:disable-next-line:max-line-length
   constructor(private user: UserService, private formBuilder: FormBuilder, private error: HandleErrorsService) {
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     this.error.error403Event
       .subscribe((data: object) => {
         this.showLoginError();
+        this.loginForm.setErrors({incorrect: true});
       });
 
 
@@ -46,7 +47,6 @@ export class LoginComponent implements OnInit {
   get password(): AbstractControl {
     return this.loginForm.get('password');
   }
-
 
   login(): void {
     this.user.login(this.loginForm.value);

@@ -11,11 +11,17 @@ import {Subscription} from 'rxjs';
 export class NavigationBarComponent implements OnInit {
   isAuthenticate: boolean;
   authSubscription: Subscription;
-  constructor(private user: UserService) { }
+  roleSubscription: Subscription;
+  authority: string;
+  constructor(private user: UserService, private globalVar: GlobalParameter) { }
 
   ngOnInit(): void {
     this.authSubscription = this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
+    });
+    this.roleSubscription = this.user.roleListener().subscribe(state =>  {
+      this.authority = state;
+      console.log('globalvar: ' + state);
     });
   }
 

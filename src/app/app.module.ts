@@ -13,14 +13,25 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { EventComponent } from './webPages/event/event.component';
 import { ProfilComponent } from './webPages/profil/profil.component';
 import { HomeEventListCategoryComponent } from './webPages/home/home-event-list-category/home-event-list-category.component';
-import { HomeEventComponent } from './webPages/home/home-event/home-event.component';
+import { EventCardComponent } from './webPages/event-card/event-card.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpRequestInterceptor} from './specialClass/http-request-interceptor';
 import {GlobalParameter} from './specialClass/global-parameter';
 import {ToastrModule} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieService } from 'ngx-cookie-service';
-import { EventFormComponent } from './webPages/event-form/event-form.component';
+import { EventsComponent } from './webPages/events/events.component';
+import { SearchBarComponent } from './webPages/events/search-bar/search-bar.component';
+import { EventsListComponent } from './webPages/events/events-list/events-list.component';
+import {NgxSliderModule} from '@angular-slider/ngx-slider';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatButton, MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
+
 
 @NgModule({
   declarations: [
@@ -33,8 +44,12 @@ import { EventFormComponent } from './webPages/event-form/event-form.component';
     EventComponent,
     ProfilComponent,
     HomeEventListCategoryComponent,
-    HomeEventComponent,
-    EventFormComponent
+    EventCardComponent,
+    EventsComponent,
+    SearchBarComponent,
+    EventsListComponent,
+    EventCardComponent
+
   ],
   imports: [
     BrowserModule,
@@ -42,16 +57,24 @@ import { EventFormComponent } from './webPages/event-form/event-form.component';
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxSliderModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',
-    })
+    }),
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     GlobalParameter,
-    CookieService
+    CookieService,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   bootstrap: [AppComponent]
 })

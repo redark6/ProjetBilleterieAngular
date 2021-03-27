@@ -6,6 +6,8 @@ import {SignUpComponent} from './webPages/sign-up/sign-up.component';
 import {EventComponent} from './webPages/event/event.component';
 import {ProfilComponent} from './webPages/profil/profil.component';
 import {EventFormComponent} from './webPages/event-form/event-form.component';
+import {EventsComponent} from './webPages/events/events.component';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -16,7 +18,9 @@ const routes: Routes = [
 
   { path: 'event/:id', component: EventComponent },
   { path: 'profil', component: ProfilComponent},
+
   { path: 'event-form', component: EventFormComponent},
+  { path: 'events', component: EventsComponent},
 
   { path: 'profil', component: ProfilComponent }
 
