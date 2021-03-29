@@ -30,5 +30,15 @@ export class EventService {
     return this.httpClient.get<Array<EventTicket>>(`http://localhost:8080/event/type/music`);
   }
 
+  searchEvents(params: object): void {
 
+    this.httpClient.post<object>(`http://localhost:8080/event/search`, params).subscribe(
+      () => {
+        console.log('pass');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }

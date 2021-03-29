@@ -18,7 +18,6 @@ const routes: Routes = [
   { path: 'event/:id', component: EventComponent },
   { path: 'profil', component: ProfilComponent},
   { path: 'events', component: EventsComponent},
-
   { path: 'profil', component: ProfilComponent }
 
   // { path: 'not-found', component: Error404Component },

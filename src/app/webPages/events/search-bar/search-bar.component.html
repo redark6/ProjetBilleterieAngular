@@ -1,31 +1,64 @@
-<div class="container  bg-grey rounded">
+<div [formGroup]="searchForm" class="container  bg-grey rounded">
   <form class="pt-3">
 
+    <!--
     <mat-form-field appearance="legacy" >
       <mat-label>Localisation</mat-label>
       <input matInput type="text" formControlName="location">
     </mat-form-field>
+    -->
+    <div class=" py-0 d-flex justify-content-center">
+      <mat-form-field appearance="legacy">
+        <mat-label>Catégories</mat-label>
+        <mat-select formControlName="category" >
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="legacy" >
-      <mat-label>Catégoris</mat-label>
-      <input matInput type="text" formControlName="firstName">
+    <div class=" py-0 d-flex justify-content-center">
+      <mat-form-field appearance="legacy">
+        <mat-label>Quand ?</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input type="datetime"
+                 date-time
+                 auto-close="true"
+                 view="date"
+                 min-view="date" matStartDate placeholder="Début" formControlName="startDate" >
+          <input matEndDate placeholder="Fin" formControlName="endDate">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+
+    <div class=" pb-3 d-flex justify-content-center">
+      <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+    </div>
+
+    <!--
+    <mat-form-field class="example-chip-list">
+      <mat-label>Favorite Fruits</mat-label>
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
+                  [removable]="removable" (removed)="remove(fruit)">
+          {{fruit.name}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="New fruit..."
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
     </mat-form-field>
+    -->
 
-    <mat-form-field appearance="legacy">
-      <mat-label>Enter a date range</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date">
-        <input matEndDate placeholder="End date">
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
+    <div class="pb-3">
+      <button mat-raised-button color="primary" type="submit" (click)="search()" class="btn btn-block">Rechercher</button>
+    </div>
 
-    <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
-
-
-
-    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
 
