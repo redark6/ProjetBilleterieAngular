@@ -94,4 +94,5 @@ export class ProfilComponent implements OnInit {
     return this.updateProfilForm.get('birthDate');
   }
 
+
 }

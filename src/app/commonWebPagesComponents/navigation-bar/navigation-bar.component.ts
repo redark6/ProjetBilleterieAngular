@@ -13,15 +13,23 @@ import {Router} from '@angular/router';
 export class NavigationBarComponent implements OnInit {
   isAuthenticate: boolean;
   authSubscription: Subscription;
+  roleSubscription: Subscription;
+  authority: string;
   searchForm: FormGroup;
 
-  constructor(private user: UserService, private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private user: UserService, private globalVar: GlobalParameter ,private formBuilder: FormBuilder, private router: Router) { }
+
 
   ngOnInit(): void {
     this.authSubscription = this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
     });
 
+    this.roleSubscription = this.user.roleListener().subscribe(state =>  {
+      this.authority = state;
+      console.log('globalvar: ' + state);
+
+    });
     this.searchForm = this.formBuilder.group({
       search: ['']
     });

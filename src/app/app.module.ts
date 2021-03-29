@@ -36,6 +36,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import {DatePipe} from '@angular/common';
     SearchBarComponent,
     EventsListComponent,
     EventCardComponent
+
   ],
   imports: [
     BrowserModule,
