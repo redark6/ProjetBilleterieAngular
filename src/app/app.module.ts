@@ -30,6 +30,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {EventFormComponent} from './webPages/event-form/event-form.component';
 
 
 
@@ -48,7 +49,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     EventsComponent,
     SearchBarComponent,
     EventsListComponent,
-    EventCardComponent
+    EventCardComponent,
+    EventFormComponent
 
   ],
   imports: [

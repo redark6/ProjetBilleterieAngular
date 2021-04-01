@@ -20,7 +20,7 @@ export class AppComponent {
         }
       }
     );
-    this.authenticationService.isSessionValid();
+    // this.authenticationService.isSessionValid();
   }
 
 }
