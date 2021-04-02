@@ -21,7 +21,6 @@ const routes: Routes = [
 
   { path: 'event-form', component: EventFormComponent},
   { path: 'events', component: EventsComponent},
-
   { path: 'profil', component: ProfilComponent }
 
   // { path: 'not-found', component: Error404Component },
