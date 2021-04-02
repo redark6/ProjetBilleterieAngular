@@ -163,4 +163,5 @@ export class ProfilComponent implements OnInit {
     this.user.upgradeOrganiser(this.upgradeOrganiserForm.value);
   }
 
+
 }

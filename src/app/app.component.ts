@@ -16,10 +16,11 @@ export class AppComponent {
       (event: any) => {
         if (event instanceof NavigationEnd) {
           this.globalVar.currentRoute = this.router.url;
+          window.scrollTo(0, 0);
         }
       }
     );
-    this.authenticationService.isSessionValid();
+    // this.authenticationService.isSessionValid();
   }
 
 }

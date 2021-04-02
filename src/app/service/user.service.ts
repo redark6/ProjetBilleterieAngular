@@ -21,6 +21,7 @@ interface Authority{
 export class UserService {
 
   private authenticateEvent = new BehaviorSubject<boolean>(false);
+  private authorityStatus = new BehaviorSubject<string>('');
 
   constructor(private httpClient: HttpClient, private router: Router, private globalVar: GlobalParameter, private cookie: CookieService) { }
 
@@ -97,6 +98,8 @@ export class UserService {
     this.httpClient.get<Authority>('http://localhost:8080/user/authority').subscribe(
       (authority) => {
         this.globalVar.userAuthority = authority[0].authority;
+        console.log('authority: ' + authority[0].authority);
+        this.emitRoleStatus(this.globalVar.userAuthority);
       },
       (error) => {
 
@@ -109,9 +112,14 @@ export class UserService {
     this.authenticateEvent.next(state);
   }
 
+  emitRoleStatus(auth: string): void{
+    this.authorityStatus.next(auth);
+  }
+
   authListener(): Observable<any>{
     return this.authenticateEvent.asObservable();
   }
+
 
   upgradeOrganiser(value: object): void{
     this.httpClient.post<any>('http://localhost:8080/user/upgradeToOrganiser', value).subscribe(
@@ -124,6 +132,11 @@ export class UserService {
     );
   }
 
+
+
+  roleListener(): Observable<any>{
+    return this.authorityStatus.asObservable();
+  }
 
 }
 

@@ -25,12 +25,19 @@ import { SearchBarComponent } from './webPages/events/search-bar/search-bar.comp
 import { EventsListComponent } from './webPages/events/events-list/events-list.component';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import {EventFormComponent} from './webPages/event-form/event-form.component';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+import {DatePipe} from '@angular/common';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +54,9 @@ import {MatRadioModule} from '@angular/material/radio';
     EventsComponent,
     SearchBarComponent,
     EventsListComponent,
-    EventCardComponent
+    EventCardComponent,
+    EventFormComponent
+
   ],
   imports: [
     BrowserModule,
@@ -68,13 +77,18 @@ import {MatRadioModule} from '@angular/material/radio';
     MatButtonModule,
     MatCheckboxModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatChipsModule,
+    MatOptionModule,
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     GlobalParameter,
     CookieService,
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

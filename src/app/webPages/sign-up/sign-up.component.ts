@@ -132,11 +132,12 @@ export class SignUpComponent implements OnInit {
   }
 
   date(birthDate): void {
-    const convertDate = new Date(birthDate.target.value).toISOString().substring(0, 10);
+    const date = new Date(birthDate.target.value);
+    date.setHours(1);
+    const convertDate = date.toISOString().substring(0, 10);
     this.registerForm.get('birthDate').setValue(convertDate, {
       onlyself: true
     });
   }
 
 }
-
