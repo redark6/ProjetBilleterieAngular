@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Event} from '../../../modeles/event';
 
 @Component({
   selector: 'app-events-list',
@@ -6,12 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./events-list.component.css']
 })
 export class EventsListComponent implements OnInit {
-  numbers: number[];
+  @Input() eventList: Event[];
   constructor() {
-    this.numbers = Array(7).fill(4); // [4,4,4,4,4]
   }
 
   ngOnInit(): void {
+    this.eventList.forEach(value => {
+      console.log(value);
+    });
   }
 
 }

@@ -12,7 +12,7 @@
         <mat-label>Catégories</mat-label>
         <mat-select formControlName="category" >
           <mat-option>None</mat-option>
-          <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

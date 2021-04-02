@@ -35,6 +35,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DatePipe} from '@angular/common';
+import { EventListPaginationComponent } from './webPages/events/event-list-pagination/event-list-pagination.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {DatePipe} from '@angular/common';
     EventsComponent,
     SearchBarComponent,
     EventsListComponent,
-    EventCardComponent
+    EventCardComponent,
+    EventListPaginationComponent
 
   ],
   imports: [

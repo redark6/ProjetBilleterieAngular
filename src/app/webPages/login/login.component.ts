@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {UserService} from '../../service/user.service';
+import {UserService} from '../../services/user.service';
 import {MyErrorStateMatcher} from '../../specialClass/my-error-state-matcher';
 import {HandleErrorsService} from '../../specialClass/handle-errors.service';
 

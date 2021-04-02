@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from './user';
+import {User} from '../../modeles/user';
 
-import {UserService} from '../../service/user.service';
+import {UserService} from '../../services/user.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ageMatchRange} from '../../specialClass/custom-validator';

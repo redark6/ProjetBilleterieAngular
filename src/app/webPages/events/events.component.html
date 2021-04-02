@@ -3,31 +3,12 @@
     <div class="col-lg-4 pr-5 pt-2">
       <app-search-bar></app-search-bar>
     </div>
-    <div class="col-lg-8">
-      <app-events-list></app-events-list>
+    <div class="col-lg-8" *ngIf="searchResult">
+
+      <app-events-list [eventList]="this.searchResult.dataList"></app-events-list>
 
       <div class="d-flex justify-content-center pt-4">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" href="#">6</a></li>
-            <li class="page-item"><a class="page-link" href="#">7</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <app-event-list-pagination [currentPage]="this.searchResult.currentPage" [numberOfpages]="this.searchResult.numberOfPages"></app-event-list-pagination>
       </div>
     </div>
 
