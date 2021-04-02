@@ -9,16 +9,28 @@ import { NavigationBarComponent } from './commonWebPagesComponents/navigation-ba
 import { LoginComponent } from './webPages/login/login.component';
 import { HomeComponent } from './webPages/home/home.component';
 import { SignUpComponent } from './webPages/sign-up/sign-up.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EventComponent } from './webPages/event/event.component';
 import { ProfilComponent } from './webPages/profil/profil.component';
 import { HomeEventListCategoryComponent } from './webPages/home/home-event-list-category/home-event-list-category.component';
-import { HomeEventComponent } from './webPages/home/home-event/home-event.component';
+import { EventCardComponent } from './webPages/event-card/event-card.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpRequestInterceptor} from './specialClass/http-request-interceptor';
 import {GlobalParameter} from './specialClass/global-parameter';
 import {ToastrModule} from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CookieService } from 'ngx-cookie-service';
+import { EventsComponent } from './webPages/events/events.component';
+import { SearchBarComponent } from './webPages/events/search-bar/search-bar.component';
+import { EventsListComponent } from './webPages/events/events-list/events-list.component';
+import {NgxSliderModule} from '@angular-slider/ngx-slider';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatButton, MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -31,7 +43,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EventComponent,
     ProfilComponent,
     HomeEventListCategoryComponent,
-    HomeEventComponent
+    EventCardComponent,
+    EventsComponent,
+    SearchBarComponent,
+    EventsListComponent,
+    EventCardComponent
   ],
   imports: [
     BrowserModule,
@@ -39,15 +55,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxSliderModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',
-    })
+    }),
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    FormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
-    GlobalParameter
+    GlobalParameter,
+    CookieService,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   bootstrap: [AppComponent]
 })

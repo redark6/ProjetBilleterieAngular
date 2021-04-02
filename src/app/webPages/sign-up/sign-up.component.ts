@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {RegisterServiceService} from '../../service/register-service.service';
 import {Router} from '@angular/router';
 import {passwordsMatch, ageMatchRange} from '../../specialClass/custom-validator';
 import {HandleErrorsService} from '../../specialClass/handle-errors.service';
+import {UserService} from '../../service/user.service';
+import {MyErrorStateMatcher} from '../../specialClass/my-error-state-matcher';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -14,9 +16,11 @@ export class SignUpComponent implements OnInit {
 
   registerForm: FormGroup;
   registerError = false;
+  matcher = new MyErrorStateMatcher();
+  roles: string[] = ['Organisateur', 'Participant'];
 
   // tslint:disable-next-line:max-line-length
-  constructor(private registerService: RegisterServiceService, private router: Router, private formBuilder: FormBuilder, private error: HandleErrorsService) {
+  constructor(private user: UserService, private router: Router, private formBuilder: FormBuilder, private error: HandleErrorsService) {
 
   }
 
@@ -43,8 +47,12 @@ export class SignUpComponent implements OnInit {
           Validators.minLength(4),
           Validators.maxLength(50)
         ])],
-        authorities: ['', Validators.compose([
+        role: ['', Validators.compose([
           Validators.required,
+        ])],
+        birthDate: ['', Validators.compose([
+          Validators.required,
+          ageMatchRange
         ])],
         email: ['', Validators.compose([
           Validators.required,
@@ -52,10 +60,6 @@ export class SignUpComponent implements OnInit {
           Validators.maxLength(50),
           Validators.email,
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
-        ])],
-        birthDate: ['', Validators.compose([
-          Validators.required,
-          ageMatchRange
         ])],
         password: ['', Validators.compose([
           Validators.required,
@@ -85,6 +89,10 @@ export class SignUpComponent implements OnInit {
     return this.registerForm.get('userName');
   }
 
+  get role(): AbstractControl {
+    return this.registerForm.get('role');
+  }
+
   get email(): AbstractControl {
     return this.registerForm.get('email');
   }
@@ -102,16 +110,7 @@ export class SignUpComponent implements OnInit {
   }
 
   addUser(): void {
-    this.registerService.register(this.registerForm.value).subscribe(
-      (cookie) => {
-        console.log(cookie);
-        return this.router.navigate(['home']);
-      },
-      (error) => {
-        console.log(error);
-        return;
-      }
-    );
+    this.user.register(this.registerForm.value);
   }
 
   showRegisterError(data: object): void {
@@ -130,6 +129,13 @@ export class SignUpComponent implements OnInit {
       }
     }
 
+  }
+
+  date(birthDate): void {
+    const convertDate = new Date(birthDate.target.value).toISOString().substring(0, 10);
+    this.registerForm.get('birthDate').setValue(convertDate, {
+      onlyself: true
+    });
   }
 
 }

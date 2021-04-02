@@ -1,4 +1,8 @@
 .error-box{
-  background-color: #f75459;
+  background-color: #d8dcdd;
   border-radius: 10px;
+}
+
+mat-form-field {
+  width: 100%;
 }

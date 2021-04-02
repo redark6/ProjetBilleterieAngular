@@ -1,40 +1,38 @@
-<div  [formGroup]="loginForm" class="container col-10 col-sm-6 col-md-5 col-lg-4 col-xl-3 py-5 bg-grey shadow rounded ">
+<div  [formGroup]="loginForm" class="container col-10 col-sm-6 col-md-5 col-lg-4 col-xl-3 py-5 bg-blue-form shadow rounded ">
  <div class="mx-5">
 
-   <div class="text-center pb-1 error-box" *ngIf="loginError == true">
+   <div class="text-center mb-3 error-box" *ngIf="loginError == true">
      <small>{{loginErrorMessage}}</small>
    </div>
 
    <h2 class="text-center pb-3">Connexion</h2>
   <div class="form-group">
-    <input [class.is-invalid] = "loginForm.get('email').invalid && loginForm.get('email').touched"
-           type="email" class="form-control" formControlName="email" placeholder="Adresse-mail"/>
-    <div *ngIf="(email.invalid && email.touched) || email.dirty">
-      <small *ngIf="email.errors?.required" class="text-danger">Ce champ est requis</small>
-      <small *ngIf="email.errors?.pattern" class="text-danger">Veuillez entrer un email valide</small>
-    </div>
-
+    <mat-form-field appearance="legacy" >
+      <mat-label>Adresse-mail</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="pit@machin.com" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="email.errors?.required">Ce champ est requis</mat-error>
+      <mat-error *ngIf="email.errors?.pattern">Veuillez entrer un email valide</mat-error>
+    </mat-form-field>
   </div>
   <div class="form-group ">
-    <input [class.is-invalid] = "loginForm.get('password').invalid && loginForm.get('password').touched"
-           type="password" class="form-control" formControlName="password" placeholder="Mot de passe"/>
-    <div *ngIf="(password.invalid && password.touched) || password.dirty">
-      <small *ngIf="password.errors?.required" class="text-danger">Ce champ est requis</small>
-    </div>
+
+    <mat-form-field appearance="legacy" >
+      <mat-label>Mot de passe</mat-label>
+      <input matInput type="password" formControlName="password" formControlName="password" [errorStateMatcher]="matcher" />
+      <mat-error *ngIf="password.errors?.required">Ce champ est requis</mat-error>
+    </mat-form-field>
+
   </div>
-   <div class="form-group form-check">
-     <input type="checkbox" class="form-check-input" id="stayconnected">
-     <label class="form-check-label" for="stayconnected">rester connecté</label>
+   <div class="form-group">
+     <mat-checkbox color="primary" class="example-margin">rester connecté</mat-checkbox>
    </div>
    <hr/>
-  <div class="form-group">
+  <div>
+    <button mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="login()" type="submit" class="btn btn-block">Connexion</button>
+    <div class="col-12 text-center pt-2">
+      <a routerLink="/signup">Inscription</a>
+    </div>
+  </div>
+  </div>
 
-    <button [disabled]="loginForm.invalid"  (click)="login()" type="submit" class="btn btn-primary btn-block">Connexion</button>
-
-   <div class="col-12 text-center">
-     <a  routerLink="/signup">Inscription</a>
-   </div>
-
- </div>
-</div>
 </div>

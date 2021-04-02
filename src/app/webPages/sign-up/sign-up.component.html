@@ -1,101 +1,98 @@
-<div [formGroup]="registerForm" class="container col-10 col-sm-10 col-md-8 col-lg-7 col-xl-5 py-5 bg-grey shadow rounded ">
-  <div class="mx-5">
-
-  <h1 class="mb-3">Inscription</h1>
-  <div class="row">
-    <div class="col-md-6 mb-3">
-      <input [class.is-invalid] = "registerForm.get('firstName').invalid && registerForm.get('firstName').touched"
-             type="text" class="form-control" formControlName="firstName" placeholder="Prénom"/>
-      <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty">
-        <small *ngIf="firstName.errors?.required" class="text-danger">Ce champ est requis</small>
-        <small *ngIf="firstName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
-        <small *ngIf="firstName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
-      </div>
-    </div>
-    <div class="col-md-6 mb-3">
-      <input [class.is-invalid] = "registerForm.get('lastName').invalid && registerForm.get('lastName').touched"
-             type="text" class="form-control" formControlName="lastName" placeholder="Nom"/>
-      <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty">
-        <small *ngIf="lastName.errors?.required" class="text-danger">Ce champ est requis</small>
-        <small *ngIf="lastName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
-        <small *ngIf="lastName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
-      </div>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <div class="input-group">
-      <input [class.is-invalid] = "registerForm.get('userName').invalid && registerForm.get('userName').touched"
-             type="text" class="form-control" formControlName="userName" placeholder="Nom d'utilisateur"/>
-    </div>
-    <div *ngIf="(userName.invalid && userName.touched) || userName.dirty">
-      <small *ngIf="userName.errors?.required" class="text-danger">Ce champ est requis</small>
-      <small *ngIf="userName.errors?.minlength" class="text-danger">La taille minimale est de 4 caractères</small>
-      <small *ngIf="userName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
-      <small *ngIf="userName.errors?.incorrect" class="text-danger">Ce nom d'utilisateur est déjas pris</small>
-
-    </div>
-  </div>
-
-    
-
-  <div class="mb-3">
-    <input [class.is-invalid] = "registerForm.get('email').invalid && registerForm.get('email').touched"
-           type="email" class="form-control" formControlName="email" placeholder="Adresse-mail"/>
-    <div *ngIf="(email.invalid && email.touched) || email.dirty">
-      <small *ngIf="email.errors?.required" class="text-danger">Ce champ est requis</small>
-      <small *ngIf="email.errors?.pattern" class="text-danger">Veuillez entrer un email valide</small>
-      <small *ngIf="email.errors?.minlength" class="text-danger">La taille minimale est de 5 caractères</small>
-      <small *ngIf="email.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
-      <small *ngIf="email.errors?.incorrect" class="text-danger">Cet email est déjas pris</small>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <input [class.is-invalid] = "registerForm.get('birthDate').invalid && registerForm.get('birthDate').touched"
-           type="date" class="form-control" formControlName="birthDate"/>
-    <div *ngIf="(birthDate.invalid && birthDate.touched) || birthDate.dirty">
-      <small *ngIf="birthDate.errors?.required" class="text-danger">Ce champ est requis</small>
-      <small *ngIf="birthDate.errors?.birthDateInvalid ||birthDate.errors?.incorrect" class="text-danger">Vous devez avoir entre 18 et 122 ans</small>
-
-    </div>
-  </div>
-
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <input [class.is-invalid] = "registerForm.get('password').invalid && registerForm.get('password').touched"
-               type="password" class="form-control" formControlName="password" placeholder="Mot de passe"/>
-        <div *ngIf="(password.invalid && password.touched) || password.dirty">
-          <small *ngIf="password.errors?.required" class="text-danger">Ce champ est requis</small>
-          <small *ngIf="password.errors?.minlength" class="text-danger">La taille minimale est de 8 caractères</small>
-          <small *ngIf="password.errors?.maxlength" class="text-danger">La taille maximal est de 16 caractères</small>
+  <div [formGroup]="registerForm" class="container col-10 col-sm-10 col-md-8 col-lg-7 col-xl-5 py-5 bg-grey shadow rounded ">
+    <div class="mx-5">
+      <h1 class="mb-3">Inscription</h1>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Prénom</mat-label>
+            <input matInput type="text" formControlName="firstName" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="firstName.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="firstName.errors?.minlength">La taille minimale est de 2 caractères</mat-error>
+            <mat-error *ngIf="firstName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Nom</mat-label>
+            <input matInput type="text" formControlName="lastName" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="lastName.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="lastName.errors?.minlength">La taille minimale est de 2 caractères</mat-error>
+            <mat-error *ngIf="lastName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+          </mat-form-field>
         </div>
       </div>
-      <div class="col-md-6 mb-3">
-        <input [class.is-invalid] = "registerForm.get('passwordConfirm').invalid && registerForm.get('passwordConfirm').touched"
-               type="password" class="form-control" formControlName="passwordConfirm" placeholder="Confirmer le Mot de passe"/>
-        <div *ngIf="(passwordConfirm.invalid && passwordConfirm.touched) || passwordConfirm.dirty">
-          <small *ngIf="passwordConfirm.errors?.required" class="text-danger">Ce champ est requis</small>
-          <small *ngIf="passwordConfirm.errors?.minlength" class="text-danger">La taille minimale est de 8 caractères</small>
-          <small *ngIf="passwordConfirm.errors?.maxlength" class="text-danger">La taille maximal est de 16 caractères</small>
-          <small *ngIf="passwordConfirm.errors?.passwordsmatch" class="text-danger">Les mots de passe doivent correspondrent</small>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Nom d'utilisateur</mat-label>
+            <input matInput type="text" formControlName="userName" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="userName.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="userName.errors?.minlength">La taille minimale est de 4 caractères</mat-error>
+            <mat-error *ngIf="userName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+            <mat-error *ngIf="userName.errors?.incorrect">Ce nom d'utilisateur est déjas pris</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy">
+            <mat-label>Date de naissance</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthDate" [errorStateMatcher]="matcher" (dateChange)="date($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="birthDate.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="birthDate.errors?.birthDateInvalid ||birthDate.errors?.incorrect">Vous devez avoir entre 18 et 122 ans</mat-error>
+          </mat-form-field>
         </div>
       </div>
 
 
+      <label id="example-radio-group-label">Vous êtes un :</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group" formControlName="role" >
+        <mat-radio-button class="example-radio-button" *ngFor="let role of roles" [value]="role">
+          {{role}}
+        </mat-radio-button>
+      </mat-radio-group>
 
+      <div class="mb-3">
+        <mat-form-field appearance="legacy" >
+          <mat-label>Adresse-mail</mat-label>
+          <input matInput type="email" formControlName="email" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="email.errors?.required">Ce champ est requis</mat-error>
+          <mat-error *ngIf="email.errors?.pattern">Veuillez entrer un email valide</mat-error>
+          <mat-error *ngIf="email.errors?.minlength">La taille minimale est de 5 caractères</mat-error>
+          <mat-error *ngIf="email.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+          <mat-error *ngIf="email.errors?.incorrect">Cet email est déjas pris</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Mot de passe</mat-label>
+            <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="password.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="password.errors?.minlength">La taille minimale est de 8 caractères</mat-error>
+            <mat-error *ngIf="password.errors?.maxlength">La taille maximal est de 16 caractères</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Confirmer le Mot de passe</mat-label>
+            <input matInput type="password" formControlName="passwordConfirm" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="passwordConfirm.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="passwordConfirm.errors?.minlength">La taille minimale est de 8 caractères</mat-error>
+            <mat-error *ngIf="passwordConfirm.errors?.maxlength">La taille maximal est de 16 caractères</mat-error>
+            <mat-error *ngIf="passwordConfirm.errors?.passwordsmatch">Les mots de passe doivent correspondrent</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
 
+      <div class="form-group">
+        <mat-checkbox color="primary" class="example-margin">Accepter les conditions</mat-checkbox>
+      </div>
+      <hr/>
+
+      <button mat-raised-button color="primary" [disabled]="registerForm.invalid" (click)="addUser()" class="btn btn-block" type="submit">S'inscrire</button>
 
     </div>
-
-    <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="acceptconditions">
-      <label class="form-check-label" for="acceptconditions">Accepter les conditions</label>
-    </div>
-
-
-    <button [disabled]="registerForm.invalid || this.registerForm.get('passwordConfirm').value != this.registerForm.get('password').value"
-            (click)="addUser()" class="btn btn-primary btn-lg btn-block" type="submit">S'inscrire</button>
-
   </div>
-</div>

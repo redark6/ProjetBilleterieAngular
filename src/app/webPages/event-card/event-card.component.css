@@ -1,0 +1,17 @@
+.img{
+  max-width: 200px; /* width of container */
+  max-height: 160px; /* height of container */
+
+  min-width: 200px; /* width of container */
+  min-height: 160px; /* height of container */
+
+  object-fit: cover;
+  object-position: 20% 10%; /* try 20px 10px */
+  border-top-left-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 5px;
+
+}
+.card-size{
+  width: unset;
+}
