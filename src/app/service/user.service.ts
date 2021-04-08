@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../webPages/profil/user';
 import {CookieService} from 'ngx-cookie-service';
+import {environment} from '../../environments/environment';
 
 interface ReturnedErrors{
   errors: object;
@@ -26,7 +27,7 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router, private globalVar: GlobalParameter, private cookie: CookieService) { }
 
   login(value: object): void{
-    this.httpClient.post<any>('http://localhost:8080/login', value).subscribe(
+    this.httpClient.post<any>( environment.apiUrl + '/login', value).subscribe(
       () => {
         this.globalVar.isAuthenticate = true;
         this.emitAuthStatus(true);
@@ -41,7 +42,7 @@ export class UserService {
   }
 
   logout(): void{
-    this.httpClient.post<any>('http://localhost:8080/logout', '').subscribe(
+    this.httpClient.post<any>( environment.apiUrl + '/logout', '').subscribe(
       () => {
         this.globalVar.isAuthenticate = false;
         this.emitAuthStatus(false);
@@ -55,7 +56,7 @@ export class UserService {
   }
 
   register(value: object): void{
-    this.httpClient.post<any>('http://localhost:8080/user/create', value).subscribe(
+    this.httpClient.post<any>( environment.apiUrl + '/user/create', value).subscribe(
       () => {
         return this.router.navigate(['home']);
       },
@@ -66,11 +67,11 @@ export class UserService {
   }
 
   getUserProfil(): Observable<User>{
-    return this.httpClient.get<User>('http://localhost:8080/user/logeduser');
+    return this.httpClient.get<User>( environment.apiUrl + '/user/logeduser');
   }
 
  patch(value: object): void{
-    this.httpClient.patch('http://localhost:8080/user/patch', value).subscribe(
+    this.httpClient.patch( environment.apiUrl + '/user/patch', value).subscribe(
       () => {
         console.log('oui');
       },
@@ -81,7 +82,7 @@ export class UserService {
  }
 
   isSessionValid(): void{
-    this.httpClient.get('http://localhost:8080/user/sessionvalid').subscribe(
+    this.httpClient.get( environment.apiUrl + '/user/sessionvalid').subscribe(
       () => {
         this.globalVar.isAuthenticate = true;
         this.emitAuthStatus(true);
@@ -95,7 +96,7 @@ export class UserService {
   }
 
   getAuthority(): void{
-    this.httpClient.get<Authority>('http://localhost:8080/user/authority').subscribe(
+    this.httpClient.get<Authority>( environment.apiUrl + '/user/authority').subscribe(
       (authority) => {
         this.globalVar.userAuthority = authority[0].authority;
         console.log('authority: ' + authority[0].authority);
@@ -120,9 +121,24 @@ export class UserService {
     return this.authenticateEvent.asObservable();
   }
 
+
+  upgradeOrganiser(value: object): void{
+    this.httpClient.post<any>( environment.apiUrl + '/user/upgradeToOrganiser', value).subscribe(
+      () => {
+        return this.router.navigate(['profil']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+
   roleListener(): Observable<any>{
     return this.authorityStatus.asObservable();
   }
+
 }
 
 

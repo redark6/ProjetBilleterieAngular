@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {EventTicket} from '../webPages/event/eventTicket';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,28 +12,28 @@ export class EventService {
   constructor(private httpClient: HttpClient) {}
 
   public get(id: number): Observable<EventTicket> {
-    return this.httpClient.get<EventTicket>(`http://localhost:8080/event/${id}`);
+    return this.httpClient.get<EventTicket>( environment.apiUrl + `/event/${id}`);
   }
 
   public getAll(): Observable<Array<EventTicket>> {
-    return this.httpClient.get<Array<EventTicket>>(`http://localhost:8080/event`);
+    return this.httpClient.get<Array<EventTicket>>( environment.apiUrl + `/event`);
   }
 
   public getAllRecent(): Observable<Array<EventTicket>> {
-    return this.httpClient.get<Array<EventTicket>>(`http://localhost:8080/event/Recent`);
+    return this.httpClient.get<Array<EventTicket>>( environment.apiUrl + `/event/Recent`);
   }
 
   public getAllSport(): Observable<Array<EventTicket>> {
-    return this.httpClient.get<Array<EventTicket>>(`http://localhost:8080/event/type/Sport`);
+    return this.httpClient.get<Array<EventTicket>>( environment.apiUrl + `/event/type/Sport`);
   }
 
   public getAllMusic(): Observable<Array<EventTicket>> {
-    return this.httpClient.get<Array<EventTicket>>(`http://localhost:8080/event/type/music`);
+    return this.httpClient.get<Array<EventTicket>>( environment.apiUrl + `/event/type/music`);
   }
 
   searchEvents(params: object): void {
 
-    this.httpClient.post<object>(`http://localhost:8080/event/search`, params).subscribe(
+    this.httpClient.post<object>( environment.apiUrl + `/event/search`, params).subscribe(
       () => {
         console.log('pass');
       },

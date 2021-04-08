@@ -9,7 +9,7 @@ import { NavigationBarComponent } from './commonWebPagesComponents/navigation-ba
 import { LoginComponent } from './webPages/login/login.component';
 import { HomeComponent } from './webPages/home/home.component';
 import { SignUpComponent } from './webPages/sign-up/sign-up.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EventComponent } from './webPages/event/event.component';
 import { ProfilComponent } from './webPages/profil/profil.component';
 import { HomeEventListCategoryComponent } from './webPages/home/home-event-list-category/home-event-list-category.component';
@@ -30,14 +30,13 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatButton, MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 import {EventFormComponent} from './webPages/event-form/event-form.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {DatePipe} from '@angular/common';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-
-
 
 @NgModule({
   declarations: [
@@ -76,6 +75,8 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter'
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatRadioModule,
+    FormsModule,
     MatChipsModule,
     MatIconModule,
     MatOptionModule,
