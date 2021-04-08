@@ -35,6 +35,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {DatePipe} from '@angular/common';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 
 
 
@@ -76,7 +77,9 @@ import {DatePipe} from '@angular/common';
     MatButtonModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatIconModule,
     MatOptionModule,
+    MatSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
