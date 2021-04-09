@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {GlobalParameter} from '../specialClass/global-parameter';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from '../webPages/profil/user';
+import {User} from '../modeles/user';
 import {CookieService} from 'ngx-cookie-service';
 
 interface ReturnedErrors{

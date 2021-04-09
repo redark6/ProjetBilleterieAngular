@@ -22,7 +22,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieService } from 'ngx-cookie-service';
 import { EventsComponent } from './webPages/events/events.component';
 import { SearchBarComponent } from './webPages/events/search-bar/search-bar.component';
-import { EventsListComponent } from './webPages/events/events-list/events-list.component';
 import {NgxSliderModule} from '@angular-slider/ngx-slider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule} from '@angular/material/core';
@@ -35,9 +34,25 @@ import {EventFormComponent} from './webPages/event-form/event-form.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
-import {DatePipe} from '@angular/common';
+import {DatePipe, registerLocaleData} from '@angular/common';
+import { EventListPaginationComponent } from './webPages/events/event-list-pagination/event-list-pagination.component';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import { EventListComponent } from './webPages/events/event-list/event-list.component';
+import { EventCommentComponent } from './webPages/event/event-comment/event-comment.component';
+import { CommentListComponent } from './webPages/event/event-comment/comment-list/comment-list.component';
+import { CommentComponent } from './webPages/event/event-comment/comment/comment.component';
+import { CommentWriterComponent } from './webPages/event/event-comment/comment-writer/comment-writer.component';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { fr_FR } from 'ng-zorro-antd/i18n';
+import fr from '@angular/common/locales/fr';
+import {NzCommentModule} from 'ng-zorro-antd/comment';
+import {NzFormModule} from 'ng-zorro-antd/form';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {NzAvatarModule} from 'ng-zorro-antd/avatar';
+import {NzButtonModule} from 'ng-zorro-antd/button';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
+registerLocaleData(fr);
 
 @NgModule({
   declarations: [
@@ -53,10 +68,14 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter'
     EventCardComponent,
     EventsComponent,
     SearchBarComponent,
-    EventsListComponent,
     EventCardComponent,
-    EventFormComponent
-
+    EventListPaginationComponent,
+    EventFormComponent,
+    EventListComponent,
+    EventCommentComponent,
+    CommentListComponent,
+    CommentComponent,
+    CommentWriterComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +99,13 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter'
     FormsModule,
     MatChipsModule,
     MatOptionModule,
-
+    MatSelectModule,
+    NzCommentModule,
+    NzFormModule,
+    NzIconModule,
+    NzAvatarModule,
+    NzButtonModule,
+    NzInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
@@ -88,7 +113,8 @@ import {MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter'
     CookieService,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    DatePipe
+    DatePipe,
+    { provide: NZ_I18N, useValue: fr_FR }
   ],
   bootstrap: [AppComponent]
 })

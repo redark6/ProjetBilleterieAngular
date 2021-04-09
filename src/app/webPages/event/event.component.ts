@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {EventTicket} from './eventTicket';
-import {EventService} from '../../service/event.service';
+import {Event} from '../../modeles/event';
+import {EventService} from '../../services/event.service';
 import {ActivatedRoute} from '@angular/router';
 import {NzRateModule} from 'ng-zorro-antd/rate';
 
@@ -11,15 +11,15 @@ import {NzRateModule} from 'ng-zorro-antd/rate';
 })
 export class EventComponent implements OnInit {
 
-  public event: EventTicket;
+  public event: Event;
 
 
   constructor(private eventService: EventService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    // this.event = new EventTicket('titre: string', 'type: string', 'description: string', 'region: string', new Date(), 5, 20);
-    this.event = new EventTicket(1, 'titre: string', 'type: string', 'description: string', 'region: string', new Date(), 5, 20);
+    // this.event = new Event('titre: string', 'type: string', 'description: string', 'region: string', new Date(), 5, 20);
+    this.event = new Event(1, 'titre: string', 5, 'description: string', 'region: string', new Date(),new Date(),new Date(), 5, 20);
     this.eventService.get(this.activatedRoute.snapshot.params.id).subscribe(event => {
       this.event = event;
     });

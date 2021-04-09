@@ -1,22 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
 
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {EventService} from '../../../service/event.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import { DatePipe } from '@angular/common';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {EventService} from '../../../services/event.service';
+import {ActivatedRoute, NavigationEnd, ParamMap, Router} from '@angular/router';
 import {HttpParams} from '@angular/common/http';
+import {SearchResult} from '../../../modeles/searchResult';
 
 export interface Fruit {
   name: string;
 }
-
-interface ParamsArray{
-  params: object;
-}
-
 
 @Component({
   selector: 'app-search-bar',
@@ -24,8 +19,11 @@ interface ParamsArray{
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
-  paramsArray = ['search', 'category', 'startDate', 'endDate', 'minPrice', 'maxPrice', 'page'];
-  requestParams: ParamsArray = {params: {}};
+
+  getParamsArray;
+  currentUrlParams;
+  paramsError = false;
+  paramsArray = ['search', 'category', 'date', 'price', 'page'];
   minValue = 0;
   maxValue = 500;
   options: Options = {
@@ -34,8 +32,9 @@ export class SearchBarComponent implements OnInit {
     step: 10
 };
 
-  states: string[] = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
+  categories: string[] = [
+    'Évènement solidaire',
+    'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
     'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
     'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
     'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
@@ -46,7 +45,7 @@ export class SearchBarComponent implements OnInit {
 
   searchForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private eventService: EventService, private route: Router , private activatedRoute: ActivatedRoute, private datePipe: DatePipe) {
+  constructor(private formBuilder: FormBuilder, private eventService: EventService, private route: Router , private activatedRoute: ActivatedRoute) {
 
   }
 
@@ -60,71 +59,158 @@ export class SearchBarComponent implements OnInit {
       maxPrice: ['']
     });
 
-    this.activatedRoute.queryParamMap.subscribe((params) => {
-      let paramsContent;
-      paramsContent = {};
-      for (const param of this.paramsArray){
-        if (params.has(param)){
-          paramsContent[param] = params.get(param);
+    this.activatedRoute.queryParamMap.subscribe(urlParams => {
+      console.log(urlParams);
+      this.currentUrlParams = urlParams;
+      let getParamsArray = new HttpParams();
+
+      urlParams.keys.forEach(value => {
+        switch (value) {
+          case 'search':
+            getParamsArray = getParamsArray.set('search', urlParams.get(value));
+            break;
+          case 'category':
+            if (this.checkAndSetCategory(urlParams.get(value))) {  getParamsArray = getParamsArray.set('category', urlParams.get(value)); }
+            else { this.paramsError = true; }
+            break;
+          case 'date':
+            let dateObject; dateObject = this.checkAndSetDatesRange(urlParams.get(value));
+            if (dateObject.isValid === true) {
+              if (dateObject.dates.startDate !== null) { getParamsArray = getParamsArray.set('startDate', dateObject.dates.startDate); }
+              if (dateObject.dates.endDate !== null) { getParamsArray = getParamsArray.set('endDate', dateObject.dates.endDate); }
+            }
+            break;
+          case 'price':
+            let priceObject: any; priceObject = this.checkAndSetPriceRange(urlParams.get(value));
+            if (priceObject.isValid === true) {
+              if (priceObject.prices.minPrice !== null) { getParamsArray = getParamsArray.set('minPrice', priceObject.prices.minPrice); }
+              if (priceObject.prices.maxPrice !== null) { getParamsArray = getParamsArray.set('maxPrice', priceObject.prices.maxPrice); }
+            }
+            break;
+          case 'page':
+
+            break;
+          default:
+            this.paramsError = true;
+            break;
         }
-        else{
-          paramsContent[param] = null;
-        }
-      }
-      this.requestParams.params = paramsContent;
-      }
+      });
 
-    );
-
-    this.eventService.searchEvents(this.requestParams.params);
+      this.getParamsArray = getParamsArray;
+      this.eventService.searchEvents(this.getParamsArray);
 
 
-    this.searchForm.get('minPrice').setValue(this.options.floor);
-    this.searchForm.get('maxPrice').setValue(this.options.ceil);
+    });
 
   }
 
-search(): void{
+  search(): void{
 
-  if (this.category === ''){this.searchForm.get('category').setValue(null); }
-  this.sanitizeDate('startDate');
-  this.sanitizeDate('endDate');
-  this.searchForm.get('minPrice').setValue(this.minValue);
-  this.searchForm.get('maxPrice').setValue(this.maxValue);
-
-
-  this.route.navigate(['/events'] ,  { queryParams: this.constructQueryParam() });
-
-
-  this.eventService.searchEvents(this.searchForm.value);
-}
+    // if (this.category === ''){this.searchForm.get('category').setValue(null); }
+    this.sanitizeDate('startDate');
+    this.sanitizeDate('endDate');
+    if (this.minValue > this.options.floor){this.searchForm.get('minPrice').setValue(this.minValue); }else{ this.searchForm.get('minPrice').setValue(''); }
+    if (this.maxValue < this.options.ceil){this.searchForm.get('maxPrice').setValue(this.maxValue); }else{ this.searchForm.get('maxPrice').setValue(''); }
+    const nextUrlParams = this.constructUrlParams();
+    if (!(JSON.stringify({ params: nextUrlParams }) === JSON.stringify(this.currentUrlParams))){
+      this.route.navigate(['/events'] ,  { queryParams: nextUrlParams} );
+    }
+  }
 
   sanitizeDate(inputForm): void {
     if (this.searchForm.get(inputForm).value) {
       const date = new Date(this.searchForm.get(inputForm).value);
       date.setHours(1);
       const convertDate = date.toISOString().substring(0, 10);
-      this.searchForm.get(inputForm).setValue(convertDate, {
-        onlyself: true
-      });
-    }
-    else{
-      this.searchForm.get(inputForm).setValue(null);
+      this.searchForm.get(inputForm).setValue(convertDate, {onlyself: true});
     }
   }
 
-  constructQueryParam(): any {
+  constructUrlParams(): any {
+    let urlParams;
+    urlParams = {};
+    if (this.category) { urlParams.category = this.category; }
+    if (this.startDate || this.endDate) { urlParams.date = (this.startDate ? this.startDate : 'start') + '~' + (this.endDate ? this.endDate : 'end'); }
+    if (this.minPrice || this.maxPrice) {urlParams.price = (this.minPrice.toString() ? this.minPrice.toString() : 'min') + '~' + (this.maxPrice.toString() ? this.maxPrice.toString() : 'max'); }
+    return urlParams;
+  }
 
-    let params;
-    params = {};
+  checkAndSetCategory(category: string): boolean {
+    if (this.categories.indexOf(category ) !== -1){
+      this.searchForm.get('category').setValue(category);
+      return true;
+    }
+    return false;
+  }
 
-    if (this.category != null) { params.category = this.category; }
-    if (this.startDate != null) { params.begin = this.startDate;  }
-    if (this.endDate != null) { params.end = this.endDate; }
-    if (this.minPrice !== this.options.floor) { params.minPrice = this.minPrice.toString(); }
-    if (this.maxPrice !== this.options.ceil) { params.maxPrice = this.maxPrice.toString(); }
+  checkAndSetPriceRange(prices: string): any{
+    const priceRange = prices.split('~');
+    const minPrice = parseInt(priceRange[0], 10);
+    const maxPrice = parseInt(priceRange[1], 10);
+    let priceObject; priceObject = {};
+    let subPriceObject; subPriceObject = {};
+    priceObject.isValid = false;
+    subPriceObject.minPrice = null;
+    subPriceObject.maxPrice = null;
+    if (!isNaN(minPrice) && this.inRange(minPrice, this.options.floor, this.options.ceil) && minPrice > this.options.floor){
+      priceObject.isValid = true; subPriceObject.minPrice = minPrice;
+      this.searchForm.get('minPrice').setValue(minPrice); this.minValue = minPrice;
+    }
+    if (!isNaN(maxPrice) && this.inRange(maxPrice, this.options.floor, this.options.ceil) && maxPrice < this.options.ceil ){
+      priceObject.isValid = true; subPriceObject.maxPrice = maxPrice;
+      this.searchForm.get('maxPrice').setValue(maxPrice); this.maxValue = maxPrice;
+    }
+    if (subPriceObject.minPrice != null && subPriceObject.maxPrice != null){
+      if (subPriceObject.minPrice > subPriceObject.maxPrice){
+        const tempMinPrice = subPriceObject.minPrice;
+        subPriceObject.minPrice = subPriceObject.maxPrice;
+        subPriceObject.maxPrice = tempMinPrice;
+        this.searchForm.get('minPrice').setValue(subPriceObject.minPrice);
+        this.searchForm.get('maxPrice').setValue(subPriceObject.maxPrice);
+        this.minValue = subPriceObject.minPrice; this.maxValue = subPriceObject.maxPrice;
+      }
+    }
+    priceObject.prices = subPriceObject;
+    return priceObject;
+  }
 
-    return params;
+  checkAndSetDatesRange(dates: string): any{
+    const dateRange = dates.split('~');
+    let dateObject; dateObject = {};
+    let subDateObject; subDateObject = {};
+    dateObject.isValid = false;
+    subDateObject.startDate = null;
+    subDateObject.endDate = null;
+    if (this.isDate(dateRange[0]) ){
+      dateObject.isValid = true; subDateObject.startDate = dateRange[0];
+      this.searchForm.get('startDate').setValue(subDateObject.startDate);
+    }
+    if (this.isDate(dateRange[1]) ){
+      dateObject.isValid = true; subDateObject.endDate = dateRange[1];
+      this.searchForm.get('endDate').setValue(subDateObject.endDate);
+    }
+    if (subDateObject.startDate != null && subDateObject.endDate != null){
+      if (Date.parse(subDateObject.startDate) > Date.parse(subDateObject.endDate)){
+        const tempStartDate = subDateObject.startDate;
+        subDateObject.startDate = subDateObject.endDate;
+        subDateObject.endDate = tempStartDate;
+        this.searchForm.get('startDate').setValue(subDateObject.startDate);
+        this.searchForm.get('endDate').setValue(subDateObject.endDate);
+      }
+    }
+    dateObject.dates = subDateObject;
+    return dateObject;
+  }
+
+  inRange(x, min, max): boolean {
+    return ((x - min) * (x - max) <= 0);
+  }
+
+  isDate(date): boolean {
+    if (isNaN(date) && !isNaN(Date.parse(date))){
+      return true;
+    }
+    return false;
   }
 
   get category(): string {
