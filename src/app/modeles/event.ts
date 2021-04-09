@@ -2,7 +2,7 @@ export class Event {
 
     public id: number;
     public title: string;
-    public category: string;
+    public category: number;
     public description: string;
     public region: string;
     public creationDate: Date;
@@ -11,7 +11,7 @@ export class Event {
     public price: number;
     public nbOfTicket: number;
 
-  constructor(id: number, title: string, category: string, description: string, region: string, creationDate: Date, startDate: Date, endDate: Date, price: number, nbOfTicket: number) {
+  constructor(id: number, title: string, category: number, description: string, region: string, creationDate: Date, startDate: Date, endDate: Date, price: number, nbOfTicket: number) {
         this.id = id;
         this.title = title;
         this.category = category;

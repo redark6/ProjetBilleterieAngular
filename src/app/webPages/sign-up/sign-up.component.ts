@@ -17,6 +17,7 @@ export class SignUpComponent implements OnInit {
   registerForm: FormGroup;
   registerError = false;
   matcher = new MyErrorStateMatcher();
+  roles: string[] = ['Organisateur', 'Participant'];
 
   // tslint:disable-next-line:max-line-length
   constructor(private user: UserService, private router: Router, private formBuilder: FormBuilder, private error: HandleErrorsService) {
@@ -45,6 +46,9 @@ export class SignUpComponent implements OnInit {
           Validators.required,
           Validators.minLength(4),
           Validators.maxLength(50)
+        ])],
+        role: ['', Validators.compose([
+          Validators.required,
         ])],
         birthDate: ['', Validators.compose([
           Validators.required,
@@ -83,6 +87,10 @@ export class SignUpComponent implements OnInit {
 
   get userName(): AbstractControl {
     return this.registerForm.get('userName');
+  }
+
+  get role(): AbstractControl {
+    return this.registerForm.get('role');
   }
 
   get email(): AbstractControl {

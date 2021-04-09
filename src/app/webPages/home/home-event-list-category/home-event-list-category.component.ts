@@ -22,7 +22,7 @@ export class HomeEventListCategoryComponent implements OnInit {
 
   numbers: number[];
   constructor(private eventService: EventService, private activatedRoute: ActivatedRoute) {
-
+    this.numbers = [1, 2, 3, 4];
 
 
   }

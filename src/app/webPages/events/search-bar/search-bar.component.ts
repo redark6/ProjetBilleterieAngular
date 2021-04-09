@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
 
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {EventService} from '../../../services/event.service';
 import {ActivatedRoute, NavigationEnd, ParamMap, Router} from '@angular/router';
 import {HttpParams} from '@angular/common/http';
+import {SearchResult} from '../../../modeles/searchResult';
 
 export interface Fruit {
   name: string;
@@ -18,6 +19,7 @@ export interface Fruit {
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
+
   getParamsArray;
   currentUrlParams;
   paramsError = false;
@@ -95,7 +97,6 @@ export class SearchBarComponent implements OnInit {
       });
 
       this.getParamsArray = getParamsArray;
-
       this.eventService.searchEvents(this.getParamsArray);
 
 

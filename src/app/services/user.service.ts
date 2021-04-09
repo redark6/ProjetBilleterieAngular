@@ -120,9 +120,24 @@ export class UserService {
     return this.authenticateEvent.asObservable();
   }
 
+
+  upgradeOrganiser(value: object): void{
+    this.httpClient.post<any>('http://localhost:8080/user/upgradeToOrganiser', value).subscribe(
+      () => {
+        return this.router.navigate(['profil']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+
   roleListener(): Observable<any>{
     return this.authorityStatus.asObservable();
   }
+
 }
 
 

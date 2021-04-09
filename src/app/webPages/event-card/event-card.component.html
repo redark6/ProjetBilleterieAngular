@@ -1,17 +1,38 @@
-<div class="card my-2">
+<div *ngIf="type=='horizontal'" class="card my-2">
   <div class="row">
     <div class="">
       <img class="card-img-top img"
            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
     </div>
     <div class="card-body card-size col-lg-8 col-md-8 col-sm-8 col-8">
-      <h4 class="card-title">Title</h4>
-      <h5>Date:</h5>
-      <h5>Prix:</h5>
+      <h4 class="card-title crop-title ">{{event.title + 'suite du titre a la fin ya des truc bizzares'}}</h4>
+      <div>{{event.price}} €</div>
+      <div class="col-6 px-0">
+        <div class="p-0">{{event.category}}</div>
+        <div>{{event.region}}</div>
+      </div>
     </div>
   </div>
-
-
-
 </div>
+
+
+<div  class="card"  >
+  <img class="card-img-top" src="https://cdn.myanimelist.net/images/anime/10/78745.jpg" alt="Card image cap">
+  <div class="card-img-overlay">
+    <h5 class="card-title">Boku no Hero Academia</h5>
+  </div>
+  <div class="card-body p-2">
+    <h5 class="crop-title card-text">macccccc de truc de fou de la fin des machin bidule</h5>
+    <div class="row">
+      <div class="col-7">
+        <div class="card-text">{{event.category}}</div>
+        <div class="card-text">{{event.region}}</div>
+      </div>
+      <div class=" col-5">
+        <button type="button" class="btn btn-block bg-blue mt-3 text-white" style="opacity: 0.8;" disabled>{{event.price + ' €'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, } from '@angular/core';
 import {Event} from '../../modeles/event';
 
 @Component({
@@ -8,6 +8,7 @@ import {Event} from '../../modeles/event';
 })
 export class EventCardComponent implements OnInit {
   @Input() event: Event;
+  @Input() type: string;
   constructor() { }
 
   ngOnInit(): void {

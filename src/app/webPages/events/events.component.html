@@ -5,16 +5,11 @@
     </div>
     <div class="col-lg-8" *ngIf="searchResult">
 
-      <app-events-list [eventList]="this.searchResult.dataList"></app-events-list>
+      <app-event-list [eventList]="searchResult.eventList" ></app-event-list>
 
       <div class="d-flex justify-content-center pt-4">
-        <app-event-list-pagination [currentPage]="this.searchResult.currentPage" [numberOfpages]="this.searchResult.numberOfPages"></app-event-list-pagination>
+        <app-event-list-pagination [numberOfpages]="searchResult.numberOfPages" [currentPage]="searchResult.currentPage"></app-event-list-pagination>
       </div>
     </div>
-
-
   </div>
-
-
-
 </div>
