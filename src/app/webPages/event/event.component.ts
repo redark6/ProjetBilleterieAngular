@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {EventTicket} from './eventTicket';
 import {EventService} from '../../service/event.service';
 import {ActivatedRoute} from '@angular/router';
+import {NzRateModule} from 'ng-zorro-antd/rate';
 
 @Component({
   selector: 'app-event',
