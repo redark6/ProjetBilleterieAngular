@@ -1,87 +1,98 @@
-<div [formGroup]="registerForm" class="container col-10 col-sm-10 col-md-8 col-lg-7 col-xl-5 py-5 bg-grey shadow rounded ">
-  <div class="mx-5">
-    <h1 class="mb-3">Inscription</h1>
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <mat-form-field appearance="legacy" >
-          <mat-label>Prénom</mat-label>
-          <input matInput type="text" formControlName="firstName" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="firstName.errors?.required">Ce champ est requis</mat-error>
-          <mat-error *ngIf="firstName.errors?.minlength">La taille minimale est de 2 caractères</mat-error>
-          <mat-error *ngIf="firstName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
-        </mat-form-field>
+  <div [formGroup]="registerForm" class="container col-10 col-sm-10 col-md-8 col-lg-7 col-xl-5 py-5 bg-grey shadow rounded ">
+    <div class="mx-5">
+      <h1 class="mb-3">Inscription</h1>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Prénom</mat-label>
+            <input matInput type="text" formControlName="firstName" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="firstName.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="firstName.errors?.minlength">La taille minimale est de 2 caractères</mat-error>
+            <mat-error *ngIf="firstName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Nom</mat-label>
+            <input matInput type="text" formControlName="lastName" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="lastName.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="lastName.errors?.minlength">La taille minimale est de 2 caractères</mat-error>
+            <mat-error *ngIf="lastName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+          </mat-form-field>
+        </div>
       </div>
-      <div class="col-md-6 mb-3">
-        <mat-form-field appearance="legacy" >
-          <mat-label>Nom</mat-label>
-          <input matInput type="text" formControlName="lastName" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="lastName.errors?.required">Ce champ est requis</mat-error>
-          <mat-error *ngIf="lastName.errors?.minlength">La taille minimale est de 2 caractères</mat-error>
-          <mat-error *ngIf="lastName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
-        </mat-form-field>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Nom d'utilisateur</mat-label>
+            <input matInput type="text" formControlName="userName" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="userName.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="userName.errors?.minlength">La taille minimale est de 4 caractères</mat-error>
+            <mat-error *ngIf="userName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+            <mat-error *ngIf="userName.errors?.incorrect">Ce nom d'utilisateur est déjas pris</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy">
+            <mat-label>Date de naissance</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthDate" [errorStateMatcher]="matcher" (dateChange)="date($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="birthDate.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="birthDate.errors?.birthDateInvalid ||birthDate.errors?.incorrect">Vous devez avoir entre 18 et 122 ans</mat-error>
+          </mat-form-field>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <mat-form-field appearance="legacy" >
-          <mat-label>Nom d'utilisateur</mat-label>
-          <input matInput type="text" formControlName="userName" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="userName.errors?.required">Ce champ est requis</mat-error>
-          <mat-error *ngIf="userName.errors?.minlength">La taille minimale est de 4 caractères</mat-error>
-          <mat-error *ngIf="userName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
-          <mat-error *ngIf="userName.errors?.incorrect">Ce nom d'utilisateur est déjas pris</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-md-6 mb-3">
-        <mat-form-field appearance="legacy">
-          <mat-label>Date de naissance</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="birthDate" [errorStateMatcher]="matcher" (dateChange)="date($event)">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="birthDate.errors?.required">Ce champ est requis</mat-error>
-          <mat-error *ngIf="birthDate.errors?.birthDateInvalid ||birthDate.errors?.incorrect">Vous devez avoir entre 18 et 122 ans</mat-error>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="mb-3">
-      <mat-form-field appearance="legacy" >
-        <mat-label>Adresse-mail</mat-label>
-        <input matInput type="email" formControlName="email" [errorStateMatcher]="matcher">
-        <mat-error *ngIf="email.errors?.required">Ce champ est requis</mat-error>
-        <mat-error *ngIf="email.errors?.pattern">Veuillez entrer un email valide</mat-error>
-        <mat-error *ngIf="email.errors?.minlength">La taille minimale est de 5 caractères</mat-error>
-        <mat-error *ngIf="email.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
-        <mat-error *ngIf="email.errors?.incorrect">Cet email est déjas pris</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <mat-form-field appearance="legacy" >
-          <mat-label>Mot de passe</mat-label>
-          <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="password.errors?.required">Ce champ est requis</mat-error>
-          <mat-error *ngIf="password.errors?.minlength">La taille minimale est de 8 caractères</mat-error>
-          <mat-error *ngIf="password.errors?.maxlength">La taille maximal est de 16 caractères</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-md-6 mb-3">
-        <mat-form-field appearance="legacy" >
-          <mat-label>Confirmer le Mot de passe</mat-label>
-          <input matInput type="password" formControlName="passwordConfirm" [errorStateMatcher]="matcher">
-          <mat-error *ngIf="passwordConfirm.errors?.required">Ce champ est requis</mat-error>
-          <mat-error *ngIf="passwordConfirm.errors?.minlength">La taille minimale est de 8 caractères</mat-error>
-          <mat-error *ngIf="passwordConfirm.errors?.maxlength">La taille maximal est de 16 caractères</mat-error>
-          <mat-error *ngIf="passwordConfirm.errors?.passwordsmatch">Les mots de passe doivent correspondrent</mat-error>
-        </mat-form-field>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <mat-checkbox color="primary" class="example-margin">Accepter les conditions</mat-checkbox>
+
+      <label id="example-radio-group-label">Vous êtes un :</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group" formControlName="role" >
+        <mat-radio-button class="example-radio-button" *ngFor="let role of roles" [value]="role">
+          {{role}}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <div class="mb-3">
+        <mat-form-field appearance="legacy" >
+          <mat-label>Adresse-mail</mat-label>
+          <input matInput type="email" formControlName="email" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="email.errors?.required">Ce champ est requis</mat-error>
+          <mat-error *ngIf="email.errors?.pattern">Veuillez entrer un email valide</mat-error>
+          <mat-error *ngIf="email.errors?.minlength">La taille minimale est de 5 caractères</mat-error>
+          <mat-error *ngIf="email.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+          <mat-error *ngIf="email.errors?.incorrect">Cet email est déjas pris</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Mot de passe</mat-label>
+            <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="password.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="password.errors?.minlength">La taille minimale est de 8 caractères</mat-error>
+            <mat-error *ngIf="password.errors?.maxlength">La taille maximal est de 16 caractères</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Confirmer le Mot de passe</mat-label>
+            <input matInput type="password" formControlName="passwordConfirm" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="passwordConfirm.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="passwordConfirm.errors?.minlength">La taille minimale est de 8 caractères</mat-error>
+            <mat-error *ngIf="passwordConfirm.errors?.maxlength">La taille maximal est de 16 caractères</mat-error>
+            <mat-error *ngIf="passwordConfirm.errors?.passwordsmatch">Les mots de passe doivent correspondrent</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <mat-checkbox color="primary" class="example-margin">Accepter les conditions</mat-checkbox>
+      </div>
+      <hr/>
+
+      <button mat-raised-button color="primary" [disabled]="registerForm.invalid" (click)="addUser()" class="btn btn-block" type="submit">S'inscrire</button>
+
     </div>
-    <hr/>
-
-    <button mat-raised-button color="primary" [disabled]="registerForm.invalid" (click)="addUser()" class="btn btn-block" type="submit">S'inscrire</button>
-
   </div>
-</div>

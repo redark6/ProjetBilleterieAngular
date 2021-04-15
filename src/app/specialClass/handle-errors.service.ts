@@ -45,7 +45,7 @@ export class HandleErrorsService {
           errorMessage = 'Internal Server Error.';
           break;
         case 503:
-          errorMessage = 'The requested service is not available.';
+          errorMessage = 'The requested services is not available.';
           break;
         case 422:
           errorMessage = 'Validation Error!';

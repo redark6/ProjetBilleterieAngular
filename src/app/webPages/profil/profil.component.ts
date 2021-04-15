@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from './user';
+import {User} from '../../modeles/user';
 
-import {UserService} from '../../service/user.service';
+import {UserService} from '../../services/user.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ageMatchRange} from '../../specialClass/custom-validator';
@@ -16,6 +16,7 @@ export class ProfilComponent implements OnInit {
   updateProfilForm: FormGroup;
   public userProfilInfos: User;
   closeResult = '';
+  upgradeOrganiserForm: FormGroup;
 
   constructor(private user: UserService, private modalService: NgbModal, private formBuilder: FormBuilder) {
   }
@@ -49,6 +50,49 @@ export class ProfilComponent implements OnInit {
       }
     );
 
+    this.upgradeOrganiserForm = this.formBuilder.group({
+        jobTitle: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ])],
+        phoneNumber: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(50)
+        ])],
+        website: ['', Validators.compose([
+          Validators.required,
+          ageMatchRange
+        ])],
+        company: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ])],
+        blog: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ])],
+        proAddress: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ])],
+        proCity: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ])],
+        proCountry: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
+        ])]
+      }
+    );
+
   }
 
   open(content): void {
@@ -63,6 +107,27 @@ export class ProfilComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       this.user.patch(this.updateProfilForm.value);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  openUpgradeOrganiser(content): void {
+
+    this.upgradeOrganiserForm.setValue({
+      jobTitle: '',
+      phoneNumber : '',
+      website : '',
+      company : '' ,
+      blog : '',
+      proAddress : '' ,
+      proCity : '' ,
+      proCountry : '',
+    });
+
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      this.user.upgradeOrganiser(this.upgradeOrganiserForm.value);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -92,6 +157,10 @@ export class ProfilComponent implements OnInit {
 
   get birthDate(): AbstractControl {
     return this.updateProfilForm.get('birthDate');
+  }
+
+  upgradeOrganiser(): void {
+    this.user.upgradeOrganiser(this.upgradeOrganiserForm.value);
   }
 
 

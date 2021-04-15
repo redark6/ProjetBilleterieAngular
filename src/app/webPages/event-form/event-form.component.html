@@ -1,6 +1,78 @@
-<p>event-form works!</p>
-
-<mat-form-field>
-  <mat-label></mat-label>
-  <input placeholder="Just a placeholder">
-</mat-form-field>
+<div [formGroup]="eventForm" class="container col-10 col-sm-10 col-md-8 col-lg-7 col-xl-5 py-5">
+  <div class="mx-5">
+    <h1 class="text-center">Create your Event</h1>
+    <div class="bg-grey shadow rounded">
+      <div class="col-md-10 mb-3 ml-5 col-lg-10 d-flex justify-content-center">
+        <mat-form-field appearance="standard" class="mr-3 c2">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field>
+      </div>
+        <div class="col-md-10 ml-5 col-lg-10 d-flex justify-content-center">
+          <mat-form-field appearance="standard" class="mr-3 c1">
+            <mat-label>Places</mat-label>
+            <input matInput formControlName="nbOfTicket">
+          </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3  d-flex justify-content-center">
+          <mat-form-field appearance="standard" class="mr-3 c1">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="category">
+              <mat-option [value]="1">Cour et Atelier</mat-option>
+              <mat-option [value]="2">Festival</mat-option>
+              <mat-option [value]="3">Salon</mat-option>
+              <mat-option [value]="4">Action solidaire</mat-option>
+              <mat-option [value]="5">Concert</mat-option>
+              <mat-option [value]="6">Gastronomie</mat-option>
+              <mat-option [value]="7">Conférence et Forum</mat-option>
+              <mat-option [value]="8">Musée et Exposition</mat-option>
+              <mat-option [value]="9">Spectacle et Théâtre</mat-option>
+              <mat-option [value]="10">Autres</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3  d-flex justify-content-center">
+          <mat-form-field appearance="standard" class="mr-3 c1">
+            <mat-label>Region</mat-label>
+            <mat-select formControlName="region">
+              <mat-option value="91">91</mat-option>
+              <mat-option value="16">16</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3  d-flex justify-content-center">
+          <mat-form-field appearance="standard" class="mr-3 c1">
+            <mat-label>Date</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input type="datetime"
+                     auto-close="true"
+                     view="date"
+                     min-view="date" matStartDate placeholder="Début" formControlName="startDate" >
+              <input matEndDate placeholder="Fin" formControlName="endDate">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3  d-flex justify-content-center">
+          <mat-form-field appearance="standard" class="mr-3 c1">
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="price">
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 mb-3 d-flex justify-content-center">
+          <mat-form-field appearance="fill" class="c2">
+            <mat-label>Description</mat-label>
+            <textarea matInput class="textariaresize" formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+      <button mat-raised-button color="primary" [disabled]="eventForm.invalid" (click)="addEvent()" class="btn btn-block cbutton mb-5" type="submit">Create</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {GlobalParameter} from '../specialClass/global-parameter';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from '../webPages/profil/user';
+import {User} from '../modeles/user';
 import {CookieService} from 'ngx-cookie-service';
 
 interface ReturnedErrors{
@@ -120,9 +120,24 @@ export class UserService {
     return this.authenticateEvent.asObservable();
   }
 
+
+  upgradeOrganiser(value: object): void{
+    this.httpClient.post<any>('http://localhost:8080/user/upgradeToOrganiser', value).subscribe(
+      () => {
+        return this.router.navigate(['profil']);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+
   roleListener(): Observable<any>{
     return this.authorityStatus.asObservable();
   }
+
 }
 
 

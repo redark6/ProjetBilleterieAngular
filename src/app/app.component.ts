@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {GlobalParameter} from './specialClass/global-parameter';
-import {UserService} from './service/user.service';
+import {UserService} from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ export class AppComponent {
         }
       }
     );
-    // this.authenticationService.isSessionValid();
+    this.authenticationService.isSessionValid();
   }
 
 }
