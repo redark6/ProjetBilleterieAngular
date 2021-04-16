@@ -1,7 +1,8 @@
-export class Comment {
+export class EventComment {
 
   public id: number;
   public author: string;
+  public userName: string;
   public avatar: string;
   public creationDateHours: Date;
   public parentComment: number;
@@ -10,7 +11,7 @@ export class Comment {
   public lastModification: Date;
   public isBlocked: boolean;
   public isOwnedByCurrentUser: boolean;
-  public commentChildren: Comment[];
+  public commentChildren: EventComment[];
   public numberOfLike: number;
   public numberOfDislike: number;
   public isLikeOrDislikeByUser: number;
@@ -18,11 +19,12 @@ export class Comment {
 
 
 
-  constructor(id: number, author: string, avatar: string, creationDateHours: Date, parentComment: number, eventId: number, comment: string,
-              lastModification: Date, isBlocked: boolean, isOwnedByCurrentUser: boolean, commentChildren: Comment[], numberOfLike: number,
+  constructor(id: number, author: string, userName: string, avatar: string, creationDateHours: Date, parentComment: number, eventId: number, comment: string,
+              lastModification: Date, isBlocked: boolean, isOwnedByCurrentUser: boolean, commentChildren: EventComment[], numberOfLike: number,
               numberOfDislike: number, isLikeOrDislikeByUser: number, isReportedByUser: boolean) {
     this.id = id;
     this.author = author;
+    this.userName = userName;
     this.avatar = avatar;
     this.creationDateHours = creationDateHours;
     this.parentComment = parentComment;

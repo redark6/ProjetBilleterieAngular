@@ -15,12 +15,12 @@ export class AppComponent {
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
+          this.authenticationService.isSessionValid();
           this.globalVar.currentRoute = this.router.url;
           window.scrollTo(0, 0);
         }
       }
     );
-    // this.authenticationService.isSessionValid();
   }
 
 }

@@ -17,7 +17,7 @@ export class NavigationBarComponent implements OnInit {
   authority: string;
   searchForm: FormGroup;
 
-  constructor(private user: UserService, private globalVar: GlobalParameter ,private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private user: UserService, private globalVar: GlobalParameter , private formBuilder: FormBuilder, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -27,9 +27,8 @@ export class NavigationBarComponent implements OnInit {
 
     this.roleSubscription = this.user.roleListener().subscribe(state =>  {
       this.authority = state;
-      console.log('globalvar: ' + state);
-
     });
+
     this.searchForm = this.formBuilder.group({
       search: ['']
     });

@@ -1,17 +1,4 @@
-.img{
-  max-width: 200px; /* width of container */
-  max-height: 160px; /* height of container */
 
-  min-width: 200px; /* width of container */
-  min-height: 160px; /* height of container */
-
-  object-fit: cover;
-  object-position: 20% 10%; /* try 20px 10px */
-  border-top-left-radius: 5px;
-  border-top-right-radius: 0px;
-  border-bottom-left-radius: 5px;
-
-}
 .card-size{
   width: unset;
 }
@@ -57,13 +44,12 @@
 @media screen and (max-width:767px) {
   .card {
     margin:4vh auto auto;
-    width:80vw;
+    width:60vw;
   }
 
   .card-img-top{
     height:30vh!important;
     object-fit:cover;
-    opacity:.6;
   }
   .col-sm-4 {
     margin-top:2vh
@@ -72,8 +58,5 @@
   .container {
     min-width:80vw
   }
-  .card {
-    margin-top:2vh;
-    width:15vw;
-  }
+
 }

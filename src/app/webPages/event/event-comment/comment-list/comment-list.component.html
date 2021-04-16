@@ -1,3 +1,6 @@
-<div *ngFor="let number of numbers" class="col-lg-3 col-md-6 col-12 my-3">
-  <app-comment></app-comment>
+<div *ngIf="comments">
+<div *ngFor="let comment of comments" >
+  <app-comment [comment]="comment" [isAuthenticate]="isAuthenticate"></app-comment>
+</div>
+
 </div>
