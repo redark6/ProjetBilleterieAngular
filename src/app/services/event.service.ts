@@ -15,6 +15,10 @@ export class EventService {
     return this.httpClient.get<Event>(`http://localhost:8080/event/${id}`);
   }
 
+  public getRating(id: number): Observable<number> {
+    return this.httpClient.get<number>(`http://localhost:8080/rate/${id}`);
+  }
+
   searchEvents(params: HttpParams): void {
     this.httpClient.get<SearchResult>(`http://localhost:8080/event/search`, {params}).subscribe(
       value => {
@@ -22,6 +26,18 @@ export class EventService {
       },
       error => {
         console.log(error);
+      }
+    );
+  }
+
+  rate(rating: object): void{
+    this.httpClient.post<any>(`http://localhost:8080/rate`, rating).subscribe(
+      () => {
+        return null;
+      },
+      (error) => {
+        console.log(error);
+
       }
     );
   }
@@ -34,4 +50,7 @@ export class EventService {
     this.searchEvent.next(searchResult);
   }
 
+  getUserRating(id: any, email: string): Observable<number> {
+    return this.httpClient.get<number>(`http://localhost:8080/rate/${id}/${email}`);
+  }
 }

@@ -51,6 +51,7 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzAvatarModule} from 'ng-zorro-antd/avatar';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import {NzRateModule} from 'ng-zorro-antd/rate';
 
 registerLocaleData(fr);
 
@@ -77,36 +78,37 @@ registerLocaleData(fr);
     CommentComponent,
     CommentWriterComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgxSliderModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-top-right',
-    }),
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    FormsModule,
-    MatChipsModule,
-    MatOptionModule,
-    MatSelectModule,
-    NzCommentModule,
-    NzFormModule,
-    NzIconModule,
-    NzAvatarModule,
-    NzButtonModule,
-    NzInputModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgxSliderModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+        }),
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        FormsModule,
+        MatChipsModule,
+        MatOptionModule,
+        MatSelectModule,
+        NzCommentModule,
+        NzFormModule,
+        NzIconModule,
+        NzAvatarModule,
+        NzButtonModule,
+        NzInputModule,
+        NzRateModule
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     GlobalParameter,
