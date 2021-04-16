@@ -23,6 +23,7 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit(): void {
     this.authSubscription = this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
+      console.log('AUTH' + state);
     });
 
     this.roleSubscription = this.user.roleListener().subscribe(state =>  {

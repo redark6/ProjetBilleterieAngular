@@ -54,6 +54,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { EventEventCardComponent } from './webPages/events/event-event-card/event-event-card.component';
 import {NzPopoverModule} from 'ng-zorro-antd/popover';
 
+
 registerLocaleData(fr);
 
 @NgModule({
@@ -101,6 +102,7 @@ registerLocaleData(fr);
     MatRadioModule,
     FormsModule,
     MatChipsModule,
+    MatIconModule,
     MatOptionModule,
     MatSelectModule,
     NzCommentModule,
