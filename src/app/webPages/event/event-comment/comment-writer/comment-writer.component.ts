@@ -33,7 +33,7 @@ export class CommentWriterComponent implements OnInit {
         Validators.maxLength(500)
       ])]
     });
-    if (this.isAuthenticate != null){
+    if (this.isAuthenticate){
       this.placeholder = 'Votre message en 1 à 500 caractères';
     }
     else {
