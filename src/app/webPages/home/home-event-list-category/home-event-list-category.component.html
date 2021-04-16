@@ -1,22 +1,22 @@
 <div>
-  <h3>Les plus récents</h3>
-  <div class="row justify-content-start">
+  <h3>{{text}}</h3>
+  <div class="row justify-content-start" *ngIf="searchResult">
 
-    <div *ngFor="let number of numbers" class="col-lg-3 col-md-6 col-12 my-3">
-      <app-event-card [type]="'vertical'"></app-event-card>
+    <div *ngFor="let number of searchResult" class="col-lg-3 col-md-6 col-12 my-3">
+      <app-home-event-card [event]="number"></app-home-event-card>
     </div>
 
-    <div class="row justify-content-start collapse" id="test">
-      <div *ngFor="let number of numbers" class="col-lg-3 col-md-4 col-6 my-3">
-        <app-event-card [type]="'vertical'"></app-event-card>
+    <div class="row justify-content-start collapse" id="{{identifiant}}">
+      <div *ngFor="let number of searchResult" class="col-lg-3 col-md-6 col-12 my-3">
+        <app-home-event-card [event]="number"></app-home-event-card>
       </div>
     </div>
-
     <div class="col text-center">
-      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#test">
+      <button class="btn btn-primary" type="button" data-toggle="collapse" [attr.data-target]="idtarget" >
         Button with data-target
       </button>
     </div>
 
   </div>
+
 </div>

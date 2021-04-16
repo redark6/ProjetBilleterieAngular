@@ -3,13 +3,14 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {Event} from '../modeles/event';
 import {SearchResult} from '../modeles/searchResult';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
   private searchEvent = new BehaviorSubject<SearchResult>(null);
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   public get(id: number): Observable<Event> {
     return this.httpClient.get<Event>(`http://localhost:8080/event/${id}`);
@@ -30,7 +31,7 @@ export class EventService {
     );
   }
 
-  rate(rating: object): void{
+  rate(rating: object): void {
     this.httpClient.post<any>(`http://localhost:8080/rate`, rating).subscribe(
       () => {
         return null;
@@ -40,6 +41,13 @@ export class EventService {
 
       }
     );
+  }
+  createEvent(value: object): void{
+    this.httpClient.post<any>('http://localhost:8080/event/create', value).subscribe(() => {
+      return this.router.navigate(['home']);
+      },
+      );
+
   }
 
   searchListener(): Observable<SearchResult>{

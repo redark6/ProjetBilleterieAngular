@@ -30,8 +30,9 @@ export class UserService {
       () => {
         this.globalVar.isAuthenticate = true;
         this.emitAuthStatus(true);
+        console.log('pass here', this.globalVar.isAuthenticate);
         this.getAuthority();
-        return this.router.navigate(['home']);
+        this.router.navigate(['home']);
       },
       (error) => {
         console.log(error);
@@ -124,6 +125,7 @@ export class UserService {
   upgradeOrganiser(value: object): void{
     this.httpClient.post<any>('http://localhost:8080/user/upgradeToOrganiser', value).subscribe(
       () => {
+        this.getAuthority();
         return this.router.navigate(['profil']);
       },
       (error) => {
@@ -131,8 +133,6 @@ export class UserService {
       }
     );
   }
-
-
 
   roleListener(): Observable<any>{
     return this.authorityStatus.asObservable();

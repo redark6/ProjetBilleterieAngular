@@ -31,18 +31,6 @@ export class SearchBarComponent implements OnInit {
     ceil: 500,
     step: 10
 };
-
-  categories: string[] = [
-    'Évènement solidaire',
-    'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
-    'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-    'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-    'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
-    'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
-    'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-  ];
-
   searchForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private eventService: EventService, private route: Router , private activatedRoute: ActivatedRoute) {
@@ -70,7 +58,7 @@ export class SearchBarComponent implements OnInit {
             getParamsArray = getParamsArray.set('search', urlParams.get(value));
             break;
           case 'category':
-            if (this.checkAndSetCategory(urlParams.get(value))) {  getParamsArray = getParamsArray.set('category', urlParams.get(value)); }
+            if (urlParams.get(value)) {  getParamsArray = getParamsArray.set('category', urlParams.get(value)); }
             else { this.paramsError = true; }
             break;
           case 'date':
@@ -106,7 +94,7 @@ export class SearchBarComponent implements OnInit {
 
   search(): void{
 
-    // if (this.category === ''){this.searchForm.get('category').setValue(null); }
+    if (this.category === ''){this.searchForm.get('category').setValue(null); }
     this.sanitizeDate('startDate');
     this.sanitizeDate('endDate');
     if (this.minValue > this.options.floor){this.searchForm.get('minPrice').setValue(this.minValue); }else{ this.searchForm.get('minPrice').setValue(''); }
@@ -129,18 +117,10 @@ export class SearchBarComponent implements OnInit {
   constructUrlParams(): any {
     let urlParams;
     urlParams = {};
-    if (this.category) { urlParams.category = this.category; }
+    if (this.category) { urlParams.category = this.category;}
     if (this.startDate || this.endDate) { urlParams.date = (this.startDate ? this.startDate : 'start') + '~' + (this.endDate ? this.endDate : 'end'); }
     if (this.minPrice || this.maxPrice) {urlParams.price = (this.minPrice.toString() ? this.minPrice.toString() : 'min') + '~' + (this.maxPrice.toString() ? this.maxPrice.toString() : 'max'); }
     return urlParams;
-  }
-
-  checkAndSetCategory(category: string): boolean {
-    if (this.categories.indexOf(category ) !== -1){
-      this.searchForm.get('category').setValue(category);
-      return true;
-    }
-    return false;
   }
 
   checkAndSetPriceRange(prices: string): any{

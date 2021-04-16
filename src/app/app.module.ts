@@ -13,7 +13,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EventComponent } from './webPages/event/event.component';
 import { ProfilComponent } from './webPages/profil/profil.component';
 import { HomeEventListCategoryComponent } from './webPages/home/home-event-list-category/home-event-list-category.component';
-import { EventCardComponent } from './webPages/event-card/event-card.component';
+import { HomeEventCardComponent } from './webPages/home/home-event-card/home-event-card.component';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {HttpRequestInterceptor} from './specialClass/http-request-interceptor';
 import {GlobalParameter} from './specialClass/global-parameter';
@@ -51,7 +51,12 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzAvatarModule} from 'ng-zorro-antd/avatar';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
+
 import {NzRateModule} from 'ng-zorro-antd/rate';
+
+import { EventEventCardComponent } from './webPages/events/event-event-card/event-event-card.component';
+import {NzPopoverModule} from 'ng-zorro-antd/popover';
+
 
 registerLocaleData(fr);
 
@@ -66,49 +71,52 @@ registerLocaleData(fr);
     EventComponent,
     ProfilComponent,
     HomeEventListCategoryComponent,
-    EventCardComponent,
+    HomeEventCardComponent,
     EventsComponent,
     SearchBarComponent,
-    EventCardComponent,
+    HomeEventCardComponent,
     EventListPaginationComponent,
     EventFormComponent,
     EventListComponent,
     EventCommentComponent,
-    CommentListComponent,
     CommentComponent,
     CommentWriterComponent,
+    CommentListComponent,
+    EventEventCardComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgbModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NgxSliderModule,
-        BrowserAnimationsModule,
-        ToastrModule.forRoot({
-            timeOut: 5000,
-            positionClass: 'toast-top-right',
-        }),
-        MatFormFieldModule,
-        MatNativeDateModule,
-        MatDatepickerModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        FormsModule,
-        MatChipsModule,
-        MatOptionModule,
-        MatSelectModule,
-        NzCommentModule,
-        NzFormModule,
-        NzIconModule,
-        NzAvatarModule,
-        NzButtonModule,
-        NzInputModule,
-        NzRateModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxSliderModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+    }),
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    FormsModule,
+    MatChipsModule,
+    MatIconModule,
+    MatOptionModule,
+    MatSelectModule,
+    NzCommentModule,
+    NzFormModule,
+    NzIconModule,
+    NzAvatarModule,
+    NzButtonModule,
+    NzInputModule,
+    NzPopoverModule,
+    NzRateModule
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     GlobalParameter,
@@ -118,6 +126,7 @@ registerLocaleData(fr);
     DatePipe,
     { provide: NZ_I18N, useValue: fr_FR }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CommentComponent]
 })
 export class AppModule { }

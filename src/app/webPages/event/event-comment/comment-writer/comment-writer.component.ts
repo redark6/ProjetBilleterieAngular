@@ -1,44 +1,64 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { formatDistance } from 'date-fns';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CommentService} from '../../../../services/comment.service';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-comment-writer',
   templateUrl: './comment-writer.component.html',
   styleUrls: ['./comment-writer.component.css']
 })
 export class CommentWriterComponent implements OnInit {
-  data: any[] = [];
-  submitting = false;
-  user = {
-    author: 'Han Solo',
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
-  };
+  @Input() parentComment: string;
+  @Input() eventId: string;
+  @Input() isAuthenticate: boolean;
+  commentForm: FormGroup;
   inputValue = '';
+  placeholder: string;
 
-  handleSubmit(): void {
-    this.submitting = true;
-    const content = this.inputValue;
-    this.inputValue = '';
-    setTimeout(() => {
-      this.submitting = false;
-      this.data = [
-        ...this.data,
-        {
-          ...this.user,
-          content,
-          datetime: new Date(),
-          displayTime: formatDistance(new Date(), new Date())
-        }
-      ].map(e => {
-        return {
-          ...e,
-          displayTime: formatDistance(new Date(), e.datetime)
-        };
-      });
-    }, 800);
-  }
-  constructor() { }
+  constructor(private formBuilder: FormBuilder, private commentService: CommentService, private router: Router) { }
 
   ngOnInit(): void {
+    if (!this.parentComment){
+      this.parentComment = null;
+    }
+    this.commentForm = this.formBuilder.group({
+      parentComment: [this.parentComment],
+      eventId: [this.eventId, Validators.compose([
+        Validators.required
+      ])],
+      comment: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(500)
+      ])]
+    });
+    if (this.isAuthenticate){
+      this.placeholder = 'Votre message en 1 à 500 caractères';
+    }
+    else {
+      this.placeholder = 'Vous devez être connecté pour poster un message';
+    }
   }
 
+  handleSubmit(): void {
+    console.log(this.isAuthenticate);
+    this.commentForm.get('comment').setValue(this.inputValue);
+    this.commentForm.get('eventId').setValue(this.eventId);
+    this.commentService.post(this.commentForm.value).subscribe(value => {
+      console.log(value);
+      this.reloadCurrentRoute();
+    },
+      error => {
+      console.log(error);
+      });
+  }
+  reloadCurrentRoute(): void {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([currentUrl]);
+      console.log(currentUrl);
+    });
+  }
 }
+

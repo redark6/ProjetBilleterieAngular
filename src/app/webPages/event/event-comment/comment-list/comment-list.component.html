@@ -1,0 +1,6 @@
+<div *ngIf="comments">
+  <div *ngFor="let comment of comments" >
+    <app-comment [comment]="comment" [isAuthenticate]="isAuthenticate"></app-comment>
+  </div>
+</div>
+

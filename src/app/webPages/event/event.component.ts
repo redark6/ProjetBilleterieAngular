@@ -56,6 +56,7 @@ export class EventComponent implements OnInit {
   rate(): void{
     this.rating = new Rating(this.activatedRoute.snapshot.params.id, this.userProfilInfos.email, this.value2);
     this.eventService.rate(this.rating);
+    this.event = this.activatedRoute.snapshot.data.event;
   }
 
 }

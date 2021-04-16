@@ -6,12 +6,22 @@
       <input matInput type="text" formControlName="location">
     </mat-form-field>
     -->
+
     <div class=" py-0 d-flex justify-content-center">
       <mat-form-field appearance="legacy">
         <mat-label>Catégories</mat-label>
         <mat-select formControlName="category" >
           <mat-option>None</mat-option>
-          <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+          <mat-option [value]="1">Cour et Atelier</mat-option>
+          <mat-option [value]="2">Festival</mat-option>
+          <mat-option [value]="3">Salon</mat-option>
+          <mat-option [value]="4">Action solidaire</mat-option>
+          <mat-option [value]="5">Concert</mat-option>
+          <mat-option [value]="6">Gastronomie</mat-option>
+          <mat-option [value]="7">Conférence et Forum</mat-option>
+          <mat-option [value]="8">Musée et Exposition</mat-option>
+          <mat-option [value]="9">Spectacle et Théâtre</mat-option>
+          <mat-option [value]="10">Autres</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

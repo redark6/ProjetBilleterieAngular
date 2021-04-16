@@ -1,0 +1,18 @@
+<a routerLink="/event/{{event.id}}">
+  <div class="card my-2">
+    <div class="row">
+      <div class="">
+        <img class="card-img-top img img2"
+             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
+      </div>
+      <div class="card-body card-size col-lg-8 col-md-8 col-sm-8 col-8">
+        <h4 class="card-title crop-title ">{{event.title}}</h4>
+        <div>{{event.price}} €</div>
+        <div class="col-6 px-0">
+          <div class="p-0">{{categories[event.category]}}</div>
+          <div>{{event.region}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
