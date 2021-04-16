@@ -12,7 +12,7 @@ export class CommentService {
   constructor(private httpClient: HttpClient) {}
 
   public get(id: number): void {
-    this.httpClient.get<EventComment[]>(environment.apiUrl + `comment/${id}`).subscribe(
+    this.httpClient.get<EventComment[]>(environment.apiUrl + `/comment/${id}`).subscribe(
       value => {
         this.emitSearchComment(value);
       },
