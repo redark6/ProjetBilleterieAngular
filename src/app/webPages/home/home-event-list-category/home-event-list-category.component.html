@@ -1,117 +1,22 @@
-
-
 <div>
+  <h3>{{text}}</h3>
+  <div class="row justify-content-start" *ngIf="searchResult">
 
-  <h3>Les plus récents</h3>
+    <div *ngFor="let number of searchResult" class="col-lg-3 col-md-6 col-12 my-3">
+      <app-home-event-card [event]="number"></app-home-event-card>
+    </div>
 
-  <div class="row justify-content-start " >
-    <div *ngFor="let number of events ; let index1 = index;"  class="col-lg-3 col-md-4 col-6 my-3" >
-      <div  *ngIf="index1 <= 3" class="card" style="width: 14rem;" >
-        <img class="card-img-top image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
-        <div class="card-body">
-          <a routerLink="/event/{{events[index1].id}}"><h1>{{events[index1].titre}}</h1></a>
-          <p class="card-text">{{events[index1].description}}</p>
-          <span>{{events[index1].date|date}}</span>
-        </div>
+    <div class="row justify-content-start collapse" id="{{identifiant}}">
+      <div *ngFor="let number of searchResult" class="col-lg-3 col-md-6 col-12 my-3">
+        <app-home-event-card [event]="number"></app-home-event-card>
       </div>
     </div>
-  </div>
-
-  <div class="row justify-content-start collapse " id="all" >
-    <div *ngFor="let number of events | slice: 4; let index2 = index;"  class="col-lg-3 col-md-4 col-6 my-3" >
-      <div class="card" style="width: 14rem;" >
-        <img class="card-img-top image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
-        <div class="card-body">
-          <a routerLink="/event/{{events[index2+4].id}}"><h1 >{{events[index2+4].titre}}</h1></a>
-          <p class="card-text">{{events[index2+4].description}}</p>
-          <span>{{events[index2+4].date|date}}</span>
-        </div>
-      </div>
+    <div class="col text-center">
+      <button class="btn btn-primary" type="button" data-toggle="collapse" [attr.data-target]="idtarget" >
+        Button with data-target
+      </button>
     </div>
+
   </div>
 
-
 </div>
-<div class="col text-center">
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#all">
-    Button with data-target
-  </button>
-</div>
-
-<div>
-
-  <h3>Sport</h3>
-
-  <div class="row justify-content-start " >
-    <div *ngFor="let number of eventsSport ; let index1 = index;"  class="col-lg-3 col-md-4 col-6 my-3" >
-      <div  *ngIf="index1 <= 3" class="card" style="width: 14rem;" >
-        <img class="card-img-top image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
-        <div class="card-body">
-          <a routerLink="/event/{{eventsSport[index1].id}}"><h1>{{eventsSport[index1].titre}}</h1></a>
-          <p class="card-text">{{eventsSport[index1].description}}</p>
-          <span>{{eventsSport[index1].date|date}}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row justify-content-start collapse " id="sport" >
-    <div *ngFor="let number of eventsSport | slice: 4; let index2 = index;"  class="col-lg-3 col-md-4 col-6 my-3" >
-      <div class="card" style="width: 14rem;" >
-        <img class="card-img-top image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
-        <div class="card-body">
-          <a routerLink="/event/{{eventsSport[index2+4].id}}"><h1>{{eventsSport[index2+4].titre}}</h1></a>
-          <p class="card-text">{{eventsSport[index2+4].description}}</p>
-          <span>{{eventsSport[index2+4].date|date}}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-</div>
-<div class="col text-center">
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#sport">
-    Button with data-target
-  </button>
-</div>
-
-
-<div>
-
-  <h3>Music</h3>
-
-  <div class="row justify-content-start " >
-    <div *ngFor="let number of eventsMusic ; let index1 = index;"  class="col-lg-3 col-md-4 col-6 my-3" >
-      <div  *ngIf="index1 <= 3" class="card" style="width: 14rem;" >
-        <img class="card-img-top image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
-        <div class="card-body">
-          <a routerLink="/event/{{eventsMusic[index1].id}}"><h1>{{eventsMusic[index1].titre}}</h1></a>
-          <p class="card-text">{{eventsMusic[index1].description}}</p>
-          <span>{{eventsMusic[index1].date|date}}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row justify-content-start collapse " id="music" >
-    <div *ngFor="let number of eventsMusic | slice: 4; let index2 = index;"  class="col-lg-3 col-md-4 col-6 my-3" >
-      <div class="card" style="width: 14rem;" >
-        <img class="card-img-top image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
-        <div class="card-body">
-          <a routerLink="/event/{{eventsMusic[index2+4].id}}"><h1>{{eventsMusic[index2+4].titre}}</h1></a>
-          <p class="card-text">{{eventsMusic[index2+4].description}}</p>
-          <span>{{eventsMusic[index2+4].date|date}}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-</div>
-<div class="col text-center">
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#music">
-    Button with data-target
-  </button>
-</div>
-

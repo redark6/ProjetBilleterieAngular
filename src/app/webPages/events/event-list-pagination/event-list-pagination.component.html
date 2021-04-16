@@ -1,0 +1,21 @@
+<nav *ngIf="numberOfpages != 0 && numberOfpages != null" aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="this.currentPage == 1">
+      <a class="page-link"  [routerLink]="['/events']" [queryParams]="{page: (this.currentPage-1)}" queryParamsHandling="merge" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+
+    <li  *ngFor="let page of [].constructor(numberOfpages+1) | slice: this.startIndex:this.startIndex+paginationLinks; let index = index">
+      <a class="page-link" [class.active]="" [routerLink]="['/events']" [queryParams]="{page: this.startIndex+index}" queryParamsHandling="merge">{{this.startIndex+index}}</a>
+    </li>
+
+    <li class="page-item" [class.disabled]="this.currentPage == this.numberOfpages">
+      <a class="page-link"  [routerLink]="['/events']" [queryParams]="{page: (this.currentPage+1)}" queryParamsHandling="merge" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+

@@ -3,7 +3,7 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Valid
 import {Router} from '@angular/router';
 import {passwordsMatch, ageMatchRange} from '../../specialClass/custom-validator';
 import {HandleErrorsService} from '../../specialClass/handle-errors.service';
-import {UserService} from '../../service/user.service';
+import {UserService} from '../../services/user.service';
 import {MyErrorStateMatcher} from '../../specialClass/my-error-state-matcher';
 
 

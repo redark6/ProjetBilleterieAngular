@@ -1,7 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {EventTicket} from '../../event/eventTicket';
-import {EventService} from '../../../service/event.service';
+import {Event} from '../../../modeles/event';
+import {EventService} from '../../../services/event.service';
 import {ActivatedRoute} from '@angular/router';
+import {HttpParams} from '@angular/common/http';
+import {SearchResult} from '../../../modeles/searchResult';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home-event-list-category',
@@ -11,40 +14,26 @@ import {ActivatedRoute} from '@angular/router';
 export class HomeEventListCategoryComponent implements OnInit {
 
   @Input() identifiant: string;
+  @Input() text: string;
+  @Input() params: HttpParams;
+
+  searchResult: Event[];
+  searchResultSubscription: Subscription;
 
   public idtarget: string;
 
-  public events: Array<EventTicket>;
-
-  public eventsSport: Array<EventTicket>;
-
-  public eventsMusic: Array<EventTicket>;
-
   numbers: number[];
-  constructor(private eventService: EventService, private activatedRoute: ActivatedRoute) {
-
-    this.events = new Array<EventTicket>();
-    this.eventService.getAllRecent().subscribe(events => {
-      this.events = events;
-    });
-
-    this.eventsMusic = new Array<EventTicket>();
-    this.eventService.getAllMusic().subscribe(eventsMusic => {
-      this.eventsMusic = eventsMusic;
-    });
-
-    this.eventsSport = new Array<EventTicket>();
-    this.eventService.getAllSport().subscribe(eventsSport => {
-      this.eventsSport = eventsSport;
-    });
+  constructor(private eventService: EventService, private activatedRoute: ActivatedRoute ) {
+    this.numbers = [1, 2, 3, 4];
 
   }
 
   ngOnInit(): void {
+    this.eventService.searchEvents(this.params);
+    this.searchResultSubscription = this.eventService.searchListener().subscribe(state => {
+      this.searchResult = state.eventList;
+    });
     this.idtarget = '#' + this.identifiant;
-
   }
-
-
 
 }

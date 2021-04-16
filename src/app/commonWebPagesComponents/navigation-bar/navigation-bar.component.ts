@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalParameter} from '../../specialClass/global-parameter';
-import {UserService} from '../../service/user.service';
+import {UserService} from '../../services/user.service';
 import {Subscription} from 'rxjs';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -17,19 +17,19 @@ export class NavigationBarComponent implements OnInit {
   authority: string;
   searchForm: FormGroup;
 
-  constructor(private user: UserService, private globalVar: GlobalParameter ,private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private user: UserService, private globalVar: GlobalParameter , private formBuilder: FormBuilder, private router: Router) { }
 
 
   ngOnInit(): void {
     this.authSubscription = this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
+      console.log('AUTH' + state);
     });
 
     this.roleSubscription = this.user.roleListener().subscribe(state =>  {
       this.authority = state;
-      console.log('globalvar: ' + state);
-
     });
+
     this.searchForm = this.formBuilder.group({
       search: ['']
     });

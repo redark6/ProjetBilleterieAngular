@@ -7,20 +7,24 @@ import {EventComponent} from './webPages/event/event.component';
 import {ProfilComponent} from './webPages/profil/profil.component';
 import {EventFormComponent} from './webPages/event-form/event-form.component';
 import {EventsComponent} from './webPages/events/events.component';
+import {EventResolver} from './webPages/event/event-resolver';
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', component: HomeComponent },
-  { path: 'event', component: EventComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
 
-  { path: 'event/:id', component: EventComponent },
+  { path: 'event/:id',
+    component: EventComponent,
+    resolve: {event: EventResolver }
+  },
+
   { path: 'profil', component: ProfilComponent},
 
   { path: 'event-form', component: EventFormComponent},
-  { path: 'events', component: EventsComponent},
+  { path: 'events', component: EventsComponent },
   { path: 'profil', component: ProfilComponent }
 
   // { path: 'not-found', component: Error404Component },

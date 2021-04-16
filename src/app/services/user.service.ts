@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {GlobalParameter} from '../specialClass/global-parameter';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from '../webPages/profil/user';
+import {User} from '../modeles/user';
 import {CookieService} from 'ngx-cookie-service';
 import {environment} from '../../environments/environment';
 
@@ -31,8 +31,9 @@ export class UserService {
       () => {
         this.globalVar.isAuthenticate = true;
         this.emitAuthStatus(true);
+        console.log('pass here', this.globalVar.isAuthenticate);
         this.getAuthority();
-        return this.router.navigate(['home']);
+        this.router.navigate(['home']);
       },
       (error) => {
         console.log(error);
@@ -123,8 +124,10 @@ export class UserService {
 
 
   upgradeOrganiser(value: object): void{
+
     this.httpClient.post<any>( environment.apiUrl + '/user/upgradeToOrganiser', value).subscribe(
       () => {
+        this.getAuthority();
         return this.router.navigate(['profil']);
       },
       (error) => {
@@ -132,8 +135,6 @@ export class UserService {
       }
     );
   }
-
-
 
   roleListener(): Observable<any>{
     return this.authorityStatus.asObservable();

@@ -1,0 +1,6 @@
+<div>
+  <app-comment-writer [eventId]="eventId" [isAuthenticate]="isAuthenticate"></app-comment-writer>
+  <div *ngIf="comments">
+    <app-comment-list [comments]="comments" [isAuthenticate]="isAuthenticate"></app-comment-list>
+  </div>
+</div>
