@@ -11,3 +11,10 @@ mat-form-field {
   margin: 5px;
 }
 
+.mat-checkbox-label{
+  pointer-events:none;
+}
+
+a:not([href]):not([class]){
+  color: #1890ff;
+}

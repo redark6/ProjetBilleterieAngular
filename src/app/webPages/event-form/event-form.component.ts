@@ -36,7 +36,6 @@ export class EventFormComponent implements OnInit {
       ])],
       price: ['', Validators.compose([
         Validators.required,
-        Validators.pattern('^[0-9]*$')
       ])],
       description: ['', Validators.compose([
         Validators.required,

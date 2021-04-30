@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalParameter} from '../../specialClass/global-parameter';
 import {UserService} from '../../services/user.service';
-import {Subscription} from 'rxjs';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
+import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -12,21 +12,21 @@ import {Router} from '@angular/router';
 })
 export class NavigationBarComponent implements OnInit {
   isAuthenticate: boolean;
-  authSubscription: Subscription;
-  roleSubscription: Subscription;
   authority: string;
   searchForm: FormGroup;
 
+  public isMenuCollapsed = true;
+  public isSearchMenuCollapsed = true;
+
+
   constructor(private user: UserService, private globalVar: GlobalParameter , private formBuilder: FormBuilder, private router: Router) { }
 
-
   ngOnInit(): void {
-    this.authSubscription = this.user.authListener().subscribe(state => {
+    this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
-      console.log('AUTH' + state);
     });
 
-    this.roleSubscription = this.user.roleListener().subscribe(state =>  {
+    this.user.roleListener().subscribe(state =>  {
       this.authority = state;
     });
 
@@ -40,11 +40,35 @@ export class NavigationBarComponent implements OnInit {
   }
 
   searchEvent(): any{
-    return this.router.navigate(['events/' + this.searchContentBar]);
+    this.router.navigate(['events/'], { queryParams: { search: this.searchContentBar.value}});
+    this.searchContentBar.setValue('');
   }
 
-  get searchContentBar(): string {
-    return this.searchForm.get('search').value;
+  get searchContentBar(): AbstractControl {
+    return this.searchForm.get('search');
+  }
+
+  collapseMenu(): void {
+    this.isMenuCollapsed = !this.isMenuCollapsed;
+    this.isSearchMenuCollapsed = true;
+  }
+
+  collapseSearchBar(): void {
+    this.isSearchMenuCollapsed = !this.isSearchMenuCollapsed;
+    this.isMenuCollapsed = true;
+  }
+
+  get currentRoute(): string{
+    return this.globalVar.currentRoute;
+  }
+
+  hideShowSearchBar(): void {
+    const x = document.getElementById('searchevent');
+    if (x.style.display === 'none') {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }
   }
 
 }

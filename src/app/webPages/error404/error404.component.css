@@ -2,9 +2,10 @@
   display: flex;
   overflow: auto;
   cursor: grab;
+  scroll-behavior: auto;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-
+  border-radius: 10px;
 }
 
 .scrolling-wrapper-flexbox::-webkit-scrollbar {
@@ -47,32 +48,12 @@
 
 }
 
-.borderlimit{
-  border-right: 4px solid #90A4AE ;
-  border-left: 4px solid #90A4AE;
-  height: auto;
-  border-radius: 10px;
-
-}
-
-@keyframes example {
-  0%   {border-color:#2e9fb3; transform: scale(1);}
-  50%  {border-color: #75acb6; transform: scale(1.1);}
-  100% {border-color:#90A4AE; transform: scale(1);}
-}
-
-@keyframes test {
-  0%   {border-color:#90A4AE; }
-  50%  {border-color: #75acb6; }
-  100% {border-color:#2e9fb3; }
-}
-
-.testanime{
-  animation-name: test;
-  animation-duration: 0.8s;
-}
-
-.animation{
-  animation-name: example;
-  animation-duration: 0.5s;
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

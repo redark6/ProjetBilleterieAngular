@@ -1,6 +1,6 @@
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
 .bg-grey{
-  background-color: #f4f4f4d4;
+  background-color: rgba(244, 244, 244, 1);
 }
 
 .bg-blue{
@@ -8,7 +8,7 @@
 }
 
 .bg-blue-form{
-  background-color: #f4f4f4d4;
+  background-color: rgba(244, 244, 244, 0.83);
 
 }
 
@@ -16,4 +16,63 @@ html,body{
   width: 100%;
   height: 100%;
   font-size: 17px;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color: #3f51b5;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
+  color: #3f51b5;
+  background-color: #3f51b5 ;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #3f51b5;
+}
+
+
+
+html {
+  --scrollbarBG: #CFD8DC;
+  --thumbBG: #90A4AE;
+}
+
+body::-webkit-scrollbar {
+  width: 11px;
+}
+
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  overflow-y: auto;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

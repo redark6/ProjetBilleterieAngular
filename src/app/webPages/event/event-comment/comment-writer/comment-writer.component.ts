@@ -1,8 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import { formatDistance } from 'date-fns';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommentService} from '../../../../services/comment.service';
 import {Router} from '@angular/router';
+import { EventEmitter } from '@angular/core';
+
 @Component({
   selector: 'app-comment-writer',
   templateUrl: './comment-writer.component.html',
@@ -12,6 +14,7 @@ export class CommentWriterComponent implements OnInit {
   @Input() parentComment: string;
   @Input() eventId: string;
   @Input() isAuthenticate: boolean;
+  @Output() commentSent = new EventEmitter<void>();
   commentForm: FormGroup;
   inputValue = '';
   placeholder: string;
@@ -46,8 +49,7 @@ export class CommentWriterComponent implements OnInit {
     this.commentForm.get('comment').setValue(this.inputValue);
     this.commentForm.get('eventId').setValue(this.eventId);
     this.commentService.post(this.commentForm.value).subscribe(value => {
-      console.log(value);
-      this.reloadCurrentRoute();
+        this.commentSent.emit();
     },
       error => {
       console.log(error);

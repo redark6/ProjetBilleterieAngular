@@ -7,6 +7,7 @@ import {Rating} from '../../modeles/rating';
 import {User} from '../../modeles/user';
 import {UserService} from '../../services/user.service';
 import {Observable} from 'rxjs';
+import {EventResolver} from './event-resolver';
 
 @Component({
   selector: 'app-event',
@@ -26,11 +27,12 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.event = new Event('titre: string', 'type: string', 'description: string', 'region: string', new Date(), 5, 20);
-    this.event = new Event(1, 'titre: string', 5, 'description: string', 'region: string', new Date(), new Date(), new Date(), 5, 20);
-    this.eventService.get(this.activatedRoute.snapshot.params.id).subscribe(event => {
-      this.event = event;
-    });
+
+    this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
+
+    //this.eventService.get(this.activatedRoute.snapshot.params.id).subscribe(event => {
+      //this.event = event;
+    //});
 
 
     this.eventService.getRating(this.activatedRoute.snapshot.params.id).subscribe(value => {
@@ -42,14 +44,19 @@ export class EventComponent implements OnInit {
       this.userProfilInfos = user;
     });
 
-    this.eventService.getUserRating(this.activatedRoute.snapshot.params.id, this.userProfilInfos.email).subscribe(value2 => {
-      if (value2 === null ){
+    if (this.user){
+      this.eventService.getUserRating(this.activatedRoute.snapshot.params.id, this.userProfilInfos.email).subscribe(value2 => {
+        if (value2 === null ){
           this.value2 = 0;
-      }
-      else{
-        this.value2 = value2;
-      }
-    });
+        }
+        else{
+          this.value2 = value2;
+        }
+      });
+    }
+    else {
+      this.value2 = 0;
+    }
 
   }
 

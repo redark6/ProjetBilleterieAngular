@@ -16,6 +16,7 @@ export class AppComponent {
       (event: any) => {
         if (event instanceof NavigationEnd) {
           this.authenticationService.isSessionValid();
+          this.authenticationService.getAuthority();
           this.globalVar.currentRoute = this.router.url;
           window.scrollTo(0, 0);
         }

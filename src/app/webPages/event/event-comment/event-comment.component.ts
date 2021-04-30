@@ -16,21 +16,25 @@ export class EventCommentComponent implements OnInit {
   @Input() eventId: number;
   comments: EventComment[];
   isAuthenticate: boolean;
-  authSubscription: Subscription;
-  searchResultSubscription: Subscription;
   constructor(private commentService: CommentService, private  user: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log('start');
     this.commentService.get(this.eventId);
 
-    this.authSubscription = this.user.authListener().subscribe(state => {
+    this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
     });
+    this.refreshComment();
+  }
 
-    this.searchResultSubscription = this.commentService.searchCommentListener().subscribe(state => {
+  private refreshComment(): void {
+    this.commentService.get(this.eventId);
+    this.commentService.searchCommentListener().subscribe(state => {
       this.comments = state;
-      console.log('ici');
     });
+  }
+
+  public onCommentSent(): void {
+    this.refreshComment();
   }
 }

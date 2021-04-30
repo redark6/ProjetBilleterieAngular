@@ -31,6 +31,10 @@ export class EventService {
     );
   }
 
+  searchEventsForHome(params: HttpParams): Observable<SearchResult> {
+    return this.httpClient.get<SearchResult>(`http://localhost:8080/event/search`, {params});
+  }
+
   rate(rating: object): void {
     this.httpClient.post<any>(`http://localhost:8080/rate`, rating).subscribe(
       () => {

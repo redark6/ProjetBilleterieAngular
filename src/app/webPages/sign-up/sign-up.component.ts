@@ -5,6 +5,7 @@ import {passwordsMatch, ageMatchRange} from '../../specialClass/custom-validator
 import {HandleErrorsService} from '../../specialClass/handle-errors.service';
 import {UserService} from '../../services/user.service';
 import {MyErrorStateMatcher} from '../../specialClass/my-error-state-matcher';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -18,9 +19,10 @@ export class SignUpComponent implements OnInit {
   registerError = false;
   matcher = new MyErrorStateMatcher();
   roles: string[] = ['Organisateur', 'Participant'];
+  closeResult = '';
 
   // tslint:disable-next-line:max-line-length
-  constructor(private user: UserService, private router: Router, private formBuilder: FormBuilder, private error: HandleErrorsService) {
+  constructor(private user: UserService, private router: Router, private modalService: NgbModal, private formBuilder: FormBuilder, private error: HandleErrorsService) {
 
   }
 
@@ -70,7 +72,10 @@ export class SignUpComponent implements OnInit {
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(16)
-        ])]
+        ])],
+        useTerms: ['', Validators.compose([
+        Validators.required
+      ])]
       }, {
         validator: passwordsMatch('password', 'passwordConfirm')
       }
@@ -109,6 +114,10 @@ export class SignUpComponent implements OnInit {
     return this.registerForm.get('passwordConfirm');
   }
 
+  get useTerms(): AbstractControl {
+    return this.registerForm.get('useTerms');
+  }
+
   addUser(): void {
     this.user.register(this.registerForm.value);
   }
@@ -138,6 +147,30 @@ export class SignUpComponent implements OnInit {
     this.registerForm.get('birthDate').setValue(convertDate, {
       onlyself: true
     });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  open(content): void {
+
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      this.useTerms.setValue(true);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  printDebug(event: MouseEvent): void {
+    event.preventDefault();
   }
 
 }
