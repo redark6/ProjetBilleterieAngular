@@ -94,7 +94,8 @@
           <nz-rate [(ngModel)]="value2" [nzAllowClear]="false" (click)="rate()"></nz-rate>
         </div>
         <div class="col-sm">
-          <p class="font-italic">{{value*20}}% des utilisateurs ont aimé cet évènement</p>
+          <p>Note des utilisateurs </p>
+          <nz-rate [(ngModel)]="value" [nzAllowClear]="false" nzAllowHalf nzDisabled></nz-rate>
         </div>
       </div>
     </div>

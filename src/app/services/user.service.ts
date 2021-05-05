@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../modeles/user';
 import {CookieService} from 'ngx-cookie-service';
+import {Organiser} from '../modeles/organiser';
 
 interface ReturnedErrors{
   errors: object;
@@ -70,6 +71,10 @@ export class UserService {
     return this.httpClient.get<User>('http://localhost:8080/user/logeduser');
   }
 
+  getOrganiserrProfil(): Observable<Organiser>{
+    return this.httpClient.get<Organiser>('http://localhost:8080/user/logedorganiser');
+  }
+
  patch(value: object): void{
     this.httpClient.patch('http://localhost:8080/user/patch', value).subscribe(
       () => {
@@ -80,6 +85,17 @@ export class UserService {
       }
     );
  }
+
+  patchOrganiser(value: object): void{
+    this.httpClient.patch('http://localhost:8080/user/patchOrganiser', value).subscribe(
+      () => {
+        console.log('oui');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   isSessionValid(): void{
     this.httpClient.get('http://localhost:8080/user/sessionvalid').subscribe(

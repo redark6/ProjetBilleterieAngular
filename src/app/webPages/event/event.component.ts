@@ -42,8 +42,10 @@ export class EventComponent implements OnInit {
       this.userProfilInfos = user;
     });
 
-    this.eventService.getUserRating(this.activatedRoute.snapshot.params.id, this.userProfilInfos.email).subscribe(value2 => {
-      if (value2 === null ){
+
+
+    this.eventService.getUserRating(this.activatedRoute.snapshot.params.id).subscribe(value2 => {
+      if (value2 === null){
           this.value2 = 0;
       }
       else{

@@ -58,7 +58,7 @@ export class EventService {
     this.searchEvent.next(searchResult);
   }
 
-  getUserRating(id: any, email: string): Observable<number> {
-    return this.httpClient.get<number>(`http://localhost:8080/rate/${id}/${email}`);
+  getUserRating(id: number): Observable<number> {
+    return this.httpClient.get<number>(`http://localhost:8080/rate/userRating/${id}`);
   }
 }

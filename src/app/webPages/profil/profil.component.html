@@ -4,31 +4,35 @@
     <div class="row mb-4">
       <div class="col-lg-3 col-md-12 text-center">
         <img src="assets/images/logocsid.svg" class="rounded-circle bg-blue" alt="Cinque Terre" width="200" height="200">
+        <button class="buttonupgrade" (click)="openUpgradeOrganiser(content2)" *ngIf="authority == 'USER' "  >
+          <i class="fas fa-angle-double-up"></i> Devenir Organisateur
+        </button>
       </div>
+
+
+
       <div class="col-lg-1">
 
       </div>
       <div class="col-lg-8 col-md-0 bg-grey shadow">
        <div class="row">
-        <div class="col-lg-11 col-md-11 col-sm-11">
-        <h1>{{userProfilInfos.userName}}</h1>
+        <div class="col-lg-8 col-md-11 col-sm-11">
+        <h2>Profil de {{userProfilInfos.userName}}</h2>
         </div>
 
-         <div class="col-lg-1 col-md-1 col-sm-1 cog mt-2">
-           <button class="buttoncog" (click)="open(content)">
-          <i class="fas fa-cog fa-2x"></i>
+         <div class="col-lg-4 col-md-1 col-sm-1 cog mt-2">
+           <button class="buttonedit offset-md-2" (click)="open(content)">
+             <i class="fas fa-edit"></i>Editer le profil
            </button>
-           <button class="buttoncog" (click)="openUpgradeOrganiser(content2)">
-             <i class="fas fa-cog fa-2x"></i>
-           </button>
+
         </div>
 
 
        </div>
-        <p>{{userProfilInfos.firstName}}</p>
-        <p>{{userProfilInfos.lastName}}</p>
-        <p>{{userProfilInfos.birthDate}}</p>
-        <p>{{userProfilInfos.createdDate}}</p>
+        <p class="font-weight-bold">Prenom : {{userProfilInfos.firstName}}</p>
+        <p class="font-weight-bold">Nom : {{userProfilInfos.lastName }}</p>
+        <p class="font-weight-bold">Date de naissance : {{userProfilInfos.birthDate | date:'longDate'}}</p>
+        <p class="font-weight-bold">A rejoit &ticket'heure le {{userProfilInfos.createdDate | date:'longDate'}}</p>
       </div>
 
     </div>
@@ -63,14 +67,19 @@
   </div>
 
   <ng-template #content let-modal>
-    <div class="modal-header">
+    <nav class="nav nav-tabs">
+      <a class="nav-item nav-link active" href="#p1" data-toggle="tab">Profil</a>
+      <a class="nav-item nav-link" href="#p2" data-toggle="tab">Organisateur</a>
+    </nav>
+    <div class="modal-header" >
       <h4 class="modal-title" id="modal-basic-title">Modifier le profil</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-
-    <div class="modal-body" [formGroup]="updateProfilForm">
+    <div class="tab-content">
+      <div class="tab-pane active" id="p1">
+    <div class="modal-body" [formGroup]="updateProfilForm"  >
 
         <div class="mx-5">
 
@@ -110,21 +119,50 @@
           </div>
 
 
-          <div class="mb-3">
-            <input [class.is-invalid] = "updateProfilForm.get('birthDate').invalid && updateProfilForm.get('birthDate').touched"
-                   type="date" class="form-control" formControlName="birthDate"/>
-            <div *ngIf="(birthDate.invalid && birthDate.touched) || birthDate.dirty">
-              <small *ngIf="birthDate.errors?.required" class="text-danger">Ce champ est requis</small>
-              <small *ngIf="birthDate.errors?.birthDateInvalid ||birthDate.errors?.incorrect" class="text-danger">Vous devez avoir entre 18 et 122 ans</small>
 
-            </div>
-          </div>
 
         </div>
       </div>
 
+
+
     <div class="modal-footer">
       <button [disabled]="updateProfilForm.invalid" type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click');">Enregistrer</button>
+    </div>
+      </div>
+
+      <div class="tab-pane" id="p2">
+        <div class="modal-header" >
+          <h4 class="modal-title" id="modal-basic-title2">Modifier les infos professionneles</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    <div class="modal-body" [formGroup]="updateOrganiserForm">
+      <div >
+        <input
+          type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
+        <input
+          type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
+        <input
+          type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
+        <input
+          type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
+        <input
+          type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
+        <input
+          type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
+        <input
+          type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
+        <input
+          type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="updateProfilForm.invalid" type="submit" class="btn btn-outline-primary" (click)="updateOrganiser() && modal.close('Save click')">Enregistrer</button>
+      </div>
+    </div>
+
+        </div>
     </div>
   </ng-template>
 
@@ -142,30 +180,22 @@
       <div class="mx-5">
 
         <div class="row">
-          <div class="col-md-6 mb-3">
-            <input type="text" class="form-control" formControlName="jobTitle"  placeholder="Job Title"/>
-
-          </div>
-          <div class="col-md-6 mb-3">
-            <input  type="text" class="form-control" formControlName="phoneNumber" placeholder="Phone number"/>
-
-        </div>
-
-        <div class="mb-3">
-          <div class="input-group">
-            <input type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Website"/>
-          </div>
-
-        </div>
-          <input type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Website"/>
-          <input type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Company"/>
-          <input type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
-          <input type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="proAddress"/>
-          <input type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="proCity"/>
-          <input type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="proCountry"/>
-
-
-
+            <input
+              type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
+            <input
+                    type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
+            <input
+                   type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
+            <input
+                 type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
+            <input
+                 type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
+            <input
+                 type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
+             <input
+                 type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
+             <input
+                 type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
       </div>
     </div>
 

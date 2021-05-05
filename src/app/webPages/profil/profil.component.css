@@ -6,7 +6,13 @@
 .cog{
 }
 
-.buttoncog{
+.buttonedit{
   border: none;
   background-color: #f4f4f4d4;
 }
+
+.buttonupgrade{
+  border: none;
+  background-color: #f4f4f4d4;
+}
+
