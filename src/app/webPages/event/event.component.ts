@@ -2,12 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Event} from '../../modeles/event';
 import {EventService} from '../../services/event.service';
 import {ActivatedRoute} from '@angular/router';
-import {NzRateModule} from 'ng-zorro-antd/rate';
 import {Rating} from '../../modeles/rating';
 import {User} from '../../modeles/user';
 import {UserService} from '../../services/user.service';
-import {Observable} from 'rxjs';
-import {EventResolver} from './event-resolver';
 
 @Component({
   selector: 'app-event',
@@ -20,8 +17,8 @@ export class EventComponent implements OnInit {
   public value: number;
   public value2: number;
   public rating: Rating;
+  public eventId: number;
   public userProfilInfos: User;
-
 
   constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute) {
   }
@@ -30,16 +27,17 @@ export class EventComponent implements OnInit {
 
     this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
 
+    this.eventId = this.activatedRoute.snapshot.params.id;
+
     //this.eventService.get(this.activatedRoute.snapshot.params.id).subscribe(event => {
       //this.event = event;
     //});
-
 
     this.eventService.getRating(this.activatedRoute.snapshot.params.id).subscribe(value => {
       this.value = value;
     });
 
-    this.userProfilInfos = new User('', '', new Date(), '', '', new Date());
+    //this.userProfilInfos = new User('', '', new Date(), '', '', new Date());
     this.user.getUserProfil().subscribe(user => {
       this.userProfilInfos = user;
     });

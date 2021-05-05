@@ -22,7 +22,7 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userProfilInfos = new User('', '', new Date(), '', '', new Date());
+    //this.userProfilInfos = new User('', '', new Date(), '', '', new Date());
     this.user.getUserProfil().subscribe(user => {
       this.userProfilInfos = user;
     });
@@ -164,4 +164,19 @@ export class ProfilComponent implements OnInit {
   }
 
 
+  callInput(): void {
+    document.getElementById('profilPictureInput').click();
+  }
+
+  onFileChanged(event): void {
+    const file = event.target.files[0];
+    this.user.patchProfilPicture(file).subscribe(
+      value => {
+          document.getElementById('profilPicture').setAttribute('src', value.profilPicture);
+
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
 }
