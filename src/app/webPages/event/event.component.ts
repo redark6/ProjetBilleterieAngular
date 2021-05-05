@@ -29,21 +29,16 @@ export class EventComponent implements OnInit {
 
     this.eventId = this.activatedRoute.snapshot.params.id;
 
-    //this.eventService.get(this.activatedRoute.snapshot.params.id).subscribe(event => {
-      //this.event = event;
-    //});
-
     this.eventService.getRating(this.activatedRoute.snapshot.params.id).subscribe(value => {
       this.value = value;
     });
 
-    //this.userProfilInfos = new User('', '', new Date(), '', '', new Date());
     this.user.getUserProfil().subscribe(user => {
       this.userProfilInfos = user;
     });
 
     if (this.user){
-      this.eventService.getUserRating(this.activatedRoute.snapshot.params.id, this.userProfilInfos.email).subscribe(value2 => {
+      this.eventService.getUserRating(this.activatedRoute.snapshot.params.id, 'tyu@tyu.com').subscribe(value2 => {
         if (value2 === null ){
           this.value2 = 0;
         }

@@ -60,4 +60,8 @@ export class EventFormComponent implements OnInit {
     }
   }
 
+  callInput(): void {
+    document.getElementById('EventPictureInput').click();
+  }
+
 }
