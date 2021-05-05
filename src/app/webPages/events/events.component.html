@@ -13,7 +13,7 @@
         <div class="row ">
             <div class="col-12">
               <div *ngIf="searchState == 'notfound'" class="w-100 h-100 ">
-                <span class="h2">Aucun resultat n'a été trouver pour votre recherche</span>
+                <span class="h2">Aucun résultat n'a été trouvé pour votre recherche</span>
               </div>
               <div *ngIf="searchState == 'found'" class="w-100 pb-2">
                 <span class="h2">{{searchResult.numberFound}} {{searchLentgh >1 ? 'résultats ont' : 'resultat a' }} été trouver pour votre recherche {{searchResult.searched != null && searchResult.searched != '' ? ': "'+searchResult.searched+'"' : '' }} </span>

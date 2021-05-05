@@ -1,10 +1,10 @@
 <div [formGroup]="eventForm" class="container col-10 col-sm-10 col-md-8 col-lg-7 col-xl-5 py-5">
   <div class="mx-5">
-    <h1 class="text-center">Create your Event</h1>
+    <h1 class="text-center">Créez Votre Évènement</h1>
     <div class="bg-grey shadow rounded">
       <div class="col-md-10 mb-3 ml-5 col-lg-10 d-flex justify-content-center">
         <mat-form-field appearance="standard" class="mr-3 c2">
-          <mat-label>Name</mat-label>
+          <mat-label>Nom</mat-label>
           <input matInput formControlName="title">
         </mat-form-field>
       </div>
@@ -59,7 +59,7 @@
         </div>
         <div class="col-md-6 mb-3  d-flex justify-content-center">
           <mat-form-field appearance="standard" class="mr-3 c1">
-            <mat-label>Price</mat-label>
+            <mat-label>Prix</mat-label>
             <input type="number" min="0" max="500" matInput formControlName="price">
           </mat-form-field>
         </div>
@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="d-flex justify-content-center">
-      <button mat-raised-button color="primary" [disabled]="eventForm.invalid" (click)="addEvent()" class="btn btn-block cbutton mb-5" type="submit">Create</button>
+      <button mat-raised-button color="primary" [disabled]="eventForm.invalid" (click)="addEvent()" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
       </div>
     </div>
   </div>
