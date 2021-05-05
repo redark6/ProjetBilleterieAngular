@@ -28,7 +28,7 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userProfilInfos = new User('', '', new Date(), '', '', new Date());
+
     this.user.getUserProfil().subscribe(user => {
       this.userProfilInfos = user;
     });
@@ -38,7 +38,7 @@ export class ProfilComponent implements OnInit {
       this.organiserProfilInfos = organiser;
     });
 
-    this.roleSubscription = this.user.roleListener().subscribe(state =>  {
+    this.roleSubscription = this.user.roleListener().subscribe(state => {
       this.authority = state;
     });
 
@@ -166,13 +166,13 @@ export class ProfilComponent implements OnInit {
 
     this.updateOrganiserForm.setValue({
       jobTitle: this.organiserProfilInfos.jobTitle,
-      phoneNumber : this.organiserProfilInfos.phoneNumber,
-      website : this.organiserProfilInfos.website,
-      company : this.organiserProfilInfos.company,
-      blog : this.organiserProfilInfos.blog,
-      proAddress : this.organiserProfilInfos.proAddress ,
-      proCity : this.organiserProfilInfos.proCity ,
-      proCountry : this.organiserProfilInfos.proCountry,
+      phoneNumber: this.organiserProfilInfos.phoneNumber,
+      website: this.organiserProfilInfos.website,
+      company: this.organiserProfilInfos.company,
+      blog: this.organiserProfilInfos.blog,
+      proAddress: this.organiserProfilInfos.proAddress,
+      proCity: this.organiserProfilInfos.proCity,
+      proCountry: this.organiserProfilInfos.proCountry,
     });
 
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -187,13 +187,13 @@ export class ProfilComponent implements OnInit {
 
     this.upgradeOrganiserForm.setValue({
       jobTitle: '',
-      phoneNumber : '',
-      website : '',
-      company : '',
-      blog : '',
-      proAddress : '' ,
-      proCity : '' ,
-      proCountry : '',
+      phoneNumber: '',
+      website: '',
+      company: '',
+      blog: '',
+      proAddress: '',
+      proCity: '',
+      proCountry: '',
     });
 
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -237,5 +237,21 @@ export class ProfilComponent implements OnInit {
 
   updateOrganiser(): void {
     this.user.patchOrganiser(this.updateOrganiserForm.value);
+  }
+
+  callInput(): void {
+    document.getElementById('profilPictureInput').click();
+  }
+
+  onFileChanged(event): void {
+    const file = event.target.files[0];
+    this.user.patchProfilPicture(file).subscribe(
+      value => {
+        document.getElementById('profilPicture').setAttribute('src', value.profilPicture);
+
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {GlobalParameter} from '../specialClass/global-parameter';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
@@ -27,7 +27,8 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router, private globalVar: GlobalParameter, private cookie: CookieService) { }
 
   login(value: object): void{
-    this.httpClient.post<any>('http://localhost:8080/login', value).subscribe(
+    const parametres = new HttpParams().set('remember-me', 'true' );
+    this.httpClient.post<any>('http://localhost:8080/login', value, {params: parametres}).subscribe(
       () => {
         this.globalVar.isAuthenticate = true;
         this.emitAuthStatus(true);
@@ -98,10 +99,11 @@ export class UserService {
   }
 
   isSessionValid(): void{
-    this.httpClient.get('http://localhost:8080/user/sessionvalid').subscribe(
-      () => {
-        this.globalVar.isAuthenticate = true;
-        this.emitAuthStatus(true);
+    this.httpClient.get<boolean>('http://localhost:8080/user/sessionvalid').subscribe(
+      (value) => {
+        console.log(value);
+        this.globalVar.isAuthenticate = value;
+        this.emitAuthStatus(value);
       },
       (error) => {
         this.globalVar.isAuthenticate = false;
@@ -114,8 +116,12 @@ export class UserService {
   getAuthority(): void{
     this.httpClient.get<Authority>('http://localhost:8080/user/authority').subscribe(
       (authority) => {
-        this.globalVar.userAuthority = authority[0].authority;
-        console.log('authority: ' + authority[0].authority);
+        if (authority[0] !== undefined ){
+          this.globalVar.userAuthority = authority[0].authority;
+        }else{
+          this.globalVar.userAuthority = '';
+        }
+        console.log(this.globalVar.userAuthority);
         this.emitRoleStatus(this.globalVar.userAuthority);
       },
       (error) => {
@@ -124,18 +130,29 @@ export class UserService {
     );
   }
 
+  patchProfilPicture(picture): Observable<User> {
+    const uploadData = new FormData();
+    uploadData.append('myFile', picture, picture.name);
+    return this.httpClient.post<User>('http://localhost:8080/user/patchpicture', uploadData);
+  }
+
 
   emitAuthStatus(state: boolean): void{
     this.authenticateEvent.next(state);
+  }
+
+  authListener(): Observable<any>{
+    return this.authenticateEvent.asObservable();
   }
 
   emitRoleStatus(auth: string): void{
     this.authorityStatus.next(auth);
   }
 
-  authListener(): Observable<any>{
-    return this.authenticateEvent.asObservable();
+  roleListener(): Observable<any>{
+    return this.authorityStatus.asObservable();
   }
+
 
 
   upgradeOrganiser(value: object): void{
@@ -150,9 +167,6 @@ export class UserService {
     );
   }
 
-  roleListener(): Observable<any>{
-    return this.authorityStatus.asObservable();
-  }
 
 }
 

@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {CommentService} from '../../../services/comment.service';
 import {EventComment} from '../../../modeles/eventComment';
-import {Subscription} from 'rxjs';
 import {UserService} from '../../../services/user.service';
 
 import {Router} from '@angular/router';
@@ -16,21 +15,33 @@ export class EventCommentComponent implements OnInit {
   @Input() eventId: number;
   comments: EventComment[];
   isAuthenticate: boolean;
-  authSubscription: Subscription;
-  searchResultSubscription: Subscription;
+  commentOrderBy: string;
+  defaultcommentparam = 'dateAsc';
   constructor(private commentService: CommentService, private  user: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log('start');
-    this.commentService.get(this.eventId);
+    //this.commentService.get(this.eventId, this.parentId.toString(), this.defaultcommentparam);
 
-    this.authSubscription = this.user.authListener().subscribe(state => {
+    this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
     });
 
-    this.searchResultSubscription = this.commentService.searchCommentListener().subscribe(state => {
+    this.commentOrderBy = this.defaultcommentparam;
+    this.refreshComment();
+  }
+
+  private refreshComment(): void {
+    this.commentService.get(this.eventId, this.commentOrderBy);
+    this.commentService.searchCommentListener().subscribe(state => {
       this.comments = state;
-      console.log('ici');
     });
+  }
+
+  public onCommentSent(): void {
+    this.refreshComment();
+  }
+
+  changeOrder($event: any): void {
+    this.refreshComment();
   }
 }

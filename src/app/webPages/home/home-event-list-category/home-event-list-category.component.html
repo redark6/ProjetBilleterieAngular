@@ -1,22 +1,18 @@
-<div>
-  <h3>{{text}}</h3>
-  <div class="row justify-content-start" *ngIf="searchResult">
+<div *ngIf="searchResult && searchResult.length > 0" class="pt-5 ">
+  <div class="row"><h3>{{text}}</h3></div>
 
-    <div *ngFor="let number of searchResult" class="col-lg-3 col-md-6 col-12 my-3">
-      <app-home-event-card [event]="number"></app-home-event-card>
-    </div>
+  <div style="display: flex;" class="justify-content-between container">
+    <div id="{{identifiant + 'leftbar'}}" class="borderlimit "></div>
 
-    <div class="row justify-content-start collapse" id="{{identifiant}}">
-      <div *ngFor="let number of searchResult" class="col-lg-3 col-md-6 col-12 my-3">
-        <app-home-event-card [event]="number"></app-home-event-card>
+    <div id="{{identifiant}}"  class="scrolling-wrapper scrolling-wrapper-flexbox container" (mousedown)="fn($event)" >
+
+      <div *ngFor="let event of searchResult" class=" col-xl-3 col-lg-4 col-md-6 col-6  my-3 ">
+        <app-home-event-card [event]="event"></app-home-event-card>
       </div>
+
     </div>
-    <div class="col text-center">
-      <button class="btn btn-primary" type="button" data-toggle="collapse" [attr.data-target]="idtarget" >
-        Button with data-target
-      </button>
-    </div>
+    <div id="{{identifiant + 'rightbar'}}" class="borderlimit "  ></div>
 
   </div>
-
+<span>{{this.initialize()}}</span>
 </div>

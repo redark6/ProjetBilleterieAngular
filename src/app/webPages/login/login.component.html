@@ -14,7 +14,7 @@
       <mat-error *ngIf="email.errors?.pattern">Veuillez entrer un email valide</mat-error>
     </mat-form-field>
   </div>
-  <div class="form-group ">
+  <div class="form-group pb-4 ">
 
     <mat-form-field appearance="legacy" >
       <mat-label>Mot de passe</mat-label>
@@ -23,9 +23,7 @@
     </mat-form-field>
 
   </div>
-   <div class="form-group">
-     <mat-checkbox color="primary" class="example-margin">rester connecté</mat-checkbox>
-   </div>
+
    <hr/>
   <div>
     <button mat-raised-button color="primary" [disabled]="loginForm.invalid" (click)="login()" type="submit" class="btn btn-block">Connexion</button>

@@ -91,11 +91,50 @@
       </div>
 
       <div class="form-group">
-        <mat-checkbox color="primary" class="example-margin">Accepter les conditions</mat-checkbox>
-      </div>
-      <hr/>
+        <mat-form-field appearance="legacy" >
+          <input matInput [hidden]="true" name="myModel">
+          <mat-checkbox matInput color="primary" formControlName="useTerms" class="example-margin">
+            <span (click)="printDebug($event)" (mousedown)="$event.stopPropagation()">Accepter les <a (click)="open(content)">conditions</a></span>
+          </mat-checkbox>
+          <mat-error *ngIf="useTerms.errors?.required">Ce champ est requis</mat-error>
+        </mat-form-field>
 
-      <button mat-raised-button color="primary" [disabled]="registerForm.invalid" (click)="addUser()" class="btn btn-block" type="submit">S'inscrire</button>
+      </div>
+
+
+      <button mat-raised-button color="primary" [disabled]="registerForm.invalid || useTerms.value !== true" (click)="addUser()" class="btn btn-block" type="submit">S'inscrire</button>
 
     </div>
   </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Conditions d'utilisation</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="mx-5">
+
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies porta pharetra. Sed et mi hendrerit, pharetra sem vel, suscipit ex. Nunc ante ante, iaculis id elit quis, egestas rutrum justo. Suspendisse aliquam dolor sed imperdiet placerat. Ut ut interdum erat. Donec porta a nibh et interdum. Sed id cursus justo. Aenean scelerisque sapien vitae metus ornare commodo. Integer ac dolor non dui scelerisque mollis. Vivamus id dui risus.
+        </p>
+        <p>
+          Phasellus vel augue sollicitudin, consectetur odio et, venenatis lacus. Suspendisse venenatis sit amet orci non condimentum. Donec nisl turpis, sagittis sit amet vulputate ac, viverra id velit. Donec venenatis odio eget massa convallis ultricies. Phasellus iaculis, purus eget scelerisque tincidunt, tortor risus viverra arcu, eget accumsan ex leo porttitor ex. In posuere dui sed leo consectetur sodales. Curabitur est nisl, egestas quis sapien in, auctor elementum orci. Mauris dignissim ultrices mollis. Proin non pellentesque erat, eget hendrerit purus.
+        </p>
+        <p>
+          Pellentesque porta volutpat hendrerit. Proin nibh velit, ultricies ac aliquam vel, semper sit amet ante. Nam semper odio sem, at maximus leo fringilla ut. Aenean at fringilla magna. Sed a pharetra justo, sit amet suscipit augue. Nullam at elit lacus. Nunc odio enim, pellentesque nec mollis ullamcorper, facilisis sit amet ipsum. Quisque semper purus in accumsan vehicula. Nullam viverra nunc ipsum, nec pretium augue imperdiet id. Sed non dolor a nisi placerat lobortis eget quis ante. Suspendisse consequat lobortis nulla sit amet fringilla. Suspendisse potenti. Vestibulum in nisl urna. Mauris nec condimentum sapien. Morbi mollis sit amet magna et tempor.
+        </p>
+        <p>
+          Nunc bibendum sit amet nunc at aliquam. Praesent commodo sagittis facilisis. Duis tristique tincidunt mollis. Pellentesque accumsan euismod massa, nec semper sem pulvinar vel. Duis maximus quam sit amet sapien dignissim, hendrerit dapibus tortor placerat. Nullam condimentum bibendum quam, eu euismod ipsum porttitor vel. Nam sit amet ligula quis dolor tempus fermentum sit amet vestibulum ex. Ut tincidunt arcu ac eros finibus molestie. Sed posuere, eros a eleifend luctus, nisi urna consectetur justo, in viverra neque nisi a ex. Vivamus id porta ipsum. Morbi euismod ipsum a gravida bibendum. Cras non tellus vulputate, pharetra diam ut, tristique nunc. Cras viverra tincidunt massa, id ullamcorper odio sagittis eu. Vestibulum euismod cursus felis, laoreet lobortis odio vestibulum vitae. Proin gravida aliquam iaculis. Cras porttitor iaculis viverra.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click');">Accepter les conditions</button>
+      </div>
+    </div>
+
+
+  </ng-template>

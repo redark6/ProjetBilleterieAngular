@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {EventComment} from '../../../../modeles/eventComment';
 
 @Component({
@@ -9,6 +9,8 @@ import {EventComment} from '../../../../modeles/eventComment';
 export class CommentListComponent implements OnInit, OnChanges {
   @Input() comments: EventComment[];
   @Input() isAuthenticate: boolean;
+  @Input() eventId: number;
+  @Output()childresponse: EventEmitter<void> = new EventEmitter<void>();
   commentList: EventComment[];
 
   ngOnInit(): void {
@@ -23,5 +25,9 @@ export class CommentListComponent implements OnInit, OnChanges {
       this.commentList = changes.comments.currentValue;
       console.log(this.commentList);
     }
+  }
+
+  childresponsefunc(): void {
+    this.childresponse.emit();
   }
 }

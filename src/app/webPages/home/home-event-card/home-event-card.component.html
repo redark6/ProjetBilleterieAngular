@@ -1,6 +1,7 @@
-<a routerLink="/event/{{event.id}}" class="d-flex justify-content-center">
-  <div  class="card "  >
-    <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
+<a class=" justify-content-center">
+  <span class="" (mousedown)="downhandler($event)" (mouseup)="uphandler($event)" >
+  <div  class="card w-100 h-100 my-0 mx-0"  >
+    <img class="card-img-top"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
     <div class="card-body p-2">
       <h5 class="crop-title card-text">{{event.title}}</h5>
       <div class="row">
@@ -8,10 +9,11 @@
           <div class="card-text">{{categories[event.category]}}</div>
           <div class="card-text">{{event.region}}</div>
         </div>
-        <div class=" col-5">
+        <div class="col-5 pl-0 ">
           <button type="button" class="btn btn-block bg-blue mt-3 text-white" style="opacity: 0.8;" disabled>{{event.price + ' €'}}</button>
         </div>
       </div>
     </div>
   </div>
+  </span>
 </a>

@@ -1,17 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { formatDistance } from 'date-fns';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommentService} from '../../../../services/comment.service';
 import {Router} from '@angular/router';
+import { EventEmitter } from '@angular/core';
+
 @Component({
   selector: 'app-comment-writer',
   templateUrl: './comment-writer.component.html',
   styleUrls: ['./comment-writer.component.css']
 })
 export class CommentWriterComponent implements OnInit {
-  @Input() parentComment: string;
-  @Input() eventId: string;
+  @Input() parentComment: number;
+  @Input() eventId: number;
   @Input() isAuthenticate: boolean;
+  @Output() commentSent = new EventEmitter<void>();
   commentForm: FormGroup;
   inputValue = '';
   placeholder: string;
@@ -33,7 +35,7 @@ export class CommentWriterComponent implements OnInit {
         Validators.maxLength(500)
       ])]
     });
-    if (this.isAuthenticate){
+    if (this.isAuthenticate === true){
       this.placeholder = 'Votre message en 1 à 500 caractères';
     }
     else {
@@ -45,14 +47,16 @@ export class CommentWriterComponent implements OnInit {
     console.log(this.isAuthenticate);
     this.commentForm.get('comment').setValue(this.inputValue);
     this.commentForm.get('eventId').setValue(this.eventId);
+
     this.commentService.post(this.commentForm.value).subscribe(value => {
-      console.log(value);
-      this.reloadCurrentRoute();
+        this.commentSent.emit();
+        this.inputValue = '';
     },
       error => {
       console.log(error);
       });
   }
+
   reloadCurrentRoute(): void {
     const currentUrl = this.router.url;
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
@@ -60,5 +64,6 @@ export class CommentWriterComponent implements OnInit {
       console.log(currentUrl);
     });
   }
+
 }
 

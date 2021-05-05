@@ -1,6 +1,20 @@
 <div>
-  <app-comment-writer [eventId]="eventId" [isAuthenticate]="isAuthenticate"></app-comment-writer>
+  <app-comment-writer [eventId]="eventId" [isAuthenticate]="isAuthenticate" (commentSent)="onCommentSent()"></app-comment-writer>
+
+  <div>
+    <span>Les commentaires : </span>
+
+      <mat-form-field appearance="legacy">
+        <mat-select [(ngModel)]="commentOrderBy" (ngModelChange)="changeOrder($event)" [(value)]="defaultcommentparam">
+          <mat-option [value]="'dateAsc'">Les plus récent</mat-option>
+          <mat-option [value]="'dateDesc'">Les plus ancien</mat-option>
+          <mat-option [value]="'likeAsc'">Les plus liké</mat-option>
+
+        </mat-select>
+      </mat-form-field>
+
+  <hr>
   <div *ngIf="comments">
-    <app-comment-list [comments]="comments" [isAuthenticate]="isAuthenticate"></app-comment-list>
+    <app-comment-list [eventId]="eventId" [comments]="comments" [isAuthenticate]="isAuthenticate" (childresponse)="onCommentSent()"></app-comment-list>
   </div>
 </div>
