@@ -114,6 +114,12 @@ export class UserService {
     );
   }
 
+  patchProfilPicture(picture): Observable<User> {
+    const uploadData = new FormData();
+    uploadData.append('myFile', picture, picture.name);
+    return this.httpClient.post<User>('http://localhost:8080/user/patchpicture', uploadData);
+  }
+
 
   emitAuthStatus(state: boolean): void{
     this.authenticateEvent.next(state);

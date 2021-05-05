@@ -3,7 +3,8 @@
 
     <div class="row mb-4">
       <div class="col-lg-3 col-md-12 text-center">
-        <img src="assets/images/logocsid.svg" class="rounded-circle bg-blue" alt="Cinque Terre" width="200" height="200">
+        <input type="file" id="profilPictureInput"  accept="image/x-png,image/gif,image/jpeg"  (change)="onFileChanged($event)" style="display: none">
+        <img src="{{userProfilInfos.profilPicture != null ? userProfilInfos.profilPicture : 'assets/images/logocsid.svg' }}" id="profilPicture" class="rounded-circle bg-blue" alt="Cinque Terre" width="200" height="200" (click)="callInput()" style="cursor: pointer">
       </div>
       <div class="col-lg-1">
 
