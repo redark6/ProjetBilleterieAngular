@@ -2,15 +2,13 @@ export class EventImage{
 
    private _id: number;
    private _eventid: number;
-   private _image: FormData;
+   private _image: any;
 
 
   constructor(id: number, eventid: number, image: any) {
     this._id = id;
     this._eventid = eventid;
-    this._image = new FormData();
-    this._image.append('EventImage', image, image.name);
-    console.log(this._image.get('EventImage'));
+    this._image = image;
   }
 
   get id(): number {

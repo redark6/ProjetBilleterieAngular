@@ -51,9 +51,9 @@ export class EventService {
     return this.httpClient.post<Event>('http://localhost:8080/event/create', value);
   }
 
-  sendImage(eventImage: EventImage): void{
-    console.log(eventImage.image);
-    this.httpClient.post<any>('http://localhost:8080/event/eventimagepost', eventImage).subscribe(() => {
+  sendImage(form): void{
+    //console.log(eventImage.image);
+    this.httpClient.post<any>('http://localhost:8080/event/eventimagepost', form).subscribe(() => {
       return null;
       },
       (error) => {

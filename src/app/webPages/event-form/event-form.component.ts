@@ -61,9 +61,12 @@ export class EventFormComponent implements OnInit {
   }
 
   addImage(imageURL: any, id: number): void{
-    const eventImage =  new EventImage(1, id , imageURL);
-    console.log(imageURL);
-    this.eventService.sendImage(eventImage);
+    const form = new FormData();
+    form.append('imageFile', imageURL);
+    form.append('eventId', id.toString());
+    //const eventImage =  new EventImage(1, id , imageURL);
+    //console.log(imageURL);
+    this.eventService.sendImage(form);
   }
 
   sanitizeDate(inputForm): void {
