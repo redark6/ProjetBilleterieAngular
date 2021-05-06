@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EventService} from '../../services/event.service';
+import {Router} from '@angular/router';
+import {EventImage} from '../../modeles/eventImage';
 
 @Component({
   selector: 'app-event-form',
@@ -9,7 +11,9 @@ import {EventService} from '../../services/event.service';
 })
 export class EventFormComponent implements OnInit {
   eventForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private eventService: EventService) { }
+  imageURL: any;
+  public imagePath: any;
+  constructor(private formBuilder: FormBuilder, private eventService: EventService, private router: Router) { }
 
   ngOnInit(): void {
     this.eventForm = this.formBuilder.group({
@@ -45,10 +49,21 @@ export class EventFormComponent implements OnInit {
     });
   }
 
-  addEvent(): void{
+  addEvent(imageURL: any): void{
     this.sanitizeDate('startDate');
     this.sanitizeDate('endDate');
-    this.eventService.createEvent(this.eventForm.value);
+    this.eventService.createEvent(this.eventForm.value).subscribe((data) => {
+        // this.router.navigate(['home']);
+        this.addImage(this.imagePath.target.files[0], data.id);
+      },
+    );
+
+  }
+
+  addImage(imageURL: any, id: number): void{
+    const eventImage =  new EventImage(1, id , imageURL);
+    console.log(imageURL);
+    this.eventService.sendImage(eventImage);
   }
 
   sanitizeDate(inputForm): void {
@@ -64,4 +79,14 @@ export class EventFormComponent implements OnInit {
     document.getElementById('EventPictureInput').click();
   }
 
+  onImageChange(files): void {
+    const reader = new FileReader();
+    this.imagePath = files;
+    if (files.target.files[0]) {
+      reader.readAsDataURL(files.target.files[0]);
+    }
+    reader.onload = (_event) => {
+      this.imageURL = reader.result;
+    };
+  }
 }

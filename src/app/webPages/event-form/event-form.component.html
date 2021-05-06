@@ -70,8 +70,13 @@
           </mat-form-field>
         </div>
       </div>
+      <input type="file" id="EventPictureInput"  accept="image/x-png,image/gif,image/jpeg" (change)="onImageChange($event)" style="display: none">
+      <img src="{{imageURL}}" height="200" *ngIf="imageURL" style="margin-left: auto; margin-right: auto;margin-bottom: 20px; display: block">
       <div class="d-flex justify-content-center">
-      <button mat-raised-button color="primary" [disabled]="eventForm.invalid" (click)="addEvent()" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
+        <button  id="EventInput" mat-raised-button color="primary" (click)="callInput()" class="btn btn-block cbutton mb-5" type="file">Ajouter des images</button>
+      </div>
+      <div class="d-flex justify-content-center">
+      <button mat-raised-button color="primary" [disabled]="eventForm.invalid" (click)="addEvent(imageURL)" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
       </div>
     </div>
   </div>

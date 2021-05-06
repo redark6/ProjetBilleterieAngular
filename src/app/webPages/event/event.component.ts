@@ -37,9 +37,8 @@ export class EventComponent implements OnInit {
       this.userProfilInfos = user;
     });
 
-    if (this.user){
-      this.eventService.getUserRating(this.activatedRoute.snapshot.params.id, 'tyu@tyu.com').subscribe(value2 => {
-        if (value2 === null ){
+    this.eventService.getUserRating(this.activatedRoute.snapshot.params.id).subscribe(value2 => {
+      if (value2 === null){
           this.value2 = 0;
         }
         else{
@@ -47,13 +46,8 @@ export class EventComponent implements OnInit {
         }
       });
     }
-    else {
-      this.value2 = 0;
-    }
 
-  }
-
-  rate(): void{
+    rate(): void{
     this.rating = new Rating(this.activatedRoute.snapshot.params.id, this.userProfilInfos.email, this.value2);
     this.eventService.rate(this.rating);
     this.event = this.activatedRoute.snapshot.data.event;

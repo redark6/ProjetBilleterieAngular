@@ -4,6 +4,7 @@ import {Event} from '../modeles/event';
 import {SearchResult} from '../modeles/searchResult';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {EventImage} from '../modeles/eventImage';
 
 @Injectable({
   providedIn: 'root'
@@ -46,12 +47,19 @@ export class EventService {
       }
     );
   }
-  createEvent(value: object): void{
-    this.httpClient.post<any>('http://localhost:8080/event/create', value).subscribe(() => {
-      return this.router.navigate(['home']);
-      },
-      );
+  createEvent(value: object): Observable<Event>{
+    return this.httpClient.post<Event>('http://localhost:8080/event/create', value);
+  }
 
+  sendImage(eventImage: EventImage): void{
+    console.log(eventImage.image);
+    this.httpClient.post<any>('http://localhost:8080/event/eventimagepost', eventImage).subscribe(() => {
+      return null;
+      },
+      (error) => {
+      console.log(error);
+
+    });
   }
 
   searchListener(): Observable<SearchResult>{
@@ -62,7 +70,7 @@ export class EventService {
     this.searchEvent.next(searchResult);
   }
 
-  getUserRating(id: any, email: string): Observable<number> {
-    return this.httpClient.get<number>(`http://localhost:8080/rate/${id}/${email}`);
+  getUserRating(id: number): Observable<number> {
+    return this.httpClient.get<number>(`http://localhost:8080/rate/userRating/${id}`);
   }
 }
