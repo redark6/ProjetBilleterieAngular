@@ -6,6 +6,7 @@ import {Rating} from '../../modeles/rating';
 import {User} from '../../modeles/user';
 import {UserService} from '../../services/user.service';
 import {GlobalParameter} from '../../specialClass/global-parameter';
+import {EventImage} from '../../modeles/eventImage';
 
 @Component({
   selector: 'app-event',
@@ -21,6 +22,8 @@ export class EventComponent implements OnInit {
   public eventId: number;
   public userProfilInfos: User;
   public region: string;
+  public eventImage: any;
+  public eventImageByte: string;
 
   categories: string[] = [
     'none',
@@ -55,6 +58,13 @@ export class EventComponent implements OnInit {
           this.value2 = value2;
         }
       });
+
+    console.log('AVANT CALL');
+    this.eventService.getImage(this.eventId).subscribe((image) => {
+      console.log('a linterieur');
+      console.log(image.image);
+      this.eventImage = image.image;
+    });
     }
 
     rate(): void{
