@@ -2,10 +2,10 @@ export class EventImage{
 
    private _id: number;
    private _eventid: number;
-   private _image: any;
+   private _image: string;
 
 
-  constructor(id: number, eventid: number, image: any) {
+  constructor(id: number, eventid: number, image: string) {
     this._id = id;
     this._eventid = eventid;
     this._image = image;
@@ -27,11 +27,11 @@ export class EventImage{
     this._eventid = value;
   }
 
-  get image(): any {
+  get image(): string {
     return this._image;
   }
 
-  set image(value: any) {
+  set image(value: string) {
     this._image = value;
   }
 }

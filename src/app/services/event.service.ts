@@ -52,7 +52,7 @@ export class EventService {
   }
 
   sendImage(form): void{
-    //console.log(eventImage.image);
+    // console.log(eventImage.image);
     this.httpClient.post<any>('http://localhost:8080/event/eventimagepost', form).subscribe(() => {
       return null;
       },
@@ -60,6 +60,12 @@ export class EventService {
       console.log(error);
 
     });
+  }
+
+  getImage(eventId: number): Observable<any>{
+    const parametres = new HttpParams().set('eventId', eventId.toString() );
+    console.log('Dans GET IMAGE');
+    return this.httpClient.get<any>(`http://localhost:8080/event/eventimageget`, {params: parametres});
   }
 
   searchListener(): Observable<SearchResult>{

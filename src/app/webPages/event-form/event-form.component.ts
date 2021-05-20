@@ -64,8 +64,8 @@ export class EventFormComponent implements OnInit {
     const form = new FormData();
     form.append('imageFile', imageURL);
     form.append('eventId', id.toString());
-    //const eventImage =  new EventImage(1, id , imageURL);
-    //console.log(imageURL);
+    // const eventImage =  new EventImage(1, id , imageURL);
+    // console.log(imageURL);
     this.eventService.sendImage(form);
   }
 
