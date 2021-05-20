@@ -4,7 +4,9 @@ import {Event} from '../modeles/event';
 import {SearchResult} from '../modeles/searchResult';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {EventImage} from '../modeles/eventImage';
 import {environment} from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,10 @@ export class EventService {
     );
   }
 
+  searchEventsForHome(params: HttpParams): Observable<SearchResult> {
+    return this.httpClient.get<SearchResult>(`http://localhost:8080/event/search`, {params});
+  }
+
   rate(rating: object): void {
     this.httpClient.post<any>(environment.apiUrl + `/rate`, rating).subscribe(
       () => {
@@ -43,12 +49,27 @@ export class EventService {
       }
     );
   }
-  createEvent(value: object): void{
-    this.httpClient.post<any>(environment.apiUrl + '/event/create', value).subscribe(() => {
-      return this.router.navigate(['home']);
-      },
-      );
 
+  createEvent(value: object): Observable<Event>{
+    return this.httpClient.post<Event>(environment.apiUrl + '/event/create', value);
+  }
+
+  sendImage(form): void{
+    // console.log(eventImage.image);
+    this.httpClient.post<any>((environment.apiUrl +  '/event/eventimagepost', form).subscribe(() => {
+      return null;
+
+      },
+      (error) => {
+      console.log(error);
+
+    });
+  }
+
+  getImage(eventId: number): Observable<any>{
+    const parametres = new HttpParams().set('eventId', eventId.toString() );
+    console.log('Dans GET IMAGE');
+    return this.httpClient.get<any>(`http://localhost:8080/event/eventimageget`, {params: parametres});
   }
 
   searchListener(): Observable<SearchResult>{
@@ -59,7 +80,8 @@ export class EventService {
     this.searchEvent.next(searchResult);
   }
 
-  getUserRating(id: any, email: string): Observable<number> {
-    return this.httpClient.get<number>(environment.apiUrl + `/rate/${id}/${email}`);
+  getUserRating(id: number): Observable<number> {
+    return this.httpClient.get<number>(`http://localhost:8080/rate/userRating/${id}`);
+
   }
 }

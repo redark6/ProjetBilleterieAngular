@@ -1,0 +1,24 @@
+
+<div  id="test" class="scrolling-wrapper scrolling-wrapper-flexbox" (mousedown)="fn($event)" >
+  <a href="#" *ngFor="let number of numbers" class="noselect" (click)="goto(this)">
+    <div  routerLink="/event/{{1}}"  class="d-flex justify-content-center" >
+      <div  class="card"  >
+        <img class="card-img-top" style="pointer-events: none" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDkvFCLSMbUU6Bqb1m-0y3LPAQ7_Gcs-PNZw&usqp=CAU" alt="Card image cap">
+        <div class="card-body p-2">
+          <h5 class="crop-title card-text">{{'machin'}}</h5>
+          <div class="row">
+            <div class="col-7">
+              <div class="card-text">{{'truc'}}</div>
+              <div class="card-text">{{'truc'}}</div>
+            </div>
+            <div class=" col-5">
+              <button type="button" class="btn btn-block bg-blue mt-3 text-white" style="opacity: 0.8;" disabled>{{ ' €'}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+
+

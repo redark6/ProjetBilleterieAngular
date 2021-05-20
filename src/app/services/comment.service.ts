@@ -11,8 +11,9 @@ export class CommentService {
   private searchComment = new BehaviorSubject<EventComment[]>(null);
   constructor(private httpClient: HttpClient) {}
 
-  public get(id: number): void {
-    this.httpClient.get<EventComment[]>(environment.apiUrl + `/comment/${id}`).subscribe(
+  public get(id: number, commentOrderBy: string): void {
+    this.httpClient.get<EventComment[]>(`http://localhost:8080/comment/${id}`, {params: { orderBy: commentOrderBy}}).subscribe(
+
       value => {
         this.emitSearchComment(value);
       },
@@ -24,6 +25,10 @@ export class CommentService {
 
   public post(value: object): Observable<EventComment> {
     return this.httpClient.post<EventComment>(environment.apiUrl + `/comment`, value);
+  }
+
+  public likecomment(id: number, liketype: number): Observable<boolean>{
+    return this.httpClient.put<boolean>(`http://localhost:8080/comment/${id}/like/${liketype}`, null);
   }
 
   searchCommentListener(): Observable<EventComment[]>{

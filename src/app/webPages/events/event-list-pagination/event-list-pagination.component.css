@@ -1,0 +1,26 @@
+.paginationitem{
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.page-item.disabled .mypagelink {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: auto;
+  background-color: #fff;
+  border-color: #dee2e6;
+
+}
+
+.mypagelink{
+  display: block;
+  padding: .0rem 8px;
+}
+
+.mypagelink:hover{
+  color: #6c757d;
+}
+
+a{
+  color: #2e9fb3;
+}

@@ -1,11 +1,14 @@
 import { Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {GlobalParameter} from '../specialClass/global-parameter';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../modeles/user';
 import {CookieService} from 'ngx-cookie-service';
+import {Organiser} from '../modeles/organiser';
+import {UserComment} from '../modeles/user-comment';
 import {environment} from '../../environments/environment';
+
 
 interface ReturnedErrors{
   errors: object;
@@ -27,7 +30,9 @@ export class UserService {
   constructor(private httpClient: HttpClient, private router: Router, private globalVar: GlobalParameter, private cookie: CookieService) { }
 
   login(value: object): void{
-    this.httpClient.post<any>( environment.apiUrl + '/login', value).subscribe(
+    const parametres = new HttpParams().set('remember-me', 'true' );
+    this.httpClient.post<any>(environment.apiUrl +  '/login', value, {params: parametres}).subscribe(
+
       () => {
         this.globalVar.isAuthenticate = true;
         this.emitAuthStatus(true);
@@ -71,6 +76,10 @@ export class UserService {
     return this.httpClient.get<User>( environment.apiUrl + '/user/logeduser');
   }
 
+  getOrganiserrProfil(): Observable<Organiser>{
+    return this.httpClient.get<Organiser>(( environment.apiUrl +  '/user/logedorganiser');
+  }
+
  patch(value: object): void{
     this.httpClient.patch( environment.apiUrl + '/user/patch', value).subscribe(
       () => {
@@ -82,11 +91,27 @@ export class UserService {
     );
  }
 
+  patchOrganiser(value: object): void{
+    this.httpClient.patch(environment.apiUrl +  '/user/patchOrganiser', value).subscribe(
+
   isSessionValid(): void{
-    this.httpClient.get( environment.apiUrl + '/user/sessionvalid').subscribe(
+    this.httpClient.get(environment.apiUrl + '/user/sessionvalid').subscribe(
+
       () => {
-        this.globalVar.isAuthenticate = true;
-        this.emitAuthStatus(true);
+        console.log('oui');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  isSessionValid(): void{
+    this.httpClient.get<boolean>(( environment.apiUrl +  '/user/sessionvalid').subscribe(
+      (value) => {
+        console.log(value);
+        this.globalVar.isAuthenticate = value;
+        this.emitAuthStatus(value);
       },
       (error) => {
         this.globalVar.isAuthenticate = false;
@@ -99,8 +124,12 @@ export class UserService {
   getAuthority(): void{
     this.httpClient.get<Authority>( environment.apiUrl + '/user/authority').subscribe(
       (authority) => {
-        this.globalVar.userAuthority = authority[0].authority;
-        console.log('authority: ' + authority[0].authority);
+        if (authority[0] !== undefined ){
+          this.globalVar.userAuthority = authority[0].authority;
+        }else{
+          this.globalVar.userAuthority = '';
+        }
+        console.log(this.globalVar.userAuthority);
         this.emitRoleStatus(this.globalVar.userAuthority);
       },
       (error) => {
@@ -109,18 +138,29 @@ export class UserService {
     );
   }
 
+  patchProfilPicture(picture): Observable<User> {
+    const uploadData = new FormData();
+    uploadData.append('myFile', picture, picture.name);
+    return this.httpClient.post<User>( environment.apiUrl +  '/user/patchpicture', uploadData);
+  }
+
 
   emitAuthStatus(state: boolean): void{
     this.authenticateEvent.next(state);
+  }
+
+  authListener(): Observable<any>{
+    return this.authenticateEvent.asObservable();
   }
 
   emitRoleStatus(auth: string): void{
     this.authorityStatus.next(auth);
   }
 
-  authListener(): Observable<any>{
-    return this.authenticateEvent.asObservable();
+  roleListener(): Observable<any>{
+    return this.authorityStatus.asObservable();
   }
+
 
 
   upgradeOrganiser(value: object): void{
@@ -136,8 +176,8 @@ export class UserService {
     );
   }
 
-  roleListener(): Observable<any>{
-    return this.authorityStatus.asObservable();
+  getUserComments(): Observable<UserComment[]>{
+    return this.httpClient.get<UserComment[]>('http://localhost:8080/user/usercomments');
   }
 
 }

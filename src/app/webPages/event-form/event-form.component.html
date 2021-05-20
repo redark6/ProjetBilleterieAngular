@@ -1,10 +1,10 @@
 <div [formGroup]="eventForm" class="container col-10 col-sm-10 col-md-8 col-lg-7 col-xl-5 py-5">
   <div class="mx-5">
-    <h1 class="text-center">Create your Event</h1>
+    <h1 class="text-center">Créez Votre Évènement</h1>
     <div class="bg-grey shadow rounded">
       <div class="col-md-10 mb-3 ml-5 col-lg-10 d-flex justify-content-center">
         <mat-form-field appearance="standard" class="mr-3 c2">
-          <mat-label>Name</mat-label>
+          <mat-label>Nom</mat-label>
           <input matInput formControlName="title">
         </mat-form-field>
       </div>
@@ -34,10 +34,9 @@
         </div>
         <div class="col-md-6 mb-3  d-flex justify-content-center">
           <mat-form-field appearance="standard" class="mr-3 c1">
-            <mat-label>Region</mat-label>
+            <mat-label>Departement</mat-label>
             <mat-select formControlName="region">
-              <mat-option value="91">91</mat-option>
-              <mat-option value="16">16</mat-option>
+              <mat-option *ngFor=" let region of regionList" [value]="region.regionId">{{region.regionName + ' ('+region.regionId+')'}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -59,8 +58,8 @@
         </div>
         <div class="col-md-6 mb-3  d-flex justify-content-center">
           <mat-form-field appearance="standard" class="mr-3 c1">
-            <mat-label>Price</mat-label>
-            <input matInput formControlName="price">
+            <mat-label>Prix</mat-label>
+            <input type="number" min="0" max="500" matInput formControlName="price">
           </mat-form-field>
         </div>
         <div class="col-md-12 mb-3 d-flex justify-content-center">
@@ -70,8 +69,13 @@
           </mat-form-field>
         </div>
       </div>
+      <input type="file" id="EventPictureInput"  accept="image/x-png,image/gif,image/jpeg" (change)="onImageChange($event)" style="display: none">
+      <img src="{{imageURL}}" height="200" *ngIf="imageURL" style="margin-left: auto; margin-right: auto;margin-bottom: 20px; display: block">
       <div class="d-flex justify-content-center">
-      <button mat-raised-button color="primary" [disabled]="eventForm.invalid" (click)="addEvent()" class="btn btn-block cbutton mb-5" type="submit">Create</button>
+        <button  id="EventInput" mat-raised-button color="primary" (click)="callInput()" class="btn btn-block cbutton mb-5" type="file">Ajouter des images</button>
+      </div>
+      <div class="d-flex justify-content-center">
+      <button mat-raised-button color="primary" [disabled]="eventForm.invalid" (click)="addEvent(imageURL)" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
       </div>
     </div>
   </div>

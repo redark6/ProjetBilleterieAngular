@@ -54,6 +54,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import {NzRateModule} from 'ng-zorro-antd/rate';
 import { EventEventCardComponent } from './webPages/events/event-event-card/event-event-card.component';
 import {NzPopoverModule} from 'ng-zorro-antd/popover';
+import { Error404Component } from './webPages/error404/error404.component';
+import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
 
 
 registerLocaleData(fr);
@@ -73,6 +75,7 @@ registerLocaleData(fr);
     EventsComponent,
     SearchBarComponent,
     HomeEventCardComponent,
+    EventsComponent,
     EventListPaginationComponent,
     EventFormComponent,
     EventListComponent,
@@ -81,6 +84,7 @@ registerLocaleData(fr);
     CommentWriterComponent,
     CommentListComponent,
     EventEventCardComponent,
+    Error404Component,
   ],
   imports: [
     BrowserModule,

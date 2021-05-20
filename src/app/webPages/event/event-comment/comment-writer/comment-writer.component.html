@@ -1,7 +1,7 @@
 <nz-comment *ngIf="isAuthenticate != null">
   <nz-comment-content>
     <nz-form-item>
-      <textarea [(ngModel)]="inputValue" nz-input rows="4" [disabled]="!isAuthenticate" placeholder="{{placeholder}}"></textarea>
+      <textarea [(ngModel)]="inputValue" nz-input rows="4" [disabled]="isAuthenticate ? false : true" placeholder="{{placeholder}}"></textarea>
     </nz-form-item>
     <nz-form-item>
       <button nz-button nzType="primary" [disabled]="!inputValue || inputValue.length > 500" (click)="handleSubmit()">

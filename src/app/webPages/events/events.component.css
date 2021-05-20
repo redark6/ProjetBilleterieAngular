@@ -1,0 +1,124 @@
+@media screen and (min-width:540px) {
+  .overflow-custom {
+  }
+
+}
+@media screen and (min-width:720px) {
+  .overflow-custom{
+  }
+
+}
+@media screen and (min-width:995px) {
+  .overflow-custom{
+    overflow: auto;
+    height: 550px;
+  }
+
+}
+@media screen and (min-width:1140px) {
+  .overflow-custom {
+    overflow: auto;
+    height: 550px;
+  }
+
+}
+
+#container{
+  max-width: none;
+}
+
+.overflow-custom {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+
+}
+
+overflow-custom::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+
+overflow-custom::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+@media screen and (max-width:540px) {
+
+  .overlaycustom {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 11;
+    cursor: pointer;
+  }
+
+}
+@media screen and (max-width:720px) {
+
+  .overlaycustom {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 11;
+    cursor: pointer;
+  }
+
+}
+@media screen and (max-width:995px) {
+
+  .overlaycustom {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 11;
+    cursor: pointer;
+  }
+
+}
+@media screen and (max-width:1140px) {
+
+}
+
+
+@media screen and (max-width:540px) {
+  .show {
+    display: none;
+  }
+
+}
+@media screen and (max-width:720px) {
+  .show {
+    display: none;
+  }
+
+}
+@media screen and (max-width:995px) {
+  .show {
+    display: none;
+  }
+
+}
+@media screen and (max-width:1140px) {
+  .show {
+    display: none;
+  }
+
+}
+
+
+.sticky-top{
+  z-index: 10;
+}

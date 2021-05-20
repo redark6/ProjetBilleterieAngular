@@ -22,7 +22,7 @@
     </span>
 
     <span *ngIf="isAuthenticate">
-      <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="likeState == -1 ? 'twotone' : 'outline'"
+      <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="likeState == 1 ? 'twotone' : 'outline'"
          (click)="like()">
       </i>
     </span>
@@ -53,11 +53,19 @@
     </span>
     <span class="count dislike">{{ dislikes }}</span>
   </nz-comment-action>
-  <nz-comment-action>Repondre</nz-comment-action>
+  <nz-comment-action *ngIf="childnumber < 5">
+    <a style="text-decoration: none;" data-toggle="collapse" href="{{'#anwser'+comment.id}}" role="button">
+      Repondre
+    </a>
+    </nz-comment-action>
+  <div class="collapse" id="{{'anwser'+comment.id}}">
+    <app-comment-writer [parentComment]="comment.id" [eventId]="eventId" [isAuthenticate]="isAuthenticate" (commentSent)="onchildresponse()" ></app-comment-writer>
+  </div>
   <ng-container *ngIf="comment.commentChildren && comment.commentChildren.length">
-    <div *ngFor="let comment of comment.commentChildren">
-      <app-comment [comment]="comment"></app-comment>
+    <div *ngFor="let subcomment of comment.commentChildren">
+      <app-comment [comment]="subcomment" [isAuthenticate]="isAuthenticate" [eventId]="eventId" [childnumber]="this.childnumber+1" (childresponse)="onchildresponse()"></app-comment>
     </div>
   </ng-container>
 </nz-comment>
 <div class="divider"></div>
+

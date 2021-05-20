@@ -4,14 +4,14 @@ export class Event {
     public title: string;
     public category: number;
     public description: string;
-    public region: string;
+    public region: number;
     public creationDate: Date;
     public startDate: Date;
     public endDate: Date;
     public price: number;
     public nbOfTicket: number;
 
-  constructor(id: number, title: string, category: number, description: string, region: string, creationDate: Date, startDate: Date, endDate: Date, price: number, nbOfTicket: number) {
+  constructor(id: number, title: string, category: number, description: string, region: number, creationDate: Date, startDate: Date, endDate: Date, price: number, nbOfTicket: number) {
         this.id = id;
         this.title = title;
         this.category = category;
