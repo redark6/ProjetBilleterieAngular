@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {GlobalParameter} from './specialClass/global-parameter';
 import {UserService} from './services/user.service';
+import {CommonDataService} from './services/common-data.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import {UserService} from './services/user.service';
 export class AppComponent {
   title = 'projetBilleterieAngular';
 
-  constructor(private router: Router, private globalVar: GlobalParameter, private authenticationService: UserService) {
+  constructor(private router: Router, private globalVar: GlobalParameter, private authenticationService: UserService, private commondata: CommonDataService) {
     this.router.events.subscribe(
       (event: any) => {
         if (event instanceof NavigationEnd) {
@@ -22,6 +23,10 @@ export class AppComponent {
         }
       }
     );
+
+    this.commondata.getRegions().subscribe(value => {
+      this.globalVar.regionList = value;
+    });
 
   }
 

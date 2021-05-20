@@ -2,6 +2,9 @@ import {Component, Input, OnInit, } from '@angular/core';
 import {Event} from '../../../modeles/event';
 import {Router} from '@angular/router';
 import {EventService} from '../../../services/event.service';
+import { GlobalParameter } from 'src/app/specialClass/global-parameter';
+
+
 
 @Component({
   selector: 'app-home-event-card',
@@ -19,7 +22,8 @@ export class HomeEventCardComponent implements OnInit {
   timer;
   public eventId: number;
   public eventImage: any;
-  constructor(private route: Router, private eventService: EventService) { }
+  region: string;
+  constructor(private route: Router, private eventService: EventService, private globalVar: GlobalParameter) { }
 
   ngOnInit(): void {
 
@@ -28,6 +32,9 @@ export class HomeEventCardComponent implements OnInit {
     this.eventService.getImage(this.eventId).subscribe((image) => {
       this.eventImage = image.image;
     });
+
+    this.region = this.globalVar.regionList[this.event.region].regionName;
+
   }
 
   setnone(e): boolean{

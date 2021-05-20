@@ -34,10 +34,9 @@
         </div>
         <div class="col-md-6 mb-3  d-flex justify-content-center">
           <mat-form-field appearance="standard" class="mr-3 c1">
-            <mat-label>Region</mat-label>
+            <mat-label>Departement</mat-label>
             <mat-select formControlName="region">
-              <mat-option value="91">91</mat-option>
-              <mat-option value="16">16</mat-option>
+              <mat-option *ngFor=" let region of regionList" [value]="region.regionId">{{region.regionName + ' ('+region.regionId+')'}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
