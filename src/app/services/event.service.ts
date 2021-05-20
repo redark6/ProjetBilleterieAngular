@@ -5,6 +5,8 @@ import {SearchResult} from '../modeles/searchResult';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {EventImage} from '../modeles/eventImage';
+import {environment} from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +16,15 @@ export class EventService {
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   public get(id: number): Observable<Event> {
-    return this.httpClient.get<Event>(`http://localhost:8080/event/${id}`);
+    return this.httpClient.get<Event>(environment.apiUrl + `/event/${id}`);
   }
 
   public getRating(id: number): Observable<number> {
-    return this.httpClient.get<number>(`http://localhost:8080/rate/${id}`);
+    return this.httpClient.get<number>(environment.apiUrl + `/rate/${id}`);
   }
 
   searchEvents(params: HttpParams): void {
-    this.httpClient.get<SearchResult>(`http://localhost:8080/event/search`, {params}).subscribe(
+    this.httpClient.get<SearchResult>(environment.apiUrl + `/event/search`, {params}).subscribe(
       value => {
         this.emitSearchEvent(value);
       },
@@ -37,7 +39,7 @@ export class EventService {
   }
 
   rate(rating: object): void {
-    this.httpClient.post<any>(`http://localhost:8080/rate`, rating).subscribe(
+    this.httpClient.post<any>(environment.apiUrl + `/rate`, rating).subscribe(
       () => {
         return null;
       },
@@ -47,14 +49,16 @@ export class EventService {
       }
     );
   }
+
   createEvent(value: object): Observable<Event>{
-    return this.httpClient.post<Event>('http://localhost:8080/event/create', value);
+    return this.httpClient.post<Event>(environment.apiUrl + '/event/create', value);
   }
 
   sendImage(form): void{
     // console.log(eventImage.image);
-    this.httpClient.post<any>('http://localhost:8080/event/eventimagepost', form).subscribe(() => {
+    this.httpClient.post<any>((environment.apiUrl +  '/event/eventimagepost', form).subscribe(() => {
       return null;
+
       },
       (error) => {
       console.log(error);
@@ -78,5 +82,6 @@ export class EventService {
 
   getUserRating(id: number): Observable<number> {
     return this.httpClient.get<number>(`http://localhost:8080/rate/userRating/${id}`);
+
   }
 }

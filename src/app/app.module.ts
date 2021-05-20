@@ -51,9 +51,7 @@ import {NzIconModule} from 'ng-zorro-antd/icon';
 import {NzAvatarModule} from 'ng-zorro-antd/avatar';
 import {NzButtonModule} from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
-
 import {NzRateModule} from 'ng-zorro-antd/rate';
-
 import { EventEventCardComponent } from './webPages/events/event-event-card/event-event-card.component';
 import {NzPopoverModule} from 'ng-zorro-antd/popover';
 import { Error404Component } from './webPages/error404/error404.component';
