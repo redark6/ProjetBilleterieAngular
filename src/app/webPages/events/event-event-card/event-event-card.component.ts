@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Event} from '../../../modeles/event';
+import {EventService} from '../../../services/event.service';
 
 @Component({
   selector: 'app-event-event-card',
@@ -8,7 +9,9 @@ import {Event} from '../../../modeles/event';
 })
 export class EventEventCardComponent implements OnInit {
   @Input() event: Event;
-  constructor() { }
+  public eventId: number;
+  public eventImage: any;
+  constructor(private eventService: EventService) { }
 
   categories: string[] = [
     'none',
@@ -17,6 +20,11 @@ export class EventEventCardComponent implements OnInit {
     'Autres'];
 
   ngOnInit(): void {
+    this.eventId = this.event.id;
+
+    this.eventService.getImage(this.eventId).subscribe((image) => {
+      this.eventImage = image.image;
+    });
   }
 
 }

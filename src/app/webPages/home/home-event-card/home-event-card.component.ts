@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, } from '@angular/core';
 import {Event} from '../../../modeles/event';
 import {Router} from '@angular/router';
+import {EventService} from '../../../services/event.service';
 
 @Component({
   selector: 'app-home-event-card',
@@ -16,9 +17,17 @@ export class HomeEventCardComponent implements OnInit {
     'Autres'];
   isDown = false;
   timer;
-  constructor(private route: Router) { }
+  public eventId: number;
+  public eventImage: any;
+  constructor(private route: Router, private eventService: EventService) { }
 
   ngOnInit(): void {
+
+    this.eventId = this.event.id;
+
+    this.eventService.getImage(this.eventId).subscribe((image) => {
+      this.eventImage = image.image;
+    });
   }
 
   setnone(e): boolean{

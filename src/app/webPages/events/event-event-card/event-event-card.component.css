@@ -38,7 +38,7 @@
   object-fit: cover;
 }
 
-@media screen and (max-width:1400px) {
+@media screen and (max-width:1980px) {
   .img2 {
     max-width: 17vw;
     min-width: 17vw;
