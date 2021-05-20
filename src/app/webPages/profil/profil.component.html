@@ -33,7 +33,7 @@
         <p class="font-weight-bold">Prenom : {{userProfilInfos.firstName}}</p>
         <p class="font-weight-bold">Nom : {{userProfilInfos.lastName }}</p>
         <p class="font-weight-bold">Date de naissance : {{userProfilInfos.birthDate | date:'longDate'}}</p>
-        <p class="font-weight-bold">A rejoit &ticket'heure le {{userProfilInfos.createdDate | date:'longDate'}}</p>
+        <p class="font-weight-bold">A rejoint &ticket'heure le {{userProfilInfos.createdDate | date:'longDate'}}</p>
       </div>
 
     </div>
@@ -53,13 +53,30 @@
           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Commentaires</a>
         </li>
       </ul>
-      <div class="tab-content bg-grey" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-        <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+      <div class="tab-content bg-grey" id="myTabContent" style="overflow: auto; height: 260px">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <ul>
+          <li style="list-style-type:none">
+
+          </li>
+        </ul>
+        </div>
+        <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <ul class="px-3">
+            <li *ngFor="let comment of userComments" style="list-style-type:none" >
+
+              <div class="row px-3 py-1">
+                <div class=" text-truncate">
+                  <a routerLink="/event/{{comment.eventId}}"><u>{{comment.eventTitle}}</u></a> {{" : "+comment.userComment}}
+                </div>
+              </div>
+
+
+            </li>
+          </ul>
+        </div>
       </div>
-
     </div>
-
 
   </div>
 

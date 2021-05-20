@@ -6,6 +6,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../modeles/user';
 import {CookieService} from 'ngx-cookie-service';
 import {Organiser} from '../modeles/organiser';
+import {UserComment} from '../modeles/user-comment';
 
 interface ReturnedErrors{
   errors: object;
@@ -167,6 +168,9 @@ export class UserService {
     );
   }
 
+  getUserComments(): Observable<UserComment[]>{
+    return this.httpClient.get<UserComment[]>('http://localhost:8080/user/usercomments');
+  }
 
 }
 
