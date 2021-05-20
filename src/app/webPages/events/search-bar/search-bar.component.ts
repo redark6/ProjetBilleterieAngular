@@ -7,6 +7,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {EventService} from '../../../services/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpParams} from '@angular/common/http';
+import {CommonDataService} from '../../../services/common-data.service';
+import {Region} from '../../../modeles/region';
 
 export interface Fruit {
   name: string;
@@ -27,16 +29,24 @@ export class SearchBarComponent implements OnInit {
   paramsArray = ['search', 'category', 'date', 'price', 'page'];
   orderByArray = ['recent', 'former', 'incprice', 'decprice'];
   searchForm: FormGroup;
+  regionList: Region[];
 
-  constructor(private formBuilder: FormBuilder, private eventService: EventService, private route: Router , private activatedRoute: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private eventService: EventService, private route: Router , private activatedRoute: ActivatedRoute, private commondata: CommonDataService) {
 
   }
 
   ngOnInit(): void {
 
+    this.commondata.getRegions().subscribe(value => {
+      this.regionList = value;
+    },error => {
+
+    });
+
     this.searchForm = this.formBuilder.group({
       search: [''],
       category: [''],
+      region: [''],
       startDate: [''],
       endDate: [''],
       minPrice: [''],
@@ -58,7 +68,9 @@ export class SearchBarComponent implements OnInit {
             break;
           case 'category':
             if (urlParams.get(value)) {  getParamsArray = getParamsArray.set('category', urlParams.get(value)); }
-            else { this.paramsError = true; }
+            break;
+          case 'region':
+            if (urlParams.get(value)) {  getParamsArray = getParamsArray.set('region', urlParams.get(value)); }
             break;
           case 'date':
             let dateObject; dateObject = this.checkAndSetDatesRange(urlParams.get(value));
@@ -127,6 +139,7 @@ export class SearchBarComponent implements OnInit {
     if (this.startDate || this.endDate) { urlParams.date = (this.startDate ? this.startDate : 'start') + '~' + (this.endDate ? this.endDate : 'end'); }
     if (this.minPrice || this.maxPrice) {urlParams.price = (this.minPrice ? this.minPrice.toString() : 'min') + '~' + (this.maxPrice ? this.maxPrice.toString() : 'max'); }
     if (this.orderBy){urlParams.orderBy = this.orderBy; }
+    if (this.region){urlParams.region = this.region; }
     return urlParams;
   }
 
@@ -224,6 +237,10 @@ export class SearchBarComponent implements OnInit {
 
   get orderBy(): string {
     return this.searchForm.get('orderBy').value;
+  }
+
+  get region(): string {
+    return this.searchForm.get('region').value;
   }
 
   private checkOrderBy(orderBy: string): boolean {

@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, } from '@angular/core';
 import {Event} from '../../../modeles/event';
 import {Router} from '@angular/router';
+import {GlobalParameter} from '../../../specialClass/global-parameter';
 
 @Component({
   selector: 'app-home-event-card',
@@ -16,9 +17,11 @@ export class HomeEventCardComponent implements OnInit {
     'Autres'];
   isDown = false;
   timer;
-  constructor(private route: Router) { }
+  region: string;
+  constructor(private route: Router, private globalVar: GlobalParameter) { }
 
   ngOnInit(): void {
+    this.region = this.globalVar.regionList[this.event.region].regionName;
   }
 
   setnone(e): boolean{

@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Event} from '../../../modeles/event';
+import {Router} from '@angular/router';
+import {GlobalParameter} from '../../../specialClass/global-parameter';
 
 @Component({
   selector: 'app-event-event-card',
@@ -8,7 +10,8 @@ import {Event} from '../../../modeles/event';
 })
 export class EventEventCardComponent implements OnInit {
   @Input() event: Event;
-  constructor() { }
+  region: string;
+  constructor(private globalVar: GlobalParameter) { }
 
   categories: string[] = [
     'none',
@@ -17,6 +20,7 @@ export class EventEventCardComponent implements OnInit {
     'Autres'];
 
   ngOnInit(): void {
+    this.region = this.globalVar.regionList[this.event.region].regionName;
   }
 
 }

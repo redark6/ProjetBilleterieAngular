@@ -44,8 +44,8 @@
     <div class=" py-0 d-flex justify-content-center">
       <mat-form-field appearance="legacy">
         <mat-label>Où ?</mat-label>
-        <mat-select formControlName="category" >
-          <mat-option>None</mat-option>
+        <mat-select formControlName="region" >
+          <mat-option *ngFor=" let region of regionList" [value]="region.regionId">{{region.regionName + ' ('+region.regionId+')'}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

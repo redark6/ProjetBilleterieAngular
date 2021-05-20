@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Rating} from '../../modeles/rating';
 import {User} from '../../modeles/user';
 import {UserService} from '../../services/user.service';
+import {GlobalParameter} from '../../specialClass/global-parameter';
 
 @Component({
   selector: 'app-event',
@@ -19,13 +20,22 @@ export class EventComponent implements OnInit {
   public rating: Rating;
   public eventId: number;
   public userProfilInfos: User;
+  public region: string;
 
-  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute) {
+  categories: string[] = [
+    'none',
+    'Cour et Atelier', 'Festival', 'Salon', 'Action solidaire', 'Concert',
+    'Gastronomie', 'Conférence et Forum', 'Musée et Exposition', 'Spectacle et Théâtre',
+    'Autres'];
+
+  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter) {
   }
 
   ngOnInit(): void {
 
     this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
+
+    this.region = this.globalVar.regionList[this.event.region].regionName;
 
     this.eventId = this.activatedRoute.snapshot.params.id;
 
