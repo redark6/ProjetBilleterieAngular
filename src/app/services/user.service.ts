@@ -77,7 +77,7 @@ export class UserService {
   }
 
   getOrganiserrProfil(): Observable<Organiser>{
-    return this.httpClient.get<Organiser>(( environment.apiUrl +  '/user/logedorganiser');
+    return this.httpClient.get<Organiser>( environment.apiUrl +  '/user/logedorganiser');
   }
 
  patch(value: object): void{
@@ -93,6 +93,14 @@ export class UserService {
 
   patchOrganiser(value: object): void{
     this.httpClient.patch(environment.apiUrl +  '/user/patchOrganiser', value).subscribe(
+      () => {
+        console.log('oui');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   isSessionValid(): void{
     this.httpClient.get(environment.apiUrl + '/user/sessionvalid').subscribe(
@@ -104,21 +112,6 @@ export class UserService {
         console.log(error);
       }
     );
-  }
-
-  isSessionValid(): void{
-    this.httpClient.get<boolean>(( environment.apiUrl +  '/user/sessionvalid').subscribe(
-      (value) => {
-        console.log(value);
-        this.globalVar.isAuthenticate = value;
-        this.emitAuthStatus(value);
-      },
-      (error) => {
-        this.globalVar.isAuthenticate = false;
-        this.emitAuthStatus(false);
-      }
-    );
-
   }
 
   getAuthority(): void{
@@ -177,7 +170,7 @@ export class UserService {
   }
 
   getUserComments(): Observable<UserComment[]>{
-    return this.httpClient.get<UserComment[]>('http://localhost:8080/user/usercomments');
+    return this.httpClient.get<UserComment[]>( environment.apiUrl + '/user/usercomments');
   }
 
 }

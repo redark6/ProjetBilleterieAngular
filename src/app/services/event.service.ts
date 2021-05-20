@@ -35,7 +35,7 @@ export class EventService {
   }
 
   searchEventsForHome(params: HttpParams): Observable<SearchResult> {
-    return this.httpClient.get<SearchResult>(`http://localhost:8080/event/search`, {params});
+    return this.httpClient.get<SearchResult>(environment.apiUrl + `/event/search`, {params});
   }
 
   rate(rating: object): void {
@@ -56,7 +56,7 @@ export class EventService {
 
   sendImage(form): void{
     // console.log(eventImage.image);
-    this.httpClient.post<any>((environment.apiUrl +  '/event/eventimagepost', form).subscribe(() => {
+    this.httpClient.post<any>(environment.apiUrl +  '/event/eventimagepost', form).subscribe(() => {
       return null;
 
       },
@@ -69,7 +69,7 @@ export class EventService {
   getImage(eventId: number): Observable<any>{
     const parametres = new HttpParams().set('eventId', eventId.toString() );
     console.log('Dans GET IMAGE');
-    return this.httpClient.get<any>(`http://localhost:8080/event/eventimageget`, {params: parametres});
+    return this.httpClient.get<any>(environment.apiUrl +  `/event/eventimageget`, {params: parametres});
   }
 
   searchListener(): Observable<SearchResult>{
@@ -81,7 +81,7 @@ export class EventService {
   }
 
   getUserRating(id: number): Observable<number> {
-    return this.httpClient.get<number>(`http://localhost:8080/rate/userRating/${id}`);
+    return this.httpClient.get<number>(environment.apiUrl +  `/rate/userRating/${id}`);
 
   }
 }
