@@ -103,15 +103,18 @@ export class UserService {
   }
 
   isSessionValid(): void{
-    this.httpClient.get(environment.apiUrl + '/user/sessionvalid').subscribe(
-
-      () => {
-        console.log('oui');
+    this.httpClient.get<boolean>( environment.apiUrl +  '/user/sessionvalid').subscribe(
+      (value) => {
+        console.log(value);
+        this.globalVar.isAuthenticate = value;
+        this.emitAuthStatus(value);
       },
       (error) => {
-        console.log(error);
+        this.globalVar.isAuthenticate = false;
+        this.emitAuthStatus(false);
       }
     );
+
   }
 
   getAuthority(): void{
