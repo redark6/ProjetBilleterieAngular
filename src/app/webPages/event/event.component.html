@@ -13,11 +13,17 @@
     <div class="col-lg-4 bg-light">
       <div class="text-center">
         <h1> {{event.title}} </h1>
+        <button class="buttonedit offset-md-2" (click)="open(title)">
+          <i class="fas fa-edit"></i>Editer le profil
+        </button>
       </div>
       <hr/>
       <div class="row">
         <div class="col-lg-12 py-2">
           <h4>{{event.category}}</h4>
+          <button class="buttonedit offset-md-2" (click)="open(categorie)">
+            <i class="fas fa-edit"></i>Editer le profil
+          </button>
         </div>
 
         <div class="col-lg-12 py-2">
@@ -29,6 +35,10 @@
         <div class="col-lg-12 py-2">
           <h4>{{event.price}}</h4>
         </div>
+        <div class="col-sm">
+          <h4>Note des utilisateurs </h4>
+          <nz-rate [(ngModel)]="value" [nzAllowClear]="false" nzAllowHalf nzDisabled></nz-rate>
+        </div>
 
       </div>
     </div>
@@ -39,9 +49,12 @@
 
     <div class="col-lg-8 px-3">
 
-      <h2>Présentation</h2>
+      <h2>Description</h2>
       <div>
         {{event.description}}
+        <button class="buttonedit offset-md-2" (click)="open(description)">
+          <i class="fas fa-edit"></i>Editer le profil
+        </button>
       </div>
 
     </div>
@@ -51,6 +64,9 @@
 
       <div class="py-3 bg text-center">
         <h1>{{event.nbOfTicket}}</h1>
+        <button class="buttonedit offset-md-2" (click)="open(nbTicket)">
+          <i class="fas fa-edit"></i>Editer le profil
+        </button>
         <div>
           <h3>Restants</h3>
         </div>
@@ -93,14 +109,40 @@
           <h5>Noter l'évènement</h5>
           <nz-rate [(ngModel)]="value2" [nzAllowClear]="false" (click)="rate()"></nz-rate>
         </div>
-        <div class="col-sm">
-          <p>Note des utilisateurs </p>
-          <nz-rate [(ngModel)]="value" [nzAllowClear]="false" nzAllowHalf nzDisabled></nz-rate>
-        </div>
+
       </div>
     </div>
 
   </div>
+
+
+  <ng-template #title let-modal>
+
+    <div class="modal-footer">
+      <button  type="submit" class="btn btn-outline-primary" (click)="update() && modal.close('Save click')">Enregistrer</button>
+    </div>
+  </ng-template>
+
+  <ng-template #categorie let-modal>
+
+    <div class="modal-footer">
+      <button  type="submit" class="btn btn-outline-primary" (click)="update() && modal.close('Save click')">Enregistrer</button>
+    </div>
+  </ng-template>
+
+  <ng-template #description let-modal>
+
+    <div class="modal-footer">
+      <button  type="submit" class="btn btn-outline-primary" (click)="update() && modal.close('Save click')">Enregistrer</button>
+    </div>
+  </ng-template>
+
+  <ng-template #nbTicket let-modal>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-primary" (click)="update() && modal.close('Save click')">Enregistrer</button>
+    </div>
+  </ng-template>
 
   <app-event-comment [eventId]="this.event.id"></app-event-comment>
 

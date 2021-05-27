@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Rating} from '../../modeles/rating';
 import {User} from '../../modeles/user';
 import {UserService} from '../../services/user.service';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-event',
@@ -19,8 +20,10 @@ export class EventComponent implements OnInit {
   public rating: Rating;
   public eventId: number;
   public userProfilInfos: User;
+  closeResult = '';
 
-  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute) {
+  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute,
+              private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -52,5 +55,43 @@ export class EventComponent implements OnInit {
     this.eventService.rate(this.rating);
     this.event = this.activatedRoute.snapshot.data.event;
   }
+  open(content): void {
 
+
+
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+      // this.user.upgradeOrganiser(this.upgradeOrganiserForm.value);
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  isOwner(): boolean{
+    let bool = false;
+    this.eventService.isOwner(this.eventId).subscribe(isOwner => {
+      if (isOwner === true){
+        bool = true;
+      }
+      else{
+        bool = false;
+      }
+    });
+    return bool;
+  }
+
+
+  update(): void {
+
+  }
 }

@@ -58,6 +58,8 @@ import { EventEventCardComponent } from './webPages/events/event-event-card/even
 import {NzPopoverModule} from 'ng-zorro-antd/popover';
 import { Error404Component } from './webPages/error404/error404.component';
 import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import { MyEventComponentComponent } from './webPages/home/home-event-list-category/my-event-component/my-event-component.component';
+import { MyEventComponent } from './webPages/my-event/my-event.component';
 
 
 registerLocaleData(fr);
@@ -87,6 +89,8 @@ registerLocaleData(fr);
     CommentListComponent,
     EventEventCardComponent,
     Error404Component,
+    MyEventComponentComponent,
+    MyEventComponent,
   ],
   imports: [
     BrowserModule,

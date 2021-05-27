@@ -70,16 +70,17 @@
   <ng-template #content let-modal>
     <nav class="nav nav-tabs">
       <a class="nav-item nav-link active" href="#p1" data-toggle="tab">Profil</a>
-      <a class="nav-item nav-link" href="#p2" data-toggle="tab">Organisateur</a>
+      <a *ngIf="authority == 'ORG'" class="nav-item nav-link" href="#p2" data-toggle="tab">Organisateur</a>
     </nav>
-    <div class="modal-header" >
-      <h4 class="modal-title" id="modal-basic-title">Modifier le profil</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
+
     <div class="tab-content">
       <div class="tab-pane active" id="p1">
+        <div class="modal-header" >
+          <h4 class="modal-title" id="modal-basic-title">Modifier le profil</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
     <div class="modal-body" [formGroup]="updateProfilForm"  >
 
         <div class="mx-5">
@@ -132,7 +133,7 @@
     </div>
       </div>
 
-      <div class="tab-pane" id="p2">
+      <div ngif class="tab-pane" *ngIf="authority == 'ORG'" id="p2">
         <div class="modal-header" >
           <h4 class="modal-title" id="modal-basic-title2">Modifier les infos professionneles</h4>
           <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
@@ -183,8 +184,11 @@
         <div class="row">
             <input
               type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
-            <input
-                    type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
+
+
+
+          </div>
+            <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
             <input
                    type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
             <input
@@ -203,7 +207,7 @@
     <div class="modal-footer">
       <button [disabled]="upgradeOrganiserForm.invalid" type="submit" class="btn btn-outline-primary" (click)="modal2.close('Save click');">Devenir Organisateur</button>
     </div>
-    </div>
+
   </ng-template>
 
 </div>

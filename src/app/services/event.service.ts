@@ -65,4 +65,9 @@ export class EventService {
   getUserRating(id: number): Observable<number> {
     return this.httpClient.get<number>(`http://localhost:8080/rate/userRating/${id}`);
   }
+
+  isOwner(pageId: number): Observable<boolean> {
+    return this.httpClient.get<boolean>(`http://localhost:8080/event/${pageId}`);
+  }
+
 }
