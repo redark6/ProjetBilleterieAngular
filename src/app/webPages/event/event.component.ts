@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Event} from '../../modeles/event';
 import {EventService} from '../../services/event.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Rating} from '../../modeles/rating';
 import {User} from '../../modeles/user';
 import {UserService} from '../../services/user.service';
@@ -24,6 +24,7 @@ export class EventComponent implements OnInit {
   public region: string;
   public eventImage: any;
   public eventImageByte: string;
+  public urlTweet: string;
 
   categories: string[] = [
     'none',
@@ -31,12 +32,16 @@ export class EventComponent implements OnInit {
     'Gastronomie', 'Conférence et Forum', 'Musée et Exposition', 'Spectacle et Théâtre',
     'Autres'];
 
-  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter) {
+  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter, private router: Router) {
   }
 
   ngOnInit(): void {
 
     this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
+
+    console.log('CACI EST LURL ASKIP' + this.router.url);
+
+    this.urlTweet = 'http://alpha.csid.agilitejoviale.fr' + this.router.url;
 
     this.region = this.globalVar.regionList[this.event.region].regionName;
 
@@ -62,7 +67,6 @@ export class EventComponent implements OnInit {
     console.log('AVANT CALL');
     this.eventService.getImage(this.eventId).subscribe((image) => {
       console.log('a linterieur');
-      console.log(image.image);
       this.eventImage = image.image;
     });
     }

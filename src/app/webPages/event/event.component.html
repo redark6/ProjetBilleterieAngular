@@ -67,9 +67,9 @@
 
       <div class="col">
         <div class="row">
-          <a href="#" id="share-fb" class="sharer button "><i class="fa fa-3x fa-facebook-square"></i></a>
-          <a href="#" id="share-tw" class="sharer button "><i class="fa fa-3x fa-twitter-square"></i></a>
-          <a href="#" id="share-ig" class="sharer button "><i class="fa fa-3x fa-instagram"></i></a>
+          <a  id="share-fb" href="http://www.facebook.com/sharer/sharer.php?u={{urlTweet}}&t=Jesaispas" target="_blank" class="share-popup sharer button fa fa-3x fa-facebook-square"></a>
+          <a class="twitter-share-button sharer button"
+             href="https://twitter.com/intent/tweet?url={{urlTweet}}&hashtags=ticketheure" data-url="www.google.com" id="share-tw"><i class="fa fa-3x fa-twitter-square"></i></a>
         </div>
       </div>
 
@@ -110,3 +110,4 @@
   <app-event-comment [eventId]="this.event.id"></app-event-comment>
 
 
+</div>

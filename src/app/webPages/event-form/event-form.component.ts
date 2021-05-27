@@ -16,13 +16,13 @@ export class EventFormComponent implements OnInit {
   imageURL: any;
   public imagePath: any;
   regionList: Region[];
-  constructor(private formBuilder: FormBuilder, private eventService: EventService, private router: Router,private commondata: CommonDataService) { }
+  constructor(private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private commondata: CommonDataService) { }
 
   ngOnInit(): void {
 
     this.commondata.getRegions().subscribe(value => {
       this.regionList = value;
-    },error => {
+    }, error => {
 
     });
 
