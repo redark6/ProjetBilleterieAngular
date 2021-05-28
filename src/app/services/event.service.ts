@@ -67,7 +67,18 @@ export class EventService {
   }
 
   isOwner(pageId: number): Observable<boolean> {
-    return this.httpClient.get<boolean>(`http://localhost:8080/event/${pageId}`);
+    return this.httpClient.get<boolean>(`http://localhost:8080/event/isOwner/${pageId}`);
+  }
+
+  patch(id: number, value: object): void{
+    this.httpClient.patch(`http://localhost:8080/event/patch/${id}`, value).subscribe(
+      () => {
+        console.log('oui');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 }

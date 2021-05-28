@@ -13,16 +13,16 @@
     <div class="col-lg-4 bg-light">
       <div class="text-center">
         <h1> {{event.title}} </h1>
-        <button class="buttonedit offset-md-2" (click)="open(title)">
-          <i class="fas fa-edit"></i>Editer le profil
+        <button class="buttonedit offset-md-2" *ngIf="isAuthenticate && isOwner==true " (click)="open(title)">
+          <i class="fas fa-edit"></i>Editer le titre
         </button>
       </div>
       <hr/>
       <div class="row">
         <div class="col-lg-12 py-2">
           <h4>{{event.category}}</h4>
-          <button class="buttonedit offset-md-2" (click)="open(categorie)">
-            <i class="fas fa-edit"></i>Editer le profil
+          <button class="buttonedit offset-md-2" *ngIf="isAuthenticate && isOwner==true" (click)="open(categorie)">
+            <i class="fas fa-edit"></i>Editer la catégorie
           </button>
         </div>
 
@@ -52,8 +52,8 @@
       <h2>Description</h2>
       <div>
         {{event.description}}
-        <button class="buttonedit offset-md-2" (click)="open(description)">
-          <i class="fas fa-edit"></i>Editer le profil
+        <button class="buttonedit offset-md-2" *ngIf="isAuthenticate && isOwner==true" (click)="open(description)">
+          <i class="fas fa-edit"></i>Editer la description
         </button>
       </div>
 
@@ -64,8 +64,8 @@
 
       <div class="py-3 bg text-center">
         <h1>{{event.nbOfTicket}}</h1>
-        <button class="buttonedit offset-md-2" (click)="open(nbTicket)">
-          <i class="fas fa-edit"></i>Editer le profil
+        <button class="buttonedit offset-md-2" *ngIf="isAuthenticate && isOwner==true" (click)="open(nbTicket)">
+          <i class="fas fa-edit"></i>Editer le nombre de ticket
         </button>
         <div>
           <h3>Restants</h3>
@@ -117,30 +117,42 @@
 
 
   <ng-template #title let-modal>
+    <div class="modal-body" [formGroup]="updateEventForm">
+    <input type="text" class="form-control" formControlName="title" placeholder="titre"/>
 
     <div class="modal-footer">
-      <button  type="submit" class="btn btn-outline-primary" (click)="update() && modal.close('Save click')">Enregistrer</button>
+      <button  type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click')">Enregistrer</button>
+    </div>
     </div>
   </ng-template>
 
   <ng-template #categorie let-modal>
+    <div class="modal-body" [formGroup]="updateEventForm">
+    <input type="text" class="form-control" formControlName="category" placeholder="categorie"/>
 
     <div class="modal-footer">
-      <button  type="submit" class="btn btn-outline-primary" (click)="update() && modal.close('Save click')">Enregistrer</button>
+      <button  type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click')">Enregistrer</button>
+    </div>
     </div>
   </ng-template>
 
   <ng-template #description let-modal>
+    <div class="modal-body" [formGroup]="updateEventForm">
+    <input type="text" class="form-control" formControlName="description" placeholder="Description"/>
 
     <div class="modal-footer">
-      <button  type="submit" class="btn btn-outline-primary" (click)="update() && modal.close('Save click')">Enregistrer</button>
+      <button  type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click')">Enregistrer</button>
+    </div>
     </div>
   </ng-template>
 
   <ng-template #nbTicket let-modal>
+    <div class="modal-body" [formGroup]="updateEventForm">
+    <input type="text" class="form-control" formControlName="nbOfTicket" placeholder="Ticket restant"/>
 
     <div class="modal-footer">
-      <button type="submit" class="btn btn-outline-primary" (click)="update() && modal.close('Save click')">Enregistrer</button>
+      <button type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click')">Enregistrer</button>
+    </div>
     </div>
   </ng-template>
 
