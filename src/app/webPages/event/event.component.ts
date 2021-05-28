@@ -6,7 +6,7 @@ import {Rating} from '../../modeles/rating';
 import {User} from '../../modeles/user';
 import {UserService} from '../../services/user.service';
 import {GlobalParameter} from '../../specialClass/global-parameter';
-import {EventImage} from '../../modeles/eventImage';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-event',
@@ -32,7 +32,7 @@ export class EventComponent implements OnInit {
     'Gastronomie', 'Conférence et Forum', 'Musée et Exposition', 'Spectacle et Théâtre',
     'Autres'];
 
-  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter, private router: Router) {
+  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter, private router: Router, private domSanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class EventComponent implements OnInit {
     console.log('AVANT CALL');
     this.eventService.getImage(this.eventId).subscribe((image) => {
       console.log('a linterieur');
-      this.eventImage = image.image;
+      this.eventImage = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + image);
     });
     }
 

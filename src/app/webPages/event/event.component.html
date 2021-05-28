@@ -11,7 +11,7 @@
     </div>
 -->
       <div>
-            <img style="max-height: 500px; max-width: 500px" src="data:image/webp;base64,{{eventImage}}" alt="profile image"/>
+            <img style="max-height: 500px; max-width: 500px" [src]="eventImage" alt="profile image"/>
       </div>
 
       </div>
@@ -67,7 +67,7 @@
 
       <div class="col">
         <div class="row">
-          <a  id="share-fb" href="http://www.facebook.com/sharer/sharer.php?u={{urlTweet}}&t=Jesaispas" target="_blank" class="share-popup sharer button fa fa-3x fa-facebook-square"></a>
+          <a  id="share-fb" href="http://www.facebook.com/sharer/sharer.php?u={{urlTweet}}" target="_blank" class="share-popup sharer button fa fa-3x fa-facebook-square"></a>
           <a class="twitter-share-button sharer button"
              href="https://twitter.com/intent/tweet?url={{urlTweet}}&hashtags=ticketheure" data-url="www.google.com" id="share-tw"><i class="fa fa-3x fa-twitter-square"></i></a>
         </div>

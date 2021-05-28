@@ -5,6 +5,7 @@ import {SearchResult} from '../modeles/searchResult';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {EventImage} from '../modeles/eventImage';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -62,10 +63,25 @@ export class EventService {
     });
   }
 
-  getImage(eventId: number): Observable<any>{
+  getImage(eventId: number): Observable<string>{
     const parametres = new HttpParams().set('eventId', eventId.toString() );
     console.log('Dans GET IMAGE');
-    return this.httpClient.get<any>(`http://localhost:8080/event/eventimageget`, {params: parametres});
+    return this.httpClient.get<ArrayBuffer>(`http://localhost:8080/event/eventimageget`, {params: parametres, responseType: 'arraybuffer' as 'json'})
+      .pipe(
+        map(
+          (byteArray: ArrayBuffer) => this.arrayBufferToBase64(byteArray)
+        )
+      );
+  }
+
+  private arrayBufferToBase64(buffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 
   searchListener(): Observable<SearchResult>{

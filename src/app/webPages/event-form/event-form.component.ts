@@ -63,8 +63,8 @@ export class EventFormComponent implements OnInit {
     this.sanitizeDate('startDate');
     this.sanitizeDate('endDate');
     this.eventService.createEvent(this.eventForm.value).subscribe((data) => {
-      this.router.navigate(['home']);
       this.addImage(this.imagePath.target.files[0], data.id);
+      this.router.navigate(['home']);
       },
     );
 
