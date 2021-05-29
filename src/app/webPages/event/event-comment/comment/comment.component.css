@@ -6,3 +6,11 @@
   padding-right: 8px;
   padding-left: 0;
 }
+
+.response{
+  color:rgba(0, 0, 0, 0.45);
+}
+
+.response:hover{
+  color: #595959
+}

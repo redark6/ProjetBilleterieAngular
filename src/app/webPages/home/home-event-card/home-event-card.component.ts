@@ -3,7 +3,6 @@ import {Event} from '../../../modeles/event';
 import {Router} from '@angular/router';
 import {EventService} from '../../../services/event.service';
 import { GlobalParameter } from 'src/app/specialClass/global-parameter';
-import {DomSanitizer} from '@angular/platform-browser';
 
 
 
@@ -24,14 +23,14 @@ export class HomeEventCardComponent implements OnInit {
   public eventId: number;
   public eventImage: any;
   region: string;
-  constructor(private route: Router, private eventService: EventService, private globalVar: GlobalParameter, private domSanitizer: DomSanitizer) { }
+  constructor(private route: Router, private eventService: EventService, private globalVar: GlobalParameter) { }
 
   ngOnInit(): void {
 
     this.eventId = this.event.id;
 
     this.eventService.getImage(this.eventId).subscribe((image) => {
-      this.eventImage = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + image);
+      this.eventImage = image.image;
     });
 
     this.region = this.globalVar.regionList[this.event.region].regionName;

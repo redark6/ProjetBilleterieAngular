@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EventService} from '../../services/event.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {EventImage} from '../../modeles/eventImage';
+import {Router} from '@angular/router';
 import {CommonDataService} from '../../services/common-data.service';
 import {Region} from '../../modeles/region';
 
@@ -16,6 +15,9 @@ export class EventFormComponent implements OnInit {
   imageURL: any;
   public imagePath: any;
   regionList: Region[];
+
+
+
   constructor(private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private commondata: CommonDataService) { }
 
   ngOnInit(): void {
@@ -63,8 +65,8 @@ export class EventFormComponent implements OnInit {
     this.sanitizeDate('startDate');
     this.sanitizeDate('endDate');
     this.eventService.createEvent(this.eventForm.value).subscribe((data) => {
-      this.addImage(this.imagePath.target.files[0], data.id);
-      this.router.navigate(['home']);
+        this.router.navigate(['home']);
+        this.addImage(this.imagePath.target.files[0], data.id);
       },
     );
 
@@ -102,4 +104,7 @@ export class EventFormComponent implements OnInit {
       this.imageURL = reader.result;
     };
   }
+
+
+
 }
