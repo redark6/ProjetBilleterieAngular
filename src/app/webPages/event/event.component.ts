@@ -29,18 +29,13 @@ export class EventComponent implements OnInit {
   public eventImageByte: string;
   public urlTweet: string;
 
-  // @ViewChild('gmap') gmapElement: any;
-  // map: google.maps.Map;
-
-
-
   categories: string[] = [
     'none',
     'Cour et Atelier', 'Festival', 'Salon', 'Action solidaire', 'Concert',
     'Gastronomie', 'Conférence et Forum', 'Musée et Exposition', 'Spectacle et Théâtre',
     'Autres'];
 
-  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter, private router: Router ,private mapService: MapService) {
+  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter, private router: Router , private mapService: MapService) {
   }
 
   ngOnInit(): void {
@@ -48,15 +43,11 @@ export class EventComponent implements OnInit {
     this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
 
     const observer = new IntersectionObserver( (entries) => {
-      // isIntersecting is true when element and viewport are overlapping
-      // isIntersecting is false when element and viewport don't overlap
       if (entries[0].isIntersecting === true){
-        console.log('Element has just become visible in screen');
         document.getElementById('pricebar').classList.add('hide');
       }
       else{
         document.getElementById('pricebar').classList.remove('hide');
-        console.log('notvisble');
       }
     }, { threshold: [0] });
 
