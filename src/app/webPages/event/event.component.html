@@ -14,7 +14,7 @@
       <div class="text-center">
         <h1> {{event.title}} </h1>
         <button class="buttonedit offset-md-2" *ngIf="isAuthenticate && isOwner==true " (click)="open(title)">
-          <i class="fas fa-edit"></i>Editer le titre
+          <i class="fas fa-edit"></i>
         </button>
       </div>
       <hr/>
@@ -22,7 +22,7 @@
         <div class="col-lg-12 py-2">
           <h4>{{event.category}}</h4>
           <button class="buttonedit offset-md-2" *ngIf="isAuthenticate && isOwner==true" (click)="open(categorie)">
-            <i class="fas fa-edit"></i>Editer la catégorie
+            <i class="fas fa-edit"></i>
           </button>
         </div>
 
@@ -53,7 +53,7 @@
       <div>
         {{event.description}}
         <button class="buttonedit offset-md-2" *ngIf="isAuthenticate && isOwner==true" (click)="open(description)">
-          <i class="fas fa-edit"></i>Editer la description
+          <i class="fas fa-edit"></i>
         </button>
       </div>
 
@@ -65,7 +65,7 @@
       <div class="py-3 bg text-center">
         <h1>{{event.nbOfTicket}}</h1>
         <button class="buttonedit offset-md-2" *ngIf="isAuthenticate && isOwner==true" (click)="open(nbTicket)">
-          <i class="fas fa-edit"></i>Editer le nombre de ticket
+          <i class="fas fa-edit"></i>
         </button>
         <div>
           <h3>Restants</h3>
