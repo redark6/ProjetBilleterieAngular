@@ -47,7 +47,7 @@ export class EventComponent implements OnInit {
     this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
 
     this.eventService.isOwner(this.event.id).subscribe(value1 => {
-      this.isOwner = true;
+      this.isOwner = value1;
     });
 
     this.user.authListener().subscribe(state => {
