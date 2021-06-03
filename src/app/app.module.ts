@@ -55,7 +55,13 @@ import {NzRateModule} from 'ng-zorro-antd/rate';
 import { EventEventCardComponent } from './webPages/events/event-event-card/event-event-card.component';
 import {NzPopoverModule} from 'ng-zorro-antd/popover';
 import { Error404Component } from './webPages/error404/error404.component';
-import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+
+
+import { QuillModule } from 'ngx-quill';
+import {LyIconModule} from '@alyle/ui/icon';
+import {CropperWithDialogAppModule} from './webPages/event-form/cropper-with-dialog/cropper-with-dialog.module';
+import { MyEventComponent } from './webPages/events/my-event/my-event.component';
+
 
 
 registerLocaleData(fr);
@@ -85,40 +91,44 @@ registerLocaleData(fr);
     CommentListComponent,
     EventEventCardComponent,
     Error404Component,
+    MyEventComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgxSliderModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-top-right',
-    }),
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    FormsModule,
-    MatChipsModule,
-    MatIconModule,
-    MatOptionModule,
-    MatSelectModule,
-    NzCommentModule,
-    NzFormModule,
-    NzIconModule,
-    NzAvatarModule,
-    NzButtonModule,
-    NzInputModule,
-    NzPopoverModule,
-    NzRateModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgxSliderModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+        }),
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        FormsModule,
+        MatChipsModule,
+        MatIconModule,
+        MatOptionModule,
+        MatSelectModule,
+        NzCommentModule,
+        NzFormModule,
+        NzIconModule,
+        NzAvatarModule,
+        NzButtonModule,
+        NzInputModule,
+        NzPopoverModule,
+        NzRateModule,
+        QuillModule.forRoot(),
+        LyIconModule,
+        CropperWithDialogAppModule,
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     GlobalParameter,

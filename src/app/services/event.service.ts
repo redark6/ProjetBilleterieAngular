@@ -5,8 +5,8 @@ import {SearchResult} from '../modeles/searchResult';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {EventImage} from '../modeles/eventImage';
+import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
-
 
 @Injectable({
   providedIn: 'root'
@@ -61,15 +61,39 @@ export class EventService {
 
       },
       (error) => {
-      console.log(error);
+        console.log(error);
 
-    });
+      });
   }
 
-  getImage(eventId: number): Observable<any>{
+
+  // getImage(eventId: number): Observable<any>{
+  //  const parametres = new HttpParams().set('eventId', eventId.toString() );
+  //  console.log('Dans GET IMAGE');
+  //  return this.httpClient.get<any>(`http://localhost:8080/event/eventimageget`, {params: parametres});
+  // }
+
+
+  getImage(eventId: number): Observable<string>{
     const parametres = new HttpParams().set('eventId', eventId.toString() );
     console.log('Dans GET IMAGE');
-    return this.httpClient.get<any>(environment.apiUrl +  `/event/eventimageget`, {params: parametres});
+    
+    return this.httpClient.get<ArrayBuffer>(environment.apiUrl +  `/event/eventimageget`, {params: parametres, responseType: 'arraybuffer' as 'json'})
+  .pipe(
+      map(
+        (byteArray: ArrayBuffer) => this.arrayBufferToBase64(byteArray)
+      )
+    );
+  }
+
+  private arrayBufferToBase64(buffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 
   searchListener(): Observable<SearchResult>{
@@ -83,5 +107,29 @@ export class EventService {
   getUserRating(id: number): Observable<number> {
     return this.httpClient.get<number>(environment.apiUrl +  `/rate/userRating/${id}`);
 
+  }
+
+
+  getUserEvents(): Observable<Event[]> {
+    return this.httpClient.get<Event[]>('http://localhost:8080/event/myevent');
+
+  }
+
+  isOwner(pageId: number): Observable<boolean> {
+    return this.httpClient.get<boolean>(`http://localhost:8080/event/isOwner/${pageId}`);
+  }
+
+  patch(id: number, value: object): Observable<any>{
+    return this.httpClient.patch(`http://localhost:8080/event/patch/${id}`, value);
+  }
+
+  ModifyImage(form: FormData): void {
+    this.httpClient.patch<any>('http://localhost:8080/event/eventimagemodify', form).subscribe(() => {
+        return null;
+      },
+      (error) => {
+        console.log(error);
+
+      });
   }
 }

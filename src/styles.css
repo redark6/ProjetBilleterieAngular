@@ -1,4 +1,9 @@
 @import "~ng-zorro-antd/ng-zorro-antd.min.css";
+
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+
 .bg-grey{
   background-color: rgba(244, 244, 244, 1);
 }

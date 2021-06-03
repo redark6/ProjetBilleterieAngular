@@ -14,9 +14,15 @@ export class HttpRequestInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    request = request.clone({
-      withCredentials: true
-    });
+    if (request.url.indexOf('http://nominatim.openstreetmap.org/') === -1) {
+      request = request.clone({
+        withCredentials: true
+      });
+    }else{
+      request = request.clone({
+        withCredentials: false
+      });
+    }
 
     return next.handle(request)
       .pipe(

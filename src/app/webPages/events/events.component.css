@@ -43,7 +43,7 @@ overflow-custom::-webkit-scrollbar-thumb {
   border: 3px solid var(--scrollbarBG);
 }
 
-@media screen and (max-width:540px) {
+@media screen and (min-width:540px) {
 
   .overlaycustom {
     position: fixed;
@@ -58,7 +58,7 @@ overflow-custom::-webkit-scrollbar-thumb {
   }
 
 }
-@media screen and (max-width:720px) {
+@media screen and (min-width:720px) {
 
   .overlaycustom {
     position: fixed;
@@ -73,23 +73,26 @@ overflow-custom::-webkit-scrollbar-thumb {
   }
 
 }
-@media screen and (max-width:995px) {
+@media screen and (min-width:995px) {
 
   .overlaycustom {
-    position: fixed;
+    position: sticky;
     display: block;
     width: 100%;
-    height: 100%;
+    height: max-content;
     left: 0;
     right: 0;
-    bottom: 0;
     z-index: 11;
     cursor: pointer;
+
   }
 
 }
-@media screen and (max-width:1140px) {
-
+@media screen and (min-width:1140px) {
+  .overlaycustom{
+    position: sticky;
+    height: max-content;
+  }
 }
 
 
