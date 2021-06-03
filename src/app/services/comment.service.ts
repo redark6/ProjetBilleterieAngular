@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {EventComment} from '../modeles/eventComment';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class CommentService {
   constructor(private httpClient: HttpClient) {}
 
   public get(id: number, commentOrderBy: string): void {
-    this.httpClient.get<EventComment[]>(`http://localhost:8080/comment/${id}`, {params: { orderBy: commentOrderBy}}).subscribe(
+    this.httpClient.get<EventComment[]>(environment.apiUrl +  `/comment/${id}`, {params: { orderBy: commentOrderBy}}).subscribe(
+
       value => {
         this.emitSearchComment(value);
       },
@@ -22,11 +24,11 @@ export class CommentService {
   }
 
   public post(value: object): Observable<EventComment> {
-    return this.httpClient.post<EventComment>(`http://localhost:8080/comment`, value);
+    return this.httpClient.post<EventComment>(environment.apiUrl + `/comment`, value);
   }
 
   public likecomment(id: number, liketype: number): Observable<boolean>{
-    return this.httpClient.put<boolean>(`http://localhost:8080/comment/${id}/like/${liketype}`, null);
+    return this.httpClient.put<boolean>(environment.apiUrl +  `/comment/${id}/like/${liketype}`, null);
   }
 
   searchCommentListener(): Observable<EventComment[]>{
