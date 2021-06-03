@@ -77,7 +77,7 @@ export class EventService {
   getImage(eventId: number): Observable<string>{
     const parametres = new HttpParams().set('eventId', eventId.toString() );
     console.log('Dans GET IMAGE');
-    
+
     return this.httpClient.get<ArrayBuffer>(environment.apiUrl +  `/event/eventimageget`, {params: parametres, responseType: 'arraybuffer' as 'json'})
   .pipe(
       map(
@@ -111,20 +111,20 @@ export class EventService {
 
 
   getUserEvents(): Observable<Event[]> {
-    return this.httpClient.get<Event[]>('http://localhost:8080/event/myevent');
+    return this.httpClient.get<Event[]>(environment.apiUrl +  '/event/myevent');
 
   }
 
   isOwner(pageId: number): Observable<boolean> {
-    return this.httpClient.get<boolean>(`http://localhost:8080/event/isOwner/${pageId}`);
+    return this.httpClient.get<boolean>(environment.apiUrl +  `/event/isOwner/${pageId}`);
   }
 
   patch(id: number, value: object): Observable<any>{
-    return this.httpClient.patch(`http://localhost:8080/event/patch/${id}`, value);
+    return this.httpClient.patch(environment.apiUrl +  `/event/patch/${id}`, value);
   }
 
   ModifyImage(form: FormData): void {
-    this.httpClient.patch<any>('http://localhost:8080/event/eventimagemodify', form).subscribe(() => {
+    this.httpClient.patch<any>(environment.apiUrl +  '/event/eventimagemodify', form).subscribe(() => {
         return null;
       },
       (error) => {
