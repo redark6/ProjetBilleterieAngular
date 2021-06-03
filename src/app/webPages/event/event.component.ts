@@ -30,6 +30,9 @@ export class EventComponent implements OnInit {
   public eventImageByte: string;
   public urlTweet: string;
 
+  isAuthenticate: boolean;
+  isOwner = false;
+
   categories: string[] = [
     'none',
     'Cour et Atelier', 'Festival', 'Salon', 'Action solidaire', 'Concert',
@@ -42,6 +45,14 @@ export class EventComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
+
+    this.eventService.isOwner(this.event.id).subscribe(value1 => {
+      this.isOwner = true;
+    });
+
+    this.user.authListener().subscribe(state => {
+      this.isAuthenticate = state;
+    });
 
     const observer = new IntersectionObserver( (entries) => {
       if (entries[0].isIntersecting === true){

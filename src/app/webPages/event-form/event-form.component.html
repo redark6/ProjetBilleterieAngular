@@ -4,7 +4,7 @@
 
     <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link active" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="home" aria-selected="true">Création</a>
+        <a class="nav-link active" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="home" aria-selected="true">{{this.event ? 'Modification' : 'Création'}}</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="preview-tab" data-toggle="tab" href="#preview" role="tab" aria-controls="profile" aria-selected="false">Aperçu</a>
@@ -65,7 +65,7 @@
                 <div class="col-md-6 col-6  d-flex justify-content-center">
                   <mat-form-field appearance="standard" class="mr-3 c1">
                     <mat-label>Departement</mat-label>
-                    <mat-select formControlName="region" (valueChange)="getmap()">
+                    <mat-select formControlName="region" (valueChange)="getmap()" [disabled]="this.event">
                       <mat-option [value]="null">aucune</mat-option>
                       <mat-option *ngFor=" let region of regionList" [value]="region.regionId">{{region.regionName + ' ('+region.regionId+')'}}</mat-option>
                     </mat-select>
@@ -97,7 +97,7 @@
                 <div class="col-lg-6 col-md-6 col-6  d-flex justify-content-center">
                   <mat-form-field appearance="standard" class="mr-3 c1">
                     <mat-label>Places</mat-label>
-                    <input type="number" matInput formControlName="nbOfTicket">
+                    <input matInput type="number" matInput formControlName="nbOfTicket">
                     <mat-error *ngIf="nbOfTicket.errors?.required">Ce champ est requis</mat-error>
                     <mat-error *ngIf="nbOfTicket.errors?.min">Le nombre minimal de place est 1</mat-error>
                     <mat-error *ngIf="nbOfTicket.errors?.max">Le nombre maximal de place est 1000</mat-error>
@@ -107,7 +107,7 @@
                 <div class="col-md-6 col-md-6 col-6 d-flex justify-content-center">
                   <mat-form-field appearance="standard" class="mr-3 c1">
                     <mat-label>Prix</mat-label>
-                    <input type="number" matInput formControlName="price">
+                    <input matInput type="number" matInput formControlName="price">
                     <mat-error *ngIf="price.errors?.required">Ce champ est requis</mat-error>
                     <mat-error *ngIf="price.errors?.min">Le prix minimal est de 0€</mat-error>
                     <mat-error *ngIf="price.errors?.max">Le prix maximal est de 500€</mat-error>
@@ -121,7 +121,7 @@
 
                   <mat-form-field appearance="standard" class="mr-3 c1">
                     <mat-label>Date de début</mat-label>
-                    <input matInput [min]="minDate" [matDatepicker]="pickerstart" view="date" min-view="date" formControlName="startDate">
+                    <input matInput [min]="minDate" [matDatepicker]="pickerstart" view="date" min-view="date" formControlName="startDate" [disabled]="this.event">
                     <mat-datepicker-toggle matSuffix [for]="pickerstart"></mat-datepicker-toggle>
                     <mat-datepicker #pickerstart></mat-datepicker>
                     <mat-error *ngIf="startDate.errors?.required">Ce champ est requis</mat-error>
@@ -133,7 +133,7 @@
 
                   <mat-form-field appearance="standard" class="mr-3 c1">
                     <mat-label>Date de fin</mat-label>
-                    <input matInput [min]="minDate" [matDatepicker]="pickerend" view="date" min-view="date" formControlName="endDate" >
+                    <input matInput [min]="minDate" [matDatepicker]="pickerend" view="date" min-view="date" formControlName="endDate" [disabled]="this.event" >
                     <mat-datepicker-toggle matSuffix [for]="pickerend"></mat-datepicker-toggle>
                     <mat-datepicker #pickerend></mat-datepicker>
                     <mat-error *ngIf="endDate.errors?.required">Ce champ est requis</mat-error>
@@ -195,7 +195,9 @@
           </div>
 
           <div class="d-flex justify-content-center">
-            <button mat-raised-button color="primary" [disabled]="eventForm.invalid" (click)="addEvent(imageURL)" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
+            <button mat-raised-button color="primary" *ngIf="!this.event" [disabled]="eventForm.invalid" (click)="addEvent()" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
+            <button mat-raised-button color="primary" *ngIf="this.event" [disabled]="eventForm.invalid" (click)="ModifyEvent()" class="btn btn-block cbutton mb-5" type="submit">Modifier</button>
+
           </div>
 
         </div>
@@ -458,3 +460,4 @@
 </div>
 
 -->
+

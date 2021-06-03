@@ -57,9 +57,14 @@ import {NzRateModule} from 'ng-zorro-antd/rate';
 import { EventEventCardComponent } from './webPages/events/event-event-card/event-event-card.component';
 import {NzPopoverModule} from 'ng-zorro-antd/popover';
 import { Error404Component } from './webPages/error404/error404.component';
+
 import { QuillModule } from 'ngx-quill';
 import {LyIconModule} from '@alyle/ui/icon';
 import {CropperWithDialogAppModule} from './webPages/event-form/cropper-with-dialog/cropper-with-dialog.module';
+import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
+import { MyEventComponentComponent } from './webPages/home/home-event-list-category/my-event-component/my-event-component.component';
+import { MyEventComponent } from './webPages/my-event/my-event.component';
+
 
 registerLocaleData(fr);
 
@@ -88,6 +93,8 @@ registerLocaleData(fr);
     CommentListComponent,
     EventEventCardComponent,
     Error404Component,
+    MyEventComponentComponent,
+    MyEventComponent,
   ],
     imports: [
         BrowserModule,

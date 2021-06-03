@@ -79,7 +79,7 @@ export class ProfilComponent implements OnInit {
         ])],
         phoneNumber: ['', Validators.compose([
           Validators.required,
-          Validators.minLength(4),
+          Validators.minLength(2),
           Validators.maxLength(50)
         ])],
         website: ['', Validators.compose([
@@ -234,6 +234,14 @@ export class ProfilComponent implements OnInit {
 
   get birthDate(): AbstractControl {
     return this.updateProfilForm.get('birthDate');
+  }
+
+  get jobTitle(): AbstractControl {
+    return this.upgradeOrganiserForm.get('jobTitle');
+  }
+
+  get phoneNumber(): AbstractControl {
+    return this.upgradeOrganiserForm.get('phoneNumber');
   }
 
   upgradeOrganiser(): void {

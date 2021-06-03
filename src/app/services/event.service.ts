@@ -103,4 +103,22 @@ export class EventService {
   getUserRating(id: number): Observable<number> {
     return this.httpClient.get<number>(`http://localhost:8080/rate/userRating/${id}`);
   }
+
+  isOwner(pageId: number): Observable<boolean> {
+    return this.httpClient.get<boolean>(`http://localhost:8080/event/isOwner/${pageId}`);
+  }
+
+  patch(id: number, value: object): Observable<any>{
+    return this.httpClient.patch(`http://localhost:8080/event/patch/${id}`, value);
+  }
+
+  ModifyImage(form: FormData): void {
+    this.httpClient.patch<any>('http://localhost:8080/event/eventimagemodify', form).subscribe(() => {
+        return null;
+      },
+      (error) => {
+        console.log(error);
+
+      });
+  }
 }

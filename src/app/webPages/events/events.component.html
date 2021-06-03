@@ -11,7 +11,7 @@
               <span class="h2">Aucun résultat n'a été trouvé pour votre recherche</span>
             </div>
             <div *ngIf="searchState == 'found'" class="w-100 pb-3">
-              <span class="h2">{{searchResult.numberFound}} {{searchLentgh >1 ? 'résultats ont' : 'resultat a' }} été trouver pour votre recherche {{searchResult.searched != null && searchResult.searched != '' ? ': "'+searchResult.searched+'"' : '' }} </span>
+              <span class="h2">{{searchResult.numberFound}} {{searchLentgh >1 ? 'résultats ont' : 'resultat a' }} été trouvé pour votre recherche {{searchResult.searched != null && searchResult.searched != '' ? ': "'+searchResult.searched+'"' : '' }} </span>
             </div>
             <app-event-list [eventList]="searchResult.eventList" ></app-event-list>
           </div>

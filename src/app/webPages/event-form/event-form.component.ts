@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, SecurityContext, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {EventService} from '../../services/event.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CommonDataService} from '../../services/common-data.service';
 import {Region} from '../../modeles/region';
 import {ImgCropperConfig, ImgCropperErrorEvent, ImgCropperEvent, LyImageCropper} from '@alyle/ui/image-cropper';
@@ -10,6 +10,8 @@ import {MapService} from '../../services/map.service';
 import {GlobalParameter} from '../../specialClass/global-parameter';
 import {CropperDialog} from './cropperdialog/cropper-dialog';
 import {LyDialog} from '@alyle/ui/dialog';
+import {Event} from '../../modeles/event';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-event-form',
@@ -23,7 +25,6 @@ export class EventFormComponent implements OnInit {
   imageURL: any;
   public imagePath: any;
   regionList: Region[];
-
   map: google.maps.Map;
   center: google.maps.LatLngLiteral = {lat: 30, lng: -110};
 
@@ -34,13 +35,17 @@ export class EventFormComponent implements OnInit {
     'Autres'];
 
   minDate = new Date();
-
   cropped?: string;
+  firstpicture: string;
+  event: Event;
 
-  constructor(private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private commondata: CommonDataService, private mapService: MapService, private globalVar: GlobalParameter, private _dialog: LyDialog, private _cd: ChangeDetectorRef) {
+  constructor(private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private commondata: CommonDataService, private mapService: MapService, private globalVar: GlobalParameter, private _dialog: LyDialog, private _cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute,private domSanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
+
+    this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
+
 
     this.commondata.getRegions().subscribe(value => {
       this.regionList = value;
@@ -71,7 +76,7 @@ export class EventFormComponent implements OnInit {
       endDate: [null, Validators.compose([
         Validators.required,
       ])],
-      price: ['', Validators.compose([
+      price: [{value: '', disabled: this.event},  Validators.compose([
         Validators.required,
         Validators.min(0),
         Validators.max(500),
@@ -83,7 +88,22 @@ export class EventFormComponent implements OnInit {
       ])],
     }, {validator: datecompare('startDate', 'endDate')});
 
-    this.getmap();
+    if (this.event){
+      this.setTitle(this.event.title);
+      this.setNbOfTicket(this.event.nbOfTicket);
+      this.setCategory(this.event.category);
+      this.setRegion(this.event.region);
+      this.setStartDate(this.event.startDate);
+      this.setEndDate(this.event.endDate);
+      this.setPrice(this.event.price);
+      this.setDescription(this.event.description);
+
+      this.eventService.getImage(this.event.id).subscribe((image) => {
+        this.cropped = this.domSanitizer.sanitize(SecurityContext.RESOURCE_URL, this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + image));
+        this.firstpicture = this.cropped;
+      });
+
+    }
 
     const observer = new IntersectionObserver((entries) => {
       // isIntersecting is true when element and viewport are overlapping
@@ -98,41 +118,74 @@ export class EventFormComponent implements OnInit {
     }, {threshold: [0]});
 
     observer.observe(document.querySelector('#rate'));
+    this.getmap();
   }
 
   get title(): AbstractControl {
     return this.eventForm.get('title');
   }
 
+  setTitle(title): void{
+    this.eventForm.get('title').setValue(title);
+  }
+
   get nbOfTicket(): AbstractControl {
     return this.eventForm.get('nbOfTicket');
+  }
+
+  setNbOfTicket(nbOfTicket): void{
+    this.eventForm.get('nbOfTicket').setValue(nbOfTicket);
   }
 
   get category(): AbstractControl {
     return this.eventForm.get('category');
   }
 
+  setCategory(category): void {
+    this.eventForm.get('category').setValue(category);
+  }
+
   get region(): AbstractControl {
     return this.eventForm.get('region');
+  }
+
+  setRegion(region): void {
+    this.eventForm.get('region').setValue(region);
   }
 
   get startDate(): AbstractControl {
     return this.eventForm.get('startDate');
   }
 
+  setStartDate(startDate): void {
+    this.eventForm.get('startDate').setValue(startDate);
+  }
+
   get endDate(): AbstractControl {
     return this.eventForm.get('endDate');
+  }
+
+  setEndDate(endDate): void {
+    this.eventForm.get('endDate').setValue(endDate);
   }
 
   get price(): AbstractControl {
     return this.eventForm.get('price');
   }
 
+  setPrice(price): void {
+    this.eventForm.get('price').setValue(price);
+  }
+
   get description(): AbstractControl {
     return this.eventForm.get('description');
   }
 
-  addEvent(imageURL: any): void {
+  setDescription(description): void {
+    this.eventForm.get('description').setValue(description);
+  }
+
+  addEvent(): void {
     this.sanitizeDate('startDate');
     this.sanitizeDate('endDate');
     this.eventService.createEvent(this.eventForm.value).subscribe((data) => {
@@ -154,17 +207,9 @@ export class EventFormComponent implements OnInit {
     const imageBlob = this.b64toBlob(realData, contentType, 512);
     const imageFile = new File([imageBlob], imageName, { type: 'image/jpg' });
 
-    // const blob = new Blob([this.cropped], {type: 'image/jpeg'});
-    // const file = new File([blob], 'imageFileName.jpeg', {type: 'image/jpeg'});
-    // const imageURL = this.imagePath.target.files[0];
-    // console.log(file);
-    // console.log(imageURL);
-
     const form = new FormData();
     form.append('imageFile', imageFile);
     form.append('eventId', id.toString());
-    // const eventImage =  new EventImage(1, id , imageURL);
-    // console.log(imageURL);
     this.eventService.sendImage(form);
   }
 
@@ -343,6 +388,7 @@ export class EventFormComponent implements OnInit {
   }
 
   removepicture(): void {
+    console.log(this.cropped);
     this.cropped = null;
   }
 
@@ -351,5 +397,30 @@ export class EventFormComponent implements OnInit {
       return value.replace( /(<([^>]+)>)/ig, '');
     }
     return '';
+  }
+
+  ModifyEvent(): void {
+    this.eventService.patch(this.event.id, this.eventForm.value).subscribe(() => {
+        this.router.navigate(['home']);
+        if (this.firstpicture !== this.cropped){
+          this.ModifyImage(this.event.id);
+        }
+      },
+    );
+  }
+
+  private ModifyImage(id: number): void {
+    const imageName = 'name.jpg';
+    const block = this.cropped.split(';');
+    const contentType = block[0].split(':')[1]; // In this case "image/gif"
+    const realData = block[1].split(',')[1]; // In this case "R0lGODlhPQBEAPeoAJosM...."
+
+    const imageBlob = this.b64toBlob(realData, contentType, 512);
+    const imageFile = new File([imageBlob], imageName, { type: 'image/jpg' });
+
+    const form = new FormData();
+    form.append('imageFile', imageFile);
+    form.append('eventId', id.toString());
+    this.eventService.ModifyImage(form);
   }
 }
