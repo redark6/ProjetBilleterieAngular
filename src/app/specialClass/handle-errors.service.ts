@@ -55,7 +55,7 @@ export class HandleErrorsService {
       }
     }
     if (errorMessage !== '') {
-      this.toaster.error(errorMessage);
+      //this.toaster.error(errorMessage);
     }
   }
 

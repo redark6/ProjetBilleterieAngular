@@ -45,6 +45,7 @@
       <mat-form-field appearance="legacy">
         <mat-label>Où ?</mat-label>
         <mat-select formControlName="region" >
+          <mat-option [value]="null">aucune</mat-option>
           <mat-option *ngFor=" let region of regionList" [value]="region.regionId">{{region.regionName + ' ('+region.regionId+')'}}</mat-option>
         </mat-select>
       </mat-form-field>

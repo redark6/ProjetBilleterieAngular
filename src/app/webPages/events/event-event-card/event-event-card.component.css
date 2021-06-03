@@ -4,10 +4,11 @@
   min-height: 166px; /* height of container */
 
   object-fit: cover;
-  object-position: 20% 10%; /* try 20px 10px */
+  
   border-top-left-radius: 5px;
   border-top-right-radius: 0px;
   border-bottom-left-radius: 5px;
+  object-position: 100% 50%;
 
 }
 .card-size{

@@ -1,13 +1,13 @@
 <div>
   <div class="parent-container">
     <div>
-      <img class="bg-img" src="data:image/webp;base64,{{eventImage}}" alt="profile image"/>
+      <img class="bg-img" [src]="eventImage ? eventImage : './assets/images/nopicture.png'" alt="profile image"/>
     </div>
 
     <div class="container card-img-container" style="z-index: 500">
       <div class="row">
         <div class="">
-          <img class="card-img" src="data:image/webp;base64,{{eventImage}}" alt="profile image"/>
+          <img class="card-img" [src]="eventImage ? eventImage : './assets/images/nopicture.png'" alt="profile image"/>
         </div>
 
         <div class="title-container col-xl-8 col-lg-8 col-md-8 col-sm-8">
@@ -129,7 +129,7 @@
       <div class="col-lg-8 pl-lg-5">
         <span class="font-weight-bold" style="font-size: 35px">Présentation</span>
         <div>
-          {{event.description}}
+          <quill-view-html [content]="event.description"></quill-view-html>
         </div>
       </div>
 

@@ -66,6 +66,7 @@
                   <mat-form-field appearance="standard" class="mr-3 c1">
                     <mat-label>Departement</mat-label>
                     <mat-select formControlName="region" (valueChange)="getmap()">
+                      <mat-option [value]="null">aucune</mat-option>
                       <mat-option *ngFor=" let region of regionList" [value]="region.regionId">{{region.regionName + ' ('+region.regionId+')'}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="region.errors?.required">Ce champ est requis</mat-error>
@@ -292,7 +293,7 @@
 
             <div id="pricebar" class="container py-3 navbar fixed-bottom navbar-light bg-blue">
 
-              <h2 class="mb-1 font-weight-bold text-white">Prix: {{ price.value? price.value : 'xx' +  ' €'}} </h2>
+              <h2 class="mb-1 font-weight-bold text-white">Prix: {{ price.value? price.value + ' €' : 'xx' +  ' €'}} </h2>
               <h2 class="mb-1 font-weight-bold text-white">Places restantes: {{nbOfTicket.value ? nbOfTicket.value : 'xx'}} </h2>
               <h2 class="m-0 p-0 litlesize "><button class="btn btn-outline-light btn-lg litlesize">Réserver</button></h2>
 
@@ -442,13 +443,13 @@
           </mat-form-field>
         </div>
       </div>
-      -->
+
       <input type="file" id="EventPictureInput"  accept="image/x-png,image/gif,image/jpeg" (change)="onImageChange($event)" style="display: none">
       <img src="{{imageURL}}" height="200" *ngIf="imageURL" style="margin-left: auto; margin-right: auto;margin-bottom: 20px; display: block">
       <div class="d-flex justify-content-center">
         <button  id="EventInput" mat-raised-button color="primary" (click)="callInput()" class="btn btn-block cbutton mb-5" type="file">Ajouter des images</button>
       </div>
-  <!--
+
       <div class="d-flex justify-content-center">
         <button mat-raised-button color="primary" [disabled]="eventForm.invalid" (click)="addEvent(imageURL)" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
       </div>

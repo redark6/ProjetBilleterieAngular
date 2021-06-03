@@ -125,7 +125,7 @@ export class SearchBarComponent implements OnInit {
   sanitizeDate(inputForm): void {
     if (this.searchForm.get(inputForm).value) {
       const date = new Date(this.searchForm.get(inputForm).value);
-      date.setHours(1);
+      date.setMinutes(Math.abs(date.getTimezoneOffset()));
       const convertDate = date.toISOString().substring(0, 10);
       this.searchForm.get(inputForm).setValue(convertDate, {onlyself: true});
     }

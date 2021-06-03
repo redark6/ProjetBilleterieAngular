@@ -136,7 +136,7 @@ export class EventFormComponent implements OnInit {
     this.sanitizeDate('startDate');
     this.sanitizeDate('endDate');
     this.eventService.createEvent(this.eventForm.value).subscribe((data) => {
-        //this.router.navigate(['home']);
+        this.router.navigate(['home']);
         this.addImage( data.id);
       },
     );
@@ -146,23 +146,67 @@ export class EventFormComponent implements OnInit {
 
   addImage( id: number): void {
 
-    const blob = new Blob([this.cropped], {type: 'image/png'});
-    const file = new File([blob], 'imageFileName.png', {type: 'image/png'});
-    const imageURL = this.imagePath.target.files[0];
-    console.log(file);
-    console.log(imageURL);
+    const imageName = 'name.jpg';
+    const block = this.cropped.split(';');
+    const contentType = block[0].split(':')[1]; // In this case "image/gif"
+    const realData = block[1].split(',')[1]; // In this case "R0lGODlhPQBEAPeoAJosM...."
+
+    const imageBlob = this.b64toBlob(realData, contentType, 512);
+    const imageFile = new File([imageBlob], imageName, { type: 'image/jpg' });
+
+    // const blob = new Blob([this.cropped], {type: 'image/jpeg'});
+    // const file = new File([blob], 'imageFileName.jpeg', {type: 'image/jpeg'});
+    // const imageURL = this.imagePath.target.files[0];
+    // console.log(file);
+    // console.log(imageURL);
+
     const form = new FormData();
-    form.append('imageFile', imageURL);
+    form.append('imageFile', imageFile);
     form.append('eventId', id.toString());
     // const eventImage =  new EventImage(1, id , imageURL);
     // console.log(imageURL);
     this.eventService.sendImage(form);
   }
 
+  b64toBlob(b64Data, contentType, sliceSize) {
+    contentType = contentType || '';
+    sliceSize = sliceSize || 512;
+
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+  }
+
+  dataURItoBlob(dataURI): Blob {
+    const byteString = window.atob(dataURI);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const int8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      int8Array[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([int8Array], { type: 'image/png' });
+    return blob;
+  }
+
   sanitizeDate(inputForm): void {
     if (this.eventForm.get(inputForm).value) {
       const date = new Date(this.eventForm.get(inputForm).value);
-      date.setHours(1);
+      date.setMinutes(Math.abs(date.getTimezoneOffset()));
       const convertDate = date.toISOString().substring(0, 10);
       this.eventForm.get(inputForm).setValue(convertDate, {onlyself: true});
     }

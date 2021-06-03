@@ -9,6 +9,7 @@ import {GlobalParameter} from '../../specialClass/global-parameter';
 import {} from 'google.maps';
 import {EventImage} from '../../modeles/eventImage';
 import {MapService} from '../../services/map.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class EventComponent implements OnInit {
     'Gastronomie', 'Conférence et Forum', 'Musée et Exposition', 'Spectacle et Théâtre',
     'Autres'];
 
-  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter, private router: Router , private mapService: MapService) {
+  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter, private router: Router , private mapService: MapService, private domSanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -87,7 +88,7 @@ export class EventComponent implements OnInit {
     console.log('AVANT CALL');
     this.eventService.getImage(this.eventId).subscribe((image) => {
       console.log('a linterieur');
-      this.eventImage = image.image;
+      this.eventImage = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + image);
     });
 
     let map: google.maps.Map;

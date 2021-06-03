@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Event} from '../../../modeles/event';
 import {EventService} from '../../../services/event.service';
 import {GlobalParameter} from '../../../specialClass/global-parameter';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-event-event-card',
@@ -13,7 +14,7 @@ export class EventEventCardComponent implements OnInit {
   public eventId: number;
   public eventImage: any;
   region: string;
-  constructor(private globalVar: GlobalParameter, private eventService: EventService) { }
+  constructor(private globalVar: GlobalParameter, private eventService: EventService,private domSanitizer: DomSanitizer) { }
 
   categories: string[] = [
     'none',
@@ -23,11 +24,15 @@ export class EventEventCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventId = this.event.id;
+
+    console.log('AVANT CALL');
     this.eventService.getImage(this.eventId).subscribe((image) => {
-      this.eventImage = image.image;
+      console.log('a linterieur');
+      this.eventImage = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + image);
     });
 
-    this.region = this.globalVar.regionList[this.event.region].regionName;
+
+    this.region = this.globalVar.regionList[this.event.region - 1].regionName;
 
   }
 
