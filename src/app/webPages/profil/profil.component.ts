@@ -7,6 +7,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {ageMatchRange} from '../../specialClass/custom-validator';
 import {Subscription} from 'rxjs';
 import {Organiser} from '../../modeles/organiser';
+import {UserComment} from '../../modeles/user-comment';
 
 @Component({
   selector: 'app-profil',
@@ -17,6 +18,7 @@ export class ProfilComponent implements OnInit {
 
   updateProfilForm: FormGroup;
   public userProfilInfos: User;
+  public userComments: UserComment[];
   closeResult = '';
   upgradeOrganiserForm: FormGroup;
   roleSubscription: Subscription;
@@ -31,6 +33,10 @@ export class ProfilComponent implements OnInit {
 
     this.user.getUserProfil().subscribe(user => {
       this.userProfilInfos = user;
+    });
+
+    this.user.getUserComments().subscribe(userComments => {
+      this.userComments = userComments;
     });
 
     this.organiserProfilInfos = new Organiser('', '', '', '', '', '', '', '');

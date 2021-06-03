@@ -1,13 +1,7 @@
-<div class="container">
-
-  <div class="row mb-4">
-
-    <div class="col-lg-8">
-
-      <div>
-        <img class="img-responsive " style=" height: 300px"
-             src="https://www.publicdomainpictures.net/pictures/320000/nahled/background-image.png">
-      </div>
+<div>
+  <div class="parent-container">
+    <div>
+      <img class="bg-img" src="data:image/webp;base64,{{eventImage}}" alt="profile image"/>
     </div>
 
     <div class="col-lg-4 bg-light">
@@ -24,16 +18,73 @@
           <button class="buttonedit offset-md-2" *ngIf="isAuthenticate && isOwner==true" (click)="open(categorie)">
             <i class="fas fa-edit"></i>
           </button>
+    <div class="container card-img-container" style="z-index: 500">
+      <div class="row">
+        <div class="">
+          <img class="card-img" src="data:image/webp;base64,{{eventImage}}" alt="profile image"/>
         </div>
 
-        <div class="col-lg-12 py-2">
-          <h4>{{event.region}}</h4>
-        </div>
-        <div class="col-lg-12 py-2">
-          <h4>{{event.creationDate|date}}</h4>
-        </div>
-        <div class="col-lg-12 py-2">
-          <h4>{{event.price}}</h4>
+        <div class="title-container col-xl-8 col-lg-8 col-md-8 col-sm-8">
+          <div class="row">
+            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-7 col-4">
+              <!--
+              <span>Note des utilisateurs </span>
+              <br>
+
+              <nz-rate [(ngModel)]="value" [nzAllowClear]="false" nzAllowHalf nzDisabled></nz-rate>
+              -->
+              <span class="myicone font-weight-bold">{{value + "/5"}} <i class="fas fa-star "></i></span>
+            </div>
+
+            <div class="col-xl-7 col-lg-7 col-md-5 col-sm-4 col-4 d-md-none">
+
+              <div class="d-flex" style="position: absolute;bottom: 0">
+
+                <ng-template #popContent>
+                      <span class="myicone">
+                        <div class="d-flex flex-row-reverse">
+                      <div class="px-2">
+                        <a class="twitter-share-button sharer "
+                           href="https://twitter.com/intent/tweet?url={{urlTweet}}&hashtags=ticketheure" data-url="www.google.com" id="share-tw">
+                            <i class="fa fa-twitter-square"></i>
+                        </a>
+                      </div>
+
+                      <div class="px-2">
+                        <a id="share-fb" href="http://www.facebook.com/sharer/sharer.php?u={{urlTweet}}&t=Jesaispas" target="_blank" class="share-popup sharer  fab fa-facebook-square">
+                        </a>
+                      </div>
+                        </div>
+                      </span>
+                </ng-template>
+                <button type="button" class="btn btn-outline-light btn-lg bg-blue" placement="top" [ngbPopover]="popContent">
+                  Partager
+                </button>
+
+              </div>
+            </div>
+
+            <div class="col-xl-7 col-lg-7 col-md-5 col-sm-4 col-4 d-none d-md-block">
+                  <span class="myicone">
+                    <div class="d-flex flex-row-reverse">
+
+                      <div class="px-2">
+                        <a class="twitter-share-button sharer "
+                           href="https://twitter.com/intent/tweet?url={{urlTweet}}&hashtags=ticketheure" data-url="www.google.com" id="share-tw">
+                            <i class="fa fa-twitter-square"></i>
+                        </a>
+                      </div>
+
+                      <div class="px-2">
+                        <a id="share-fb" href="http://www.facebook.com/sharer/sharer.php?u={{urlTweet}}&t=Jesaispas" target="_blank" class="share-popup sharer  fab fa-facebook-square">
+                        </a>
+                      </div>
+
+                    </div>
+
+                  </span>
+            </div>
+          </div>
         </div>
         <div class="col-sm">
           <h4>Note des utilisateurs </h4>
@@ -41,13 +92,14 @@
         </div>
 
       </div>
+
     </div>
 
   </div>
 
-  <div class="row">
+  <div class="container pt-2">
 
-    <div class="col-lg-8 px-3">
+    <div id="pricebar" class="container py-3 navbar fixed-bottom navbar-light bg-blue">
 
       <h2>Description</h2>
       <div>
@@ -56,11 +108,16 @@
           <i class="fas fa-edit"></i>
         </button>
       </div>
-
+      <h2 class="mb-1 font-weight-bold text-white">Prix: {{event.price + ' €'}} </h2>
+      <h2 class="mb-1 font-weight-bold text-white">Places restantes: {{event.nbOfTicket}} </h2>
+      <h2 class="m-0 p-0 litlesize "><button class="btn btn-outline-light btn-lg litlesize">Réserver</button></h2>
     </div>
 
+    <div class="col-12 px-0 mx-0 pb-5">
+      <span class="title ">{{event.title}}</span>
+    </div>
 
-    <div class="col-lg-4 bg-light px-3 ">
+    <div class="row mb-4">
 
       <div class="py-3 bg text-center">
         <h1>{{event.nbOfTicket}}</h1>
@@ -69,37 +126,43 @@
         </button>
         <div>
           <h3>Restants</h3>
+      <div class="col-lg-4 ">
+        <div class="font-weight-bold">
+          <span style="font-size: 35px">Informations</span>
         </div>
-      </div>
 
-      <div class="text-center mb-5">
-        <button type="button" class="btn btn-primary btn-lg">Réserver</button>
-      </div>
 
-      <div class="col">
         <div class="row">
-          <a href="#" id="share-fb" class="sharer button "><i class="fa fa-3x fa-facebook-square"></i></a>
-          <a href="#" id="share-tw" class="sharer button "><i class="fa fa-3x fa-twitter-square"></i></a>
-          <a href="#" id="share-ig" class="sharer button "><i class="fa fa-3x fa-instagram"></i></a>
+          <div class="col-lg-12 col-md-4 col-sm-6 col-6 py-2">
+            <h5 class="mb-1 font-weight-bold">Date</h5>
+            <h5> du {{event.startDate|date: 'dd/MM/yyyy'}} <br> au  {{event.endDate|date: 'dd/MM/yyyy'}}</h5>
+
+          </div>
+
+          <div class="col-lg-12 col-md-4 col-sm-6 col-6 py-2">
+            <h5 class="mb-1 font-weight-bold">Localisation </h5>
+            <h5><a style="color: #2e9fb3" (click)="gotomap()">{{region}}</a></h5>
+          </div>
+
+          <div class="col-lg-12 col-md-4 col-sm-6 col-6 py-2">
+            <h5 class="mb-1 font-weight-bold">Type d'évènement</h5>
+            <h5>{{categories[event.category]}}</h5>
+          </div>
+
+          <div class="col-lg-12 col-md-4 col-sm-6 col-6 py-2">
+            <h5 class="mb-1 font-weight-bold">Organisateur</h5>
+            <h5><a routerLink="" >orgaisateurfictif</a></h5>
+          </div>
+
         </div>
       </div>
 
-    </div>
-
-  </div>
-
-  <div class="calendar">
-
-  </div>
-
-  <div class="container">
-    <iframe scrolling="no" marginheight="0" marginwidth="0"
-            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=1%20Grafton%20Street,%20Dublin,%20Ireland+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-            width="100%" height="300px" frameborder="0">
-    </iframe>
-
-    <div >
-
+      <div class="col-lg-8 pl-lg-5">
+        <span class="font-weight-bold" style="font-size: 35px">Présentation</span>
+        <div>
+          {{event.description}}
+        </div>
+      </div>
 
     </div>
 
@@ -110,10 +173,21 @@
           <nz-rate [(ngModel)]="value2" [nzAllowClear]="false" (click)="rate()"></nz-rate>
         </div>
 
+    <div id="map" style="width:100%;height:400px"></div>
+
+    <div id="map_canvas" class="container">
+
+      <div class="container py-2">
+        <div class="row d-flex justify-content-center">
+          <h5 class="pr-2 py-0 my-0">Noter l'évènement : </h5>
+          <nz-rate class="mb-2" [(ngModel)]="value2" [nzAllowClear]="false" (click)="rate()"></nz-rate>
+        </div>
+      </div>
+
+      <div id="comments">
+        <app-event-comment [eventId]="this.event.id "></app-event-comment>
       </div>
     </div>
-
-  </div>
 
 
   <ng-template #title let-modal>
@@ -158,4 +232,12 @@
 
   <app-event-comment [eventId]="this.event.id"></app-event-comment>
 
+  </div>
+    </div>
+      </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
 </div>

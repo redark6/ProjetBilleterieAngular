@@ -4,6 +4,7 @@ import {Event} from '../modeles/event';
 import {SearchResult} from '../modeles/searchResult';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {EventImage} from '../modeles/eventImage';
 
 @Injectable({
   providedIn: 'root'
@@ -46,12 +47,25 @@ export class EventService {
       }
     );
   }
-  createEvent(value: object): void{
-    this.httpClient.post<any>('http://localhost:8080/event/create', value).subscribe(() => {
-      return this.router.navigate(['home']);
-      },
-      );
+  createEvent(value: object): Observable<Event>{
+    return this.httpClient.post<Event>('http://localhost:8080/event/create', value);
+  }
 
+  sendImage(form): void{
+    // console.log(eventImage.image);
+    this.httpClient.post<any>('http://localhost:8080/event/eventimagepost', form).subscribe(() => {
+        return null;
+      },
+      (error) => {
+        console.log(error);
+
+      });
+  }
+
+  getImage(eventId: number): Observable<any>{
+    const parametres = new HttpParams().set('eventId', eventId.toString() );
+    console.log('Dans GET IMAGE');
+    return this.httpClient.get<any>(`http://localhost:8080/event/eventimageget`, {params: parametres});
   }
 
   searchListener(): Observable<SearchResult>{

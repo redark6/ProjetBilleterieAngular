@@ -38,7 +38,7 @@
   object-fit: cover;
 }
 
-@media screen and (max-width:1400px) {
+@media screen and (max-width:1980px) {
   .img2 {
     max-width: 17vw;
     min-width: 17vw;
@@ -46,20 +46,24 @@
 }
 @media screen and (max-width:1200px) {
   .img2{
-    max-width: 20vw;
-    min-width: 20vw;
+    max-width: 18vw;
+    min-width: 18vw;
   }
 }
 @media screen and (max-width:992px) {
   .img2{
-    max-width: 25vw;
-    min-width: 25vw;
+    max-width: 22vw;
+    min-width: 22vw;
   }
 }
 @media screen and (max-width:767px) {
   .img2 {
-    max-width: 30vw;
-    min-width: 30vw;
+    max-width: none;
+    min-width: unset;
   }
 
+}
+
+a{
+  color: black;
 }

@@ -1,30 +1,28 @@
 <div id="container" class="container">
   <div class="row collapse no-gutters d-flex h-100 position-relative">
 
-    <div class=" col-xl-9 col-lg-8 col-md-12  overflow-custom" *ngIf="searchResult">
+    <div class=" col-xl-9 col-lg-8 col-md-12 " *ngIf="searchResult">
 
-      <nav class=" navbar-light sticky-top  bg-white w-100">
-        <div class="d-flex justify-content-center ">
-          <app-event-list-pagination [numberOfpages]="searchResult.numberOfPages" [currentPage]="searchResult.currentPage"></app-event-list-pagination>
-        </div>
-      </nav>
 
       <div class=" container pt-3">
         <div class="row ">
-            <div class="col-12">
-              <div *ngIf="searchState == 'notfound'" class="w-100 h-100 ">
-                <span class="h2">Aucun resultat n'a été trouver pour votre recherche</span>
-              </div>
-              <div *ngIf="searchState == 'found'" class="w-100 pb-2">
-                <span class="h2">{{searchResult.numberFound}} {{searchLentgh >1 ? 'résultats ont' : 'resultat a' }} été trouver pour votre recherche {{searchResult.searched != null && searchResult.searched != '' ? ': "'+searchResult.searched+'"' : '' }} </span>
-              </div>
-              <app-event-list [eventList]="searchResult.eventList" ></app-event-list>
+          <div class="col-12">
+            <div *ngIf="searchState == 'notfound'" class="w-100 h-100 pb-3">
+              <span class="h2">Aucun résultat n'a été trouvé pour votre recherche</span>
             </div>
+            <div *ngIf="searchState == 'found'" class="w-100 pb-3">
+              <span class="h2">{{searchResult.numberFound}} {{searchLentgh >1 ? 'résultats ont' : 'resultat a' }} été trouver pour votre recherche {{searchResult.searched != null && searchResult.searched != '' ? ': "'+searchResult.searched+'"' : '' }} </span>
+            </div>
+            <app-event-list [eventList]="searchResult.eventList" ></app-event-list>
+          </div>
         </div>
+      </div>
+      <div class="d-flex justify-content-center pt-3" *ngIf="searchResult.numberOfPages>1">
+        <app-event-list-pagination [numberOfpages]="searchResult.numberOfPages" [currentPage]="searchResult.currentPage"></app-event-list-pagination>
       </div>
     </div>
 
-    <div id="searchevent" class=" col-xl-3 col-lg-4 px-0 col-md-12 col-sm-12 overlaycustom show ">
+    <div id="searchevent" class=" col-xl-3 col-lg-4 px-0 col-md-12 col-sm-12 overlaycustom show sticky-top " >
       <div class="h-100  " style="width:inherit" >
         <app-search-bar></app-search-bar>
       </div>

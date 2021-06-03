@@ -1,14 +1,4 @@
-.c1{
-  width: 60%;
-}
 
-.c2{
-  width: 80%;
-}
-
-.c3{
-  width: 90%;
-}
 
 .textariaresize{
   resize: none;
@@ -17,4 +7,87 @@
 
 .cbutton{
   width: 40%;
+}
+
+
+@media screen and (min-width:540px) {
+
+  .card-img {
+    height: 500px;
+    width: 350px ;
+    margin: auto;
+  }
+
+  .c1{
+    width: 80%;
+  }
+
+  .c2{
+    width: 95%;
+  }
+
+  .c3{
+    width: 90%;
+  }
+
+}
+@media screen and (min-width:720px) {
+
+  .card-img {
+    height: 350px;
+    width: 250px ;
+  }
+
+  .c1{
+    width: 60%;
+  }
+
+  .c2{
+    width: 85%;
+  }
+
+  .c3{
+    width: 90%;
+  }
+
+}
+@media screen and (min-width:995px) {
+
+  .card-img {
+    height: 400px;
+    width: 275px ;
+  }
+
+  .c1{
+    width: 60%;
+  }
+
+  .c2{
+    width: 85%;
+  }
+
+  .c3{
+    width: 90%;
+  }
+
+}
+@media screen and (min-width:1140px) {
+
+  .card-img {
+    height: 500px;
+    width: 350px ;
+  }
+
+  .c1{
+    width: 60%;
+  }
+
+  .c2{
+    width: 85%;
+  }
+
+  .c3{
+    width: 90%;
+  }
+
 }

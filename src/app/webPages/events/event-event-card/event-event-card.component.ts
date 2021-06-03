@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Event} from '../../../modeles/event';
+import {EventService} from '../../../services/event.service';
+import {GlobalParameter} from '../../../specialClass/global-parameter';
 
 @Component({
   selector: 'app-event-event-card',
@@ -8,7 +10,10 @@ import {Event} from '../../../modeles/event';
 })
 export class EventEventCardComponent implements OnInit {
   @Input() event: Event;
-  constructor() { }
+  public eventId: number;
+  public eventImage: any;
+  region: string;
+  constructor(private globalVar: GlobalParameter, private eventService: EventService) { }
 
   categories: string[] = [
     'none',
@@ -17,6 +22,13 @@ export class EventEventCardComponent implements OnInit {
     'Autres'];
 
   ngOnInit(): void {
+    this.eventId = this.event.id;
+    this.eventService.getImage(this.eventId).subscribe((image) => {
+      this.eventImage = image.image;
+    });
+
+    this.region = this.globalVar.regionList[this.event.region].regionName;
+
   }
 
 }
