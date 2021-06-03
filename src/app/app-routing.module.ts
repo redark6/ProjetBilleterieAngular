@@ -9,6 +9,7 @@ import {EventFormComponent} from './webPages/event-form/event-form.component';
 import {EventsComponent} from './webPages/events/events.component';
 import {EventResolver} from './webPages/event/event-resolver';
 import {Error404Component} from './webPages/error404/error404.component';
+import {MyEventComponent} from './webPages/events/my-event/my-event.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'event-form', component: EventFormComponent},
   { path: 'events', component: EventsComponent },
   { path: 'profil', component: ProfilComponent },
-  { path: 'error404', component: Error404Component }
+  { path: 'error404', component: Error404Component },
+  {path: 'myevent', component: MyEventComponent}
 
   // { path: 'not-found', component: Error404Component },
   // { path: '**', redirectTo: 'not-found' }

@@ -95,4 +95,8 @@ export class EventService {
   getUserRating(id: number): Observable<number> {
     return this.httpClient.get<number>(`http://localhost:8080/rate/userRating/${id}`);
   }
+
+  getUserEvents(): Observable<Event[]> {
+    return this.httpClient.get<Event[]>('http://localhost:8080/event/myevent');
+  }
 }
