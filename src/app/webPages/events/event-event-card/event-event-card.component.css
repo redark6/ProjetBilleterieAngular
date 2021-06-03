@@ -4,10 +4,11 @@
   min-height: 166px; /* height of container */
 
   object-fit: cover;
-  object-position: 20% 10%; /* try 20px 10px */
+  
   border-top-left-radius: 5px;
   border-top-right-radius: 0px;
   border-bottom-left-radius: 5px;
+  object-position: 100% 50%;
 
 }
 .card-size{
@@ -46,20 +47,24 @@
 }
 @media screen and (max-width:1200px) {
   .img2{
-    max-width: 20vw;
-    min-width: 20vw;
+    max-width: 18vw;
+    min-width: 18vw;
   }
 }
 @media screen and (max-width:992px) {
   .img2{
-    max-width: 25vw;
-    min-width: 25vw;
+    max-width: 22vw;
+    min-width: 22vw;
   }
 }
 @media screen and (max-width:767px) {
   .img2 {
-    max-width: 30vw;
-    min-width: 30vw;
+    max-width: none;
+    min-width: unset;
   }
 
+}
+
+a{
+  color: black;
 }

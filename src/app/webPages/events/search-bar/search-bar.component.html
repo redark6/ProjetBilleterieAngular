@@ -1,9 +1,9 @@
 <div class="displayifsize">
-<app-navigation-bar></app-navigation-bar>
+  <app-navigation-bar></app-navigation-bar>
 </div>
 
 <div id="container" [formGroup]="searchForm" class="container-fluid bg-grey rounded pt-3 h-100  ">
-  <div class="pt-3">
+  <div class="pt-3 pb-3">
     <!--
     <mat-form-field appearance="legacy" >
       <mat-label>Localisation</mat-label>
@@ -45,6 +45,7 @@
       <mat-form-field appearance="legacy">
         <mat-label>Où ?</mat-label>
         <mat-select formControlName="region" >
+          <mat-option [value]="null">aucune</mat-option>
           <mat-option *ngFor=" let region of regionList" [value]="region.regionId">{{region.regionName + ' ('+region.regionId+')'}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -83,7 +84,7 @@
             <mat-label>Prix max</mat-label>
             <input type="number" min="0" max="500" matInput formControlName="maxPrice">
           </mat-form-field>
-          </div>
+        </div>
       </div>
     </div>
     <!--

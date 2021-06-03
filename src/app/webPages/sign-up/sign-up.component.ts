@@ -142,7 +142,7 @@ export class SignUpComponent implements OnInit {
 
   date(birthDate): void {
     const date = new Date(birthDate.target.value);
-    date.setHours(1);
+    date.setMinutes(Math.abs(date.getTimezoneOffset()));
     const convertDate = date.toISOString().substring(0, 10);
     this.registerForm.get('birthDate').setValue(convertDate, {
       onlyself: true

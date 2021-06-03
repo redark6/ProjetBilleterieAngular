@@ -24,17 +24,19 @@ export class HomeEventCardComponent implements OnInit {
   public eventId: number;
   public eventImage: any;
   region: string;
-  constructor(private route: Router, private eventService: EventService, private globalVar: GlobalParameter, private domSanitizer: DomSanitizer) { }
+  constructor(private route: Router, private eventService: EventService, private globalVar: GlobalParameter, private domSanitizer: DomSanitizer ) { }
 
   ngOnInit(): void {
 
     this.eventId = this.event.id;
 
+    console.log('AVANT CALL');
     this.eventService.getImage(this.eventId).subscribe((image) => {
+      console.log('a linterieur');
       this.eventImage = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,' + image);
     });
 
-    this.region = this.globalVar.regionList[this.event.region].regionName;
+    this.region = this.globalVar.regionList[this.event.region - 1].regionName;
 
   }
 
