@@ -10,13 +10,15 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./my-event.component.css']
 })
 export class MyEventComponent implements OnInit {
-  eventList: Event[];
+  userEventList: Event[];
 
-  constructor() {
+  constructor(private eventService: EventService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-
+    this.eventService.getUserEvents().subscribe(userEvents => {
+      this.userEventList = userEvents;
+    });
   }
 
 }

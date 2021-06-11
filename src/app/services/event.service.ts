@@ -95,4 +95,8 @@ export class EventService {
     );
   }
 
+  getUserEvents(): Observable<Event[]> {
+    return this.httpClient.get<Event[]>(`http://localhost:8080/event/myevent`);
+  }
+
 }
