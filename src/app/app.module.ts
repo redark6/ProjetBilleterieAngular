@@ -57,9 +57,15 @@ import {NzRateModule} from 'ng-zorro-antd/rate';
 import { EventEventCardComponent } from './webPages/events/event-event-card/event-event-card.component';
 import {NzPopoverModule} from 'ng-zorro-antd/popover';
 import { Error404Component } from './webPages/error404/error404.component';
-import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
-import { MyEventComponentComponent } from './webPages/home/home-event-list-category/my-event-component/my-event-component.component';
+
+
+import { QuillModule } from 'ngx-quill';
+import {LyIconModule} from '@alyle/ui/icon';
+import {CropperWithDialogAppModule} from './webPages/event-form/cropper-with-dialog/cropper-with-dialog.module';
 import { MyEventComponent } from './webPages/my-event/my-event.component';
+import { MyEventCardComponent } from './webPages/my-event/my-event-card/my-event-card.component';
+import {ObjectPipe} from './specialClass/object-pipe';
+
 
 
 registerLocaleData(fr);
@@ -89,42 +95,46 @@ registerLocaleData(fr);
     CommentListComponent,
     EventEventCardComponent,
     Error404Component,
-    MyEventComponentComponent,
     MyEventComponent,
+    MyEventCardComponent,
+    ObjectPipe
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgxSliderModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-top-right',
-    }),
-    MatFormFieldModule,
-    MatNativeDateModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    FormsModule,
-    MatChipsModule,
-    MatIconModule,
-    MatOptionModule,
-    MatSelectModule,
-    NzCommentModule,
-    NzFormModule,
-    NzIconModule,
-    NzAvatarModule,
-    NzButtonModule,
-    NzInputModule,
-    NzPopoverModule,
-    NzRateModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        NgxSliderModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+        }),
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        FormsModule,
+        MatChipsModule,
+        MatIconModule,
+        MatOptionModule,
+        MatSelectModule,
+        NzCommentModule,
+        NzFormModule,
+        NzIconModule,
+        NzAvatarModule,
+        NzButtonModule,
+        NzInputModule,
+        NzPopoverModule,
+        NzRateModule,
+        QuillModule.forRoot(),
+        LyIconModule,
+        CropperWithDialogAppModule,
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     GlobalParameter,

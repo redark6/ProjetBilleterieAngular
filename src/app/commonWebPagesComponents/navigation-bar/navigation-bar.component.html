@@ -47,7 +47,7 @@
     <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse mr-lg-5 " id="userElements">
       <ul class="navbar-nav mr-auto ">
         <li class="nav-item" *ngIf="authority == 'ORG' && isAuthenticate">
-          <a class="nav-link" routerLink="/myevent-list" >Mes évènements</a>
+          <a class="nav-link" routerLink="/myevent" >Mes évènements</a>
         </li>
         <li class="nav-item" *ngIf="authority == 'ORG' && isAuthenticate">
           <a class="nav-link" routerLink="/event-form" >Créer un évènement</a>

@@ -71,7 +71,7 @@ export class HomeEventListCategoryComponent implements OnInit, AfterContentInit 
       document.addEventListener('mousemove', mouseMoveHandler);
       document.addEventListener('mouseup', mouseUpHandler);
 
-      //this.element.style.cursor = 'grabbing';
+      // this.element.style.cursor = 'grabbing';
       this.element.style.userSelect = 'none';
 
       e.preventDefault();
@@ -95,7 +95,7 @@ export class HomeEventListCategoryComponent implements OnInit, AfterContentInit 
 
 
     const mouseUpHandler = () => {
-      //this.element.style.cursor = 'grab';
+      // this.element.style.cursor = 'grab';
       this.element.style.removeProperty('user-select');
 
       document.removeEventListener('mousemove', mouseMoveHandler);
@@ -106,7 +106,7 @@ export class HomeEventListCategoryComponent implements OnInit, AfterContentInit 
 
 
   animationhandler(): void{
-    if(this.animation === true) {
+    if (this.animation === true) {
       if (this.element.offsetWidth + this.element.scrollLeft >= this.element.scrollWidth - 1) {
 
         this.rightbarid.classList.remove('animation');

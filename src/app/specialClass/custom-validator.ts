@@ -1,4 +1,4 @@
-import {AbstractControl, FormGroup, ValidatorFn} from '@angular/forms';
+import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
 
 export function passwordsMatch(password: string, passwordConfirm: string): ValidatorFn {
   return (formGroup: FormGroup): {[key: string]: any} | null => {
@@ -41,5 +41,59 @@ export function ageMatchRange(birthDate: AbstractControl): object {
       return { birthDateInvalid: true};
     }
     return null;
+}
+
+export function datecompare(startDate1: string, endDate1: string): ValidatorFn {
+  return (formGroup: FormGroup): {[key: string]: any} | null => {
+    const control = formGroup.controls[startDate1];
+    const matchingControl = formGroup.controls[endDate1];
+
+    if (matchingControl.errors && !matchingControl.errors.datecompare) {
+      return;
+    }
+
+    if (!control || !matchingControl) {
+      return null;
+    }
+
+    let startdate = control.value;
+    let enddate = matchingControl.value;
+
+    if (!startdate || !enddate) {
+      return null;
+    }
+
+    startdate = new Date(startdate);
+    startdate.setHours(1);
+
+    enddate = new Date(enddate);
+    enddate.setHours(1);
+
+    if (startdate.getTime() > enddate.getTime()) {
+      matchingControl.setErrors({ datecompare: true });
+    }else {
+      matchingControl.setErrors(null);
+    }
+  };
+
+}
+
+export function descriptionSize(description: string): ValidatorFn {
+  return (formGroup: FormGroup): {[key: string]: any} | null => {
+    const control = formGroup.controls[description];
+
+    if (control.errors && !control.errors.descirptionToBig && !control.errors.descirptionToLitle) {
+      return;
+    }
+
+    if (control.value.replace( /(<([^>]+)>)/ig, '').length < 10 ) {
+      control.setErrors({ descirptiontolitle: true });
+    } else if (control.value.replace( /(<([^>]+)>)/ig, '').length > 3000) {
+      control.setErrors({ descirptiontobig: true });
+    }else{
+      control.setErrors(null);
+    }
+
+  };
 }
 
