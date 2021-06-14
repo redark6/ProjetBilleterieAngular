@@ -73,7 +73,6 @@ export class EventService {
 
   getImage(eventId: number): Observable<string>{
     const parametres = new HttpParams().set('eventId', eventId.toString() );
-    console.log('Dans GET IMAGE');
     return this.httpClient.get<ArrayBuffer>('http://localhost:8080/event/eventimageget', {params: parametres, responseType: 'arraybuffer' as 'json'})
       .pipe(
         map(
