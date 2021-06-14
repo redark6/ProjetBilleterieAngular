@@ -121,31 +121,38 @@
         <div class="mx-5">
 
           <div class="row">
-            <div class="col-md-6 mb-3">
-              <input [class.is-invalid] = "updateProfilForm.get('firstName').invalid && updateProfilForm.get('firstName').touched"
+            <div class="col-12 mb-3 p-0">
+              <mat-form-field appearance="outline" class="mr-3 c2" style="width: 100%;">
+                <mat-label>Prenom</mat-label>
+              <input matInput [class.is-invalid] = "updateProfilForm.get('firstName').invalid && updateProfilForm.get('firstName').touched"
                      type="text" class="form-control" formControlName="firstName"  placeholder="Prénom"/>
               <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty">
                 <small *ngIf="firstName.errors?.required" class="text-danger">Ce champ est requis</small>
                 <small *ngIf="firstName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
                 <small *ngIf="firstName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
-
               </div>
-              <div class="col-md-6 mb-3">
-                <input [class.is-invalid] = "updateProfilForm.get('lastName').invalid && updateProfilForm.get('lastName').touched"
+              </mat-form-field>
+            </div>
+              <div class="col-12 mb-3 p-0">
+                <mat-form-field appearance="outline" class="mr-3 c2" style="width: 100%;">
+                  <mat-label>Nom</mat-label>
+                <input matInput [class.is-invalid] = "updateProfilForm.get('lastName').invalid && updateProfilForm.get('lastName').touched"
                        type="text" class="form-control" formControlName="lastName" placeholder="Nom"/>
                 <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty">
                   <small *ngIf="lastName.errors?.required" class="text-danger">Ce champ est requis</small>
                   <small *ngIf="lastName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
                   <small *ngIf="lastName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
                 </div>
+                </mat-form-field>
               </div>
-            </div>
 
-            <div class="mb-3">
-              <div class="input-group">
-                <input [class.is-invalid] = "updateProfilForm.get('userName').invalid && updateProfilForm.get('userName').touched"
+
+            <div class="col-12 mb-3 p-0">
+              <mat-form-field appearance="outline" class="mr-3 c2" style="width: 100%;">
+                <mat-label>Nom d'Utilisateur</mat-label>
+                <input matInput [class.is-invalid] = "updateProfilForm.get('userName').invalid && updateProfilForm.get('userName').touched"
                        type="text" class="form-control" formControlName="userName" value="zzzz" placeholder="Nom d'utilisateur"/>
-              </div>
+
               <div *ngIf="(userName.invalid && userName.touched) || userName.dirty">
                 <small *ngIf="userName.errors?.required" class="text-danger">Ce champ est requis</small>
                 <small *ngIf="userName.errors?.minlength" class="text-danger">La taille minimale est de 4 caractères</small>
@@ -153,6 +160,7 @@
                 <small *ngIf="userName.errors?.incorrect" class="text-danger">Ce nom d'utilisateur est déjas pris</small>
 
               </div>
+              </mat-form-field>
             </div>
 
 
@@ -177,22 +185,46 @@
         </div>
     <div class="modal-body" [formGroup]="updateOrganiserForm">
       <div >
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Job Title</mat-label>
         <input
-          type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
+           matInput type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>N° Téléphone</mat-label>
         <input
-          type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
+          matInput type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Site Web</mat-label>
         <input
-          type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
+          matInput type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Entreprise</mat-label>
         <input
-          type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
+          matInput type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Blog</mat-label>
         <input
-          type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
+          matInput type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Adresse Pro</mat-label>
         <input
-          type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
+          matInput type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Ville</mat-label>
         <input
-          type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
+          matInput type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Pays</mat-label>
         <input
-          type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
+          matInput type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
+        </mat-form-field>
       </div>
       <div class="modal-footer">
         <button [disabled]="updateOrganiserForm.invalid" type="submit" class="btn btn-outline-primary" (click)="updateOrganiser() && modal.close('Save click')">Enregistrer</button>
