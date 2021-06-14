@@ -1,0 +1,7 @@
+<div class="container" *ngIf="organiser">
+<p>{{organiser.website}}</p>
+  <img class="card-img" [src]="organiserImage ? organiserImage : './assets/images/nopicture.png'" alt="profile image"/>
+  <div>
+  <app-home-event-list-category [params]="{category:2,eventsPerPage:8}" identifiant="lesplusvendue" text="Cour et Atelier"></app-home-event-list-category>
+  </div>
+</div>

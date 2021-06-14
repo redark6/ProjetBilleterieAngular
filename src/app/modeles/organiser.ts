@@ -2,14 +2,14 @@ import {Input} from '@angular/core';
 
 export class Organiser {
 
-  private _jobTitle: string;
-  private _phoneNumber: string;
-  private _website: string;
-  private _company: string;
-  private _blog: string;
-  private _proAddress: string;
-  private _proCity: string;
-  private _proCountry: string;
+  public _jobTitle: string;
+  public _phoneNumber: string;
+  public _website: string;
+  public _company: string;
+  public _blog: string;
+  public _proAddress: string;
+  public _proCity: string;
+  public _proCountry: string;
 
   // tslint:disable-next-line:variable-name max-line-length
   constructor(job_title: string, phone_number: string, website: string, company: string, blog: string, pro_address: string, pro_city: string, pro_country: string) {
