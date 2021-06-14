@@ -11,7 +11,7 @@ import {EventFormComponent} from './webPages/event-form/event-form.component';
 import {EventsComponent} from './webPages/events/events.component';
 import {EventResolver} from './webPages/event/event-resolver';
 import {Error404Component} from './webPages/error404/error404.component';
-import {MyEventComponent} from './webPages/events/my-event/my-event.component';
+import {MyEventComponent} from './webPages/my-event/my-event.component';
 import {EventEditResolver} from './webPages/event-form/event-edit-resolver';
 import {OrganiserPageComponent} from './webPages/organiser-page/organiser-page.component';
 

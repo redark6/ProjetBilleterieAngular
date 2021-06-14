@@ -62,8 +62,12 @@ import { Error404Component } from './webPages/error404/error404.component';
 import { QuillModule } from 'ngx-quill';
 import {LyIconModule} from '@alyle/ui/icon';
 import {CropperWithDialogAppModule} from './webPages/event-form/cropper-with-dialog/cropper-with-dialog.module';
-import { MyEventComponent } from './webPages/events/my-event/my-event.component';
 import { OrganiserPageComponent } from './webPages/organiser-page/organiser-page.component';
+
+import { MyEventComponent } from './webPages/my-event/my-event.component';
+import { MyEventCardComponent } from './webPages/my-event/my-event-card/my-event-card.component';
+import {ObjectPipe} from './specialClass/object-pipe';
+
 
 
 
@@ -96,6 +100,8 @@ registerLocaleData(fr);
     Error404Component,
     MyEventComponent,
     OrganiserPageComponent,
+    MyEventCardComponent,
+    ObjectPipe
   ],
     imports: [
         BrowserModule,
