@@ -171,7 +171,6 @@ export class UserService {
   getUserComments(): Observable<UserComment[]>{
     return this.httpClient.get<UserComment[]>('http://localhost:8080/user/usercomments');
   }
-
 }
 
 

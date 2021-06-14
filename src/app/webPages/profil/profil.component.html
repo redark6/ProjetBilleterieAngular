@@ -1,0 +1,247 @@
+<div *ngIf="userProfilInfos" class="container">
+
+  <div class="row mb-4">
+    <div class="col-lg-3 col-md-12 text-center">
+      <button class="buttonupgrade" (click)="openUpgradeOrganiser(content2)" *ngIf="authority == 'USER' "  >
+        <i class="fas fa-angle-double-up"></i> Devenir Organisateur
+      </button>
+      <input type="file" id="profilPictureInput"  accept="image/x-png,image/gif,image/jpeg"  (change)="onFileChanged($event)" style="display: none">
+      <img src="{{userProfilInfos.profilPicture != null ? userProfilInfos.profilPicture : 'assets/images/logocsid.svg' }}" id="profilPicture" class="rounded-circle bg-blue" alt="Cinque Terre" width="200" height="200" (click)="callInput()" style="cursor: pointer">
+    </div>
+
+
+
+    <div class="col-lg-1">
+
+    </div>
+    <div class="col-lg-8 col-md-0 bg-grey shadow">
+      <div class="row">
+        <div class="col-lg-8 col-md-11 col-sm-11">
+          <h2>Profil de {{userProfilInfos.userName}}</h2>
+        </div>
+
+        <div class="col-lg-4 col-md-1 col-sm-1 cog mt-2">
+          <button class="buttonedit offset-md-2" (click)="open(content)">
+            <i class="fas fa-edit"></i>Editer le profil
+          </button>
+
+        </div>
+
+
+      </div>
+      <p class="font-weight-bold">Prenom : {{userProfilInfos.firstName}}</p>
+      <p class="font-weight-bold">Nom : {{userProfilInfos.lastName }}</p>
+      <p class="font-weight-bold">Date de naissance : {{userProfilInfos.birthDate | date:'longDate'}}</p>
+      <p class="font-weight-bold">A rejoint &ticket'heure le {{userProfilInfos.createdDate | date:'longDate'}}</p>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-12">
+
+      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Event</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Vos commentaires ({{userComments.length}})</a>
+        </li>
+      </ul>
+      <div class="tab-content bg-grey" id="myTabContent" style="overflow: auto; height: 260px">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <ul>
+            <li style="list-style-type:none">
+
+            </li>
+          </ul>
+        </div>
+        <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <ul class="px-3">
+            <li style="list-style-type:none">
+              <div class="row">
+
+                <div class="col-4">
+                  Nom de l'évènement
+                </div>
+                <div class="col-8" >
+                  Aperçu du commentaire
+                </div>
+
+              </div>
+            </li>
+            <hr>
+            <li *ngFor="let comment of userComments" style="list-style-type:none; " >
+
+              <div class="row">
+                <div class=" col-4 text-truncate">
+                  <a routerLink="/event/{{comment.eventId}}">
+                    <u>{{comment.eventTitle}}</u>
+                  </a>
+                </div>
+                <div class="col-8 text-truncate">
+                  {{" : " + comment.userComment}}
+                </div>
+              </div>
+
+              <hr>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+  </div>
+
+  <ng-template #content let-modal>
+    <nav class="nav nav-tabs">
+      <a class="nav-item nav-link active" href="#p1" data-toggle="tab">Profil</a>
+      <a *ngIf="authority == 'ORG'" class="nav-item nav-link" href="#p2" data-toggle="tab">Organisateur</a>
+    </nav>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="p1">
+        <div class="modal-header" >
+          <h4 class="modal-title" id="modal-basic-title">Modifier le profil</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" [formGroup]="updateProfilForm"  >
+
+          <div class="mx-5">
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input [class.is-invalid] = "updateProfilForm.get('firstName').invalid && updateProfilForm.get('firstName').touched"
+                       type="text" class="form-control" formControlName="firstName"  placeholder="Prénom"/>
+                <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty">
+                  <small *ngIf="firstName.errors?.required" class="text-danger">Ce champ est requis</small>
+                  <small *ngIf="firstName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
+                  <small *ngIf="firstName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+
+                </div>
+                <div class="col-md-6 mb-3">
+                  <input [class.is-invalid] = "updateProfilForm.get('lastName').invalid && updateProfilForm.get('lastName').touched"
+                         type="text" class="form-control" formControlName="lastName" placeholder="Nom"/>
+                  <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty">
+                    <small *ngIf="lastName.errors?.required" class="text-danger">Ce champ est requis</small>
+                    <small *ngIf="lastName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
+                    <small *ngIf="lastName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <div class="input-group">
+                  <input [class.is-invalid] = "updateProfilForm.get('userName').invalid && updateProfilForm.get('userName').touched"
+                         type="text" class="form-control" formControlName="userName" value="zzzz" placeholder="Nom d'utilisateur"/>
+                </div>
+                <div *ngIf="(userName.invalid && userName.touched) || userName.dirty">
+                  <small *ngIf="userName.errors?.required" class="text-danger">Ce champ est requis</small>
+                  <small *ngIf="userName.errors?.minlength" class="text-danger">La taille minimale est de 4 caractères</small>
+                  <small *ngIf="userName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+                  <small *ngIf="userName.errors?.incorrect" class="text-danger">Ce nom d'utilisateur est déjas pris</small>
+
+                </div>
+              </div>
+
+
+
+
+            </div>
+          </div>
+
+
+
+          <div class="modal-footer">
+            <button [disabled]="updateProfilForm.invalid" type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click');">Enregistrer</button>
+          </div>
+        </div>
+      </div>
+      <div ngif class="tab-pane" *ngIf="authority == 'ORG'" id="p2">
+        <div class="modal-header" >
+          <h4 class="modal-title" id="modal-basic-title2">Modifier les infos professionneles</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" [formGroup]="updateOrganiserForm">
+          <div >
+            <input
+              type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
+            <input
+              type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
+            <input
+              type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
+            <input
+              type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
+            <input
+              type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
+            <input
+              type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
+            <input
+              type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
+            <input
+              type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="updateOrganiserForm.invalid" type="submit" class="btn btn-outline-primary" (click)="updateOrganiser() && modal.close('Save click')">Enregistrer</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </ng-template>
+
+
+  <ng-template #content2 let-modal2>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title-2">Devenir Organisateur</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal2.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body" [formGroup]="upgradeOrganiserForm">
+
+      <div class="mx-5">
+
+        <div class="row">
+
+          <input
+            type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
+
+        </div>
+        <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
+        <input
+          type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
+        <input
+          type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
+        <input
+          type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
+        <input
+          type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
+        <input
+          type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
+        <input
+          type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
+      </div>
+
+
+      <div class="modal-footer">
+        <button [disabled]="upgradeOrganiserForm.invalid" type="submit" class="btn btn-outline-primary" (click)="modal2.close('Save click');">Devenir Organisateur</button>
+      </div>
+    </div>
+  </ng-template>
+
+</div>

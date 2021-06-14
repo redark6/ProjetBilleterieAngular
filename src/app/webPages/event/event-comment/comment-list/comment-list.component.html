@@ -1,6 +1,6 @@
 <div *ngIf="comments">
   <div *ngFor="let comment of comments" >
-    <app-comment [eventId]="eventId" [comment]="comment" [isAuthenticate]="isAuthenticate" [childnumber]="0" (childresponse)="childresponsefunc()"></app-comment>
+    <app-comment [eventId]="eventId" [comment]="comment" [isAuthenticate]="isAuthenticate" [childnumber]="0" [authority]="authority" (childresponse)="childresponsefunc()"></app-comment>
   </div>
 </div>
 

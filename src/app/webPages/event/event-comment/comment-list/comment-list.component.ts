@@ -9,6 +9,7 @@ import {EventComment} from '../../../../modeles/eventComment';
 export class CommentListComponent implements OnInit, OnChanges {
   @Input() comments: EventComment[];
   @Input() isAuthenticate: boolean;
+  @Input() authority: string;
   @Input() eventId: number;
   @Output()childresponse: EventEmitter<void> = new EventEmitter<void>();
   commentList: EventComment[];
