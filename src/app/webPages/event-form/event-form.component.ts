@@ -12,6 +12,9 @@ import {CropperDialog} from './cropperdialog/cropper-dialog';
 import {LyDialog} from '@alyle/ui/dialog';
 import {Event} from '../../modeles/event';
 import {DomSanitizer} from '@angular/platform-browser';
+import {UserService} from '../../services/user.service';
+
+import {Input, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-event-form',
@@ -38,14 +41,52 @@ export class EventFormComponent implements OnInit {
   cropped?: string;
   firstpicture: string;
   event: Event;
+  userCanAddDesc = false;
+  existeUserAltDesc = false;
 
-  constructor(private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private commondata: CommonDataService, private mapService: MapService, private globalVar: GlobalParameter, private _dialog: LyDialog, private _cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute,private domSanitizer: DomSanitizer) {
+  constructor(private formBuilder: FormBuilder, private eventService: EventService, private router: Router, private commondata: CommonDataService, private mapService: MapService, private globalVar: GlobalParameter, private _dialog: LyDialog, private _cd: ChangeDetectorRef, private activatedRoute: ActivatedRoute, private domSanitizer: DomSanitizer, private user: UserService) {
   }
 
   ngOnInit(): void {
 
     this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
 
+    if ( this.router.url.includes('event-user-description')){
+
+      const promise = this.user.userCanAddPersonnalDescription(this.event.id).toPromise();
+      promise.then((data) =>{
+        console.log("Promise resolved with: " + JSON.stringify(data));
+      }).catch((error)=>{
+        console.log("Promise rejected with " + JSON.stringify(error));
+      });
+
+      this.user.userCanAddPersonnalDescription(this.event.id).subscribe(value => {
+
+        this.userCanAddDesc = value.canAddDescription;
+        this.existeUserAltDesc = value.descriptionAlreadyExist;
+
+        if (this.userCanAddDesc){
+          this.title.disable();
+          this.nbOfTicket.disable();
+          this.category.disable();
+          this.region.disable();
+          this.startDate.disable();
+          this.endDate.disable();
+          this.price.disable();
+          this.setDescription(value.content);
+        }
+        else{
+          this.router.navigate(['/error404']);
+        }
+      }, error => {
+        console.log(error);
+      });
+
+      console.log(this.userCanAddDesc);
+      if (!this.userCanAddDesc){
+
+      }
+    }
 
     this.commondata.getRegions().subscribe(value => {
       this.regionList = value;
@@ -53,30 +94,31 @@ export class EventFormComponent implements OnInit {
 
     });
 
+    console.log('formulaire');
     this.eventForm = this.formBuilder.group({
-      title: ['', Validators.compose([
+      title: [{value: '', disabled: this.userCanAddDesc}, Validators.compose([
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(50)
       ])],
-      nbOfTicket: ['', Validators.compose([
+      nbOfTicket: [{value: '', disabled: this.userCanAddDesc}, Validators.compose([
         Validators.required,
         Validators.min(1),
         Validators.max(1000),
       ])],
-      category: ['', Validators.compose([
+      category: [{value: '', disabled: this.userCanAddDesc}, Validators.compose([
         Validators.required
       ])],
-      region: ['', Validators.compose([
+      region: [{value: '', disabled: this.userCanAddDesc}, Validators.compose([
         Validators.required
       ])],
-      startDate: [null, Validators.compose([
+      startDate: [{value: null, disabled: this.userCanAddDesc}, Validators.compose([
         Validators.required,
       ])],
-      endDate: [null, Validators.compose([
+      endDate: [{value: null, disabled: this.userCanAddDesc}, Validators.compose([
         Validators.required,
       ])],
-      price: [{value: '', disabled: this.event},  Validators.compose([
+      price: [{value: '', disabled: this.event || this.userCanAddDesc},  Validators.compose([
         Validators.required,
         Validators.min(0),
         Validators.max(500),
@@ -96,7 +138,9 @@ export class EventFormComponent implements OnInit {
       this.setStartDate(this.event.startDate);
       this.setEndDate(this.event.endDate);
       this.setPrice(this.event.price);
-      this.setDescription(this.event.description);
+      if (!this.userCanAddDesc){
+        this.setDescription(this.event.description);
+      }
 
       this.eventService.getImage(this.event.id).subscribe((image) => {
         this.cropped = this.domSanitizer.sanitize(SecurityContext.RESOURCE_URL, this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + image));
@@ -112,7 +156,7 @@ export class EventFormComponent implements OnInit {
         console.log('Element has just become visible in screen');
         document.getElementById('pricebar').classList.add('hide');
       } else {
-        document.getElementById('pricebar').classList.remove('hide');
+        //sdocument.getElementById('pricebar').classList.remove('hide');
         console.log('notvisble');
       }
     }, {threshold: [0]});
@@ -423,4 +467,10 @@ export class EventFormComponent implements OnInit {
     form.append('eventId', id.toString());
     this.eventService.ModifyImage(form);
   }
+
+  editAlternatifDescription(): void {
+    this.eventService.editAlternatifDescription(this.event.id, this.description.value);
+    this.router.navigate(['home']);
+  }
+
 }

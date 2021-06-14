@@ -127,4 +127,11 @@ export class EventService {
 
       });
   }
+
+  editAlternatifDescription(id: number, content: string): void {
+    this.httpClient.patch<string>(`http://localhost:8080/event/patchalternatifdescription/${id}`, content).subscribe(
+      value => {console.log(value); },
+      error => {console.log(error); }
+    );
+  }
 }

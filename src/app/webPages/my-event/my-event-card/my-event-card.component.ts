@@ -38,4 +38,11 @@ export class MyEventCardComponent implements OnInit {
     this.region = this.globalVar.regionList[this.event.region - 1].regionName;
 
   }
+
+  sanitizeDate(datereceived): any {
+    const date = new Date(datereceived);
+    date.setMinutes(Math.abs(date.getTimezoneOffset()));
+    const finaldate = date.toISOString().substring(0, 10);
+    return finaldate;
+  }
 }

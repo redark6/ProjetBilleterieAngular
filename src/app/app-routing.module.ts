@@ -36,6 +36,11 @@ const routes: Routes = [
     resolve: {event: EventEditResolver }
   },
 
+  { path: 'event-user-description/:id',
+    component: EventFormComponent,
+    resolve: {event: EventEditResolver }
+  },
+
   { path: 'events', component: EventsComponent },
   { path: 'profil', component: ProfilComponent },
   { path: 'error404', component: Error404Component },

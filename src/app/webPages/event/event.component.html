@@ -96,11 +96,11 @@
     <div class="row mb-4">
 
       <div class="col-lg-4 ">
-        <div class="font-weight-bold">
+        <div class="font-weight-bold row">
           <span style="font-size: 35px">Informations</span>
-          <a routerLink="/event-edit/{{eventId}}" *ngIf="isAuthenticate && isOwner" class="buttonedit offset-md-2">
-            <i class="fas fa-edit"></i>
-          </a>
+          <div class="ml-3">
+            <button routerLink="/event-edit/{{eventId}}"  style="width: min-content;" *ngIf="isAuthenticate && isOwner" class="btn btn-block btn-info h-100"> <i class="fas fa-edit"></i> </button>
+          </div>
         </div>
 
 
@@ -132,7 +132,47 @@
       <div class="col-lg-8 pl-lg-5">
         <span class="font-weight-bold" style="font-size: 35px">Présentation</span>
         <div>
-          <quill-view-html [content]="event.description"></quill-view-html>
+
+          <div class="container">
+
+            <div *ngIf="event.customeDescription.length == 0">
+              <quill-view-html [content]="event.description"></quill-view-html>
+            </div>
+
+
+            <div *ngIf="event.customeDescription.length > 0">
+              <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <i class="fas fa-angle-left fa-5x" style="color: black"></i>
+              </a>
+            </div>
+
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+              <div class="row">
+
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div>Présentation original</div>
+                    <quill-view-html [content]="event.description"></quill-view-html>
+                  </div>
+
+                  <div *ngFor="let desc of event.customeDescription" class="carousel-item">
+                    <div>{{'Présentation par :' + desc.userName}}</div>
+                    <quill-view-html [content]="desc.content"></quill-view-html>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div>
+              <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <i class="fas fa-angle-right fa-5x" style="color: black"></i>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 

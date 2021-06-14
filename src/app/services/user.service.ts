@@ -7,6 +7,7 @@ import {User} from '../modeles/user';
 import {CookieService} from 'ngx-cookie-service';
 import {Organiser} from '../modeles/organiser';
 import {UserComment} from '../modeles/user-comment';
+import {UserCanCustomDescription} from '../modeles/user-can-custom-description';
 
 interface ReturnedErrors{
   errors: object;
@@ -172,6 +173,9 @@ export class UserService {
     return this.httpClient.get<UserComment[]>('http://localhost:8080/user/usercomments');
   }
 
+  userCanAddPersonnalDescription(id: number): Observable<UserCanCustomDescription> {
+    return this.httpClient.get<UserCanCustomDescription>(`http://localhost:8080/user/canaddpersonnaldescription/${id}`);
+  }
 }
 
 
