@@ -144,7 +144,7 @@ export class EventService {
   }
   deleteEvent(pageId: number): void{
     console.log(pageId);
-    this.httpClient.delete<any>(`http://localhost:8080/event/${pageId}`).subscribe();;
+    this.httpClient.delete<any>(`http://localhost:8080/event/${pageId}`).subscribe();
 
   }
 }
