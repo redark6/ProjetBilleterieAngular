@@ -195,7 +195,6 @@ export class UserService {
     }
     return window.btoa(binary);
   }
-
 }
 
 

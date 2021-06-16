@@ -1,8 +1,12 @@
-<nz-comment nzAuthor="{{user.author}}" [nzDatetime]="time">
+<nz-comment nzAuthor="{{user.author}}" [nzDatetime]="time" xmlns="http://www.w3.org/1999/html">
   <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]='user.avatar'></nz-avatar>
   <nz-comment-content>
-    <p>
+    <button *ngIf="isAuthenticate && (authority == 'ADMIN')" (click)="disableComment(commentId)">Désactiver commentaire</button>
+    <p *ngIf="!isBlocked">
       {{commentContent}}
+    </p>
+    <p class="font-italic" *ngIf="isBlocked">
+      Ce commentaire est indisponible
     </p>
   </nz-comment-content>
   <nz-comment-action >
@@ -63,7 +67,7 @@
   </div>
   <ng-container *ngIf="comment.commentChildren && comment.commentChildren.length">
     <div *ngFor="let subcomment of comment.commentChildren">
-      <app-comment [comment]="subcomment" [isAuthenticate]="isAuthenticate" [eventId]="eventId" [childnumber]="this.childnumber+1" (childresponse)="onchildresponse()"></app-comment>
+      <app-comment [comment]="subcomment" [isAuthenticate]="isAuthenticate" [eventId]="eventId" [childnumber]="this.childnumber+1" [authority]="authority"  (childresponse)="onchildresponse()"></app-comment>
     </div>
   </ng-container>
 </nz-comment>

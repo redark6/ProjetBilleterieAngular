@@ -2,7 +2,7 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Event} from '../modeles/event';
 import {SearchResult} from '../modeles/searchResult';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {EventImage} from '../modeles/eventImage';
 import {map} from 'rxjs/operators';
@@ -75,11 +75,11 @@ export class EventService {
   getImage(eventId: number): Observable<string>{
     const parametres = new HttpParams().set('eventId', eventId.toString() );
     return this.httpClient.get<ArrayBuffer>('http://localhost:8080/event/eventimageget', {params: parametres, responseType: 'arraybuffer' as 'json'})
-  .pipe(
-      map(
-        (byteArray: ArrayBuffer) => this.arrayBufferToBase64(byteArray)
-      )
-    );
+      .pipe(
+        map(
+          (byteArray: ArrayBuffer) => this.arrayBufferToBase64(byteArray)
+        )
+      );
   }
 
   private arrayBufferToBase64(buffer): string {
@@ -128,6 +128,7 @@ export class EventService {
       });
   }
 
+
   getParticipations(): Observable<Participation[]> {
     return this.httpClient.get<Participation[]>('http://localhost:8080/event/participations');
   }
@@ -140,5 +141,10 @@ export class EventService {
         console.log(error);
 
       });
+  }
+  deleteEvent(pageId: number): void{
+    console.log(pageId);
+    this.httpClient.delete<any>(`http://localhost:8080/event/${pageId}`).subscribe();;
+
   }
 }
