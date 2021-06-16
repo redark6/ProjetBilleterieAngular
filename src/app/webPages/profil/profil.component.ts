@@ -8,6 +8,8 @@ import {ageMatchRange} from '../../specialClass/custom-validator';
 import {Subscription} from 'rxjs';
 import {Organiser} from '../../modeles/organiser';
 import {UserComment} from '../../modeles/user-comment';
+import {Participation} from '../../modeles/participation';
+import {EventService} from '../../services/event.service';
 
 @Component({
   selector: 'app-profil',
@@ -20,16 +22,22 @@ export class ProfilComponent implements OnInit {
   public userProfilInfos: User;
   public userComments: UserComment[];
   closeResult = '';
+  public participations: Participation[];
   upgradeOrganiserForm: FormGroup;
   roleSubscription: Subscription;
   authority: string;
   public organiserProfilInfos: Organiser;
   updateOrganiserForm: FormGroup;
+  public eventTitle: string;
 
-  constructor(private user: UserService, private modalService: NgbModal, private formBuilder: FormBuilder) {
+  constructor(private user: UserService, private modalService: NgbModal, private formBuilder: FormBuilder, private eventService: EventService) {
   }
 
   ngOnInit(): void {
+
+    this.eventService.getParticipations().subscribe( value => {
+      this.participations = value;
+    });
 
     this.user.getUserProfil().subscribe(user => {
       this.userProfilInfos = user;
@@ -268,4 +276,11 @@ export class ProfilComponent implements OnInit {
       }
     );
   }
+
+  /* getEventTitle(id): string {
+    this.eventService.get(id).subscribe( value => {
+      this.eventTitle = value.title;
+    });
+    return this.eventTitle;
+  }*/
 }

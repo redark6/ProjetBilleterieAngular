@@ -209,4 +209,9 @@ export class EventComponent implements OnInit {
   gotomap(): void {
     document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+
+  reservation(): void {
+    this.eventService.participate(this.eventId);
+    this.router.navigate(['home']);
+  }
 }

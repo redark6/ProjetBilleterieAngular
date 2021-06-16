@@ -55,9 +55,34 @@
       </ul>
       <div class="tab-content bg-grey" id="myTabContent" style="overflow: auto; height: 260px">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-          <ul>
+          <ul class="px-3">
             <li style="list-style-type:none">
+              <div class="row">
 
+                <div class="col-4">
+                  Nom de l'évènement
+                </div>
+                <div class="col-8" >
+                  Nombre de Tickets
+                </div>
+
+              </div>
+            </li>
+            <hr>
+            <li *ngFor="let participation of participations" style="list-style-type:none; " >
+
+              <div class="row">
+                <div class=" col-4 text-truncate">
+                  <a routerLink="/event/{{participation.eventId}}">
+                    <u>title</u>
+                  </a>
+                </div>
+                <div class="col-8 text-truncate">
+                  {{" : " + participation.boughtticket}}
+                </div>
+              </div>
+
+              <hr>
             </li>
           </ul>
         </div>

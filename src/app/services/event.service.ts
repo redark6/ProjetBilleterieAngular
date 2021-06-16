@@ -6,6 +6,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {EventImage} from '../modeles/eventImage';
 import {map} from 'rxjs/operators';
+import {Participation} from '../modeles/participation';
 
 @Injectable({
   providedIn: 'root'
@@ -119,6 +120,20 @@ export class EventService {
 
   ModifyImage(form: FormData): void {
     this.httpClient.patch<any>('http://localhost:8080/event/eventimagemodify', form).subscribe(() => {
+        return null;
+      },
+      (error) => {
+        console.log(error);
+
+      });
+  }
+
+  getParticipations(): Observable<Participation[]> {
+    return this.httpClient.get<Participation[]>('http://localhost:8080/event/participations');
+  }
+
+  participate(eventId: number): void {
+    this.httpClient.post<any>(`http://localhost:8080/event/participate/${eventId}`, '').subscribe(() => {
         return null;
       },
       (error) => {
