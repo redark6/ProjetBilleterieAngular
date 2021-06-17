@@ -13,6 +13,8 @@ import {EventResolver} from './webPages/event/event-resolver';
 import {Error404Component} from './webPages/error404/error404.component';
 import {MyEventComponent} from './webPages/my-event/my-event.component';
 import {EventEditResolver} from './webPages/event-form/event-edit-resolver';
+import {OrganiserPageComponent} from './webPages/organiser-page/organiser-page.component';
+import {OrganisersComponent} from './webPages/organisers/organisers.component';
 
 
 const routes: Routes = [
@@ -44,7 +46,9 @@ const routes: Routes = [
   { path: 'events', component: EventsComponent },
   { path: 'profil', component: ProfilComponent },
   { path: 'error404', component: Error404Component },
-  {path: 'myevent', component: MyEventComponent}
+  {path: 'myevent', component: MyEventComponent},
+  { path: 'organisers', component: OrganisersComponent},
+  { path: 'organiser-page/:username', component: OrganiserPageComponent}
 
   // { path: 'not-found', component: Error404Component },
   // { path: '**', redirectTo: 'not-found' }

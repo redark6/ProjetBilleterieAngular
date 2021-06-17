@@ -13,9 +13,10 @@ export class Event {
     public price: number;
     public nbOfTicket: number;
     public customeDescription: CustomeEventDescription[];
+    public userId: string;
 
   constructor(id: number, title: string, category: number, description: string, region: number, creationDate: Date, startDate: Date,
-              endDate: Date, price: number, nbOfTicket: number, customeDescription: CustomeEventDescription[]) {
+              endDate: Date, price: number, nbOfTicket: number, customeDescription: CustomeEventDescription[], userId: string) {
 
         this.id = id;
         this.title = title;
@@ -28,6 +29,7 @@ export class Event {
         this.price = price;
         this.nbOfTicket = nbOfTicket;
         this.customeDescription = customeDescription;
+        this.userId = userId;
     }
 }
 

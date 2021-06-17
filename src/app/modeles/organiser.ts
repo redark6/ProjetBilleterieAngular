@@ -2,17 +2,18 @@ import {Input} from '@angular/core';
 
 export class Organiser {
 
-  private _jobTitle: string;
-  private _phoneNumber: string;
-  private _website: string;
-  private _company: string;
-  private _blog: string;
-  private _proAddress: string;
-  private _proCity: string;
-  private _proCountry: string;
+  public _jobTitle: string;
+  public _phoneNumber: string;
+  public _website: string;
+  public _company: string;
+  public _blog: string;
+  public _proAddress: string;
+  public _proCity: string;
+  public _proCountry: string;
+  public _userName: string;
 
   // tslint:disable-next-line:variable-name max-line-length
-  constructor(job_title: string, phone_number: string, website: string, company: string, blog: string, pro_address: string, pro_city: string, pro_country: string) {
+  constructor(job_title: string, phone_number: string, website: string, company: string, blog: string, pro_address: string, pro_city: string, pro_country: string, user_name: string) {
     this._jobTitle = job_title;
     this._phoneNumber = phone_number;
     this._website = website;
@@ -21,6 +22,7 @@ export class Organiser {
     this._proAddress = pro_address;
     this._proCity = pro_city;
     this._proCountry = pro_country;
+    this._userName = user_name;
   }
 
   get jobTitle(): string {
@@ -53,5 +55,9 @@ export class Organiser {
 
   get proCountry(): string {
     return this._proCountry;
+  }
+
+  get userName(): string {
+    return this._userName;
   }
 }

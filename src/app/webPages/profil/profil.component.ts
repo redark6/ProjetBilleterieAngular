@@ -39,7 +39,7 @@ export class ProfilComponent implements OnInit {
       this.userComments = userComments;
     });
 
-    this.organiserProfilInfos = new Organiser('', '', '', '', '', '', '', '');
+    this.organiserProfilInfos = new Organiser('', '', '', '', '', '', '', '', '');
     this.user.getOrganiserrProfil().subscribe(organiser => {
       this.organiserProfilInfos = organiser;
     });

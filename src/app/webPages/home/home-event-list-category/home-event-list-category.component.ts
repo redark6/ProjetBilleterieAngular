@@ -16,6 +16,7 @@ export class HomeEventListCategoryComponent implements OnInit, AfterContentInit 
   @Input() identifiant: string;
   @Input() text: string;
   @Input() params: HttpParams;
+  paddingleft
 
   rightbarid;
   leftbarid;
