@@ -7,7 +7,7 @@
         <img class="card-img-top img img2"
              [src]="eventImage ? eventImage : './assets/images/nopicture.png'" alt="Card image cap">
         <div class="card-text mx-0 px-4"  *ngIf="isAuthenticate && isOwner" style="position: absolute; left: 0; top: 10px">
-          <a routerLink="/event-edit/{{eventId}}">
+          <a (click)="stop($event)" routerLink="/event-edit/{{eventId}}">
             <button class="btn btn-block btn-info">
               <div class="row" style="display: block; margin: 0">
                 <span class="d-none d-sm-block"> Editer</span> <i class="fas fa-edit"></i>
