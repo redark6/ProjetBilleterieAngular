@@ -58,9 +58,6 @@ export class EventComponent implements OnInit {
     });
 
     if (this.isAuthenticate === true) {
-      this.isOwner = false;
-    }
-    else {
       this.eventService.isOwner(this.event.id).subscribe(value1 => {
         this.isOwner = value1;
       });
