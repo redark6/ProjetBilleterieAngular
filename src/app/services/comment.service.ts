@@ -40,7 +40,7 @@ export class CommentService {
   }
 
   disableComment(commentId: number): void {
-    this.httpClient.patch<number>(`http://localhost:8080/comment/${commentId}`, null).subscribe();
+    this.httpClient.patch<number>(environment.apiUrl +  `/comment/${commentId}`, null).subscribe();
   }
 }
 

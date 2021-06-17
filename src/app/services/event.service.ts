@@ -143,7 +143,7 @@ export class EventService {
 
 
   editAlternatifDescription(id: number, content: string): void {
-    this.httpClient.patch<string>(`http://localhost:8080/event/patchalternatifdescription/${id}`, content).subscribe(
+    this.httpClient.patch<string>(environment.apiUrl +  `/event/patchalternatifdescription/${id}`, content).subscribe(
       value => {
         console.log(value);
       },
@@ -155,11 +155,11 @@ export class EventService {
 
 
   getParticipations(): Observable<Participation[]> {
-    return this.httpClient.get<Participation[]>('http://localhost:8080/event/participations');
+    return this.httpClient.get<Participation[]>(environment.apiUrl +  '/event/participations');
   }
 
   participate(eventId: number): void {
-    this.httpClient.post<any>(`http://localhost:8080/event/participate/${eventId}`, '').subscribe(() => {
+    this.httpClient.post<any>(environment.apiUrl +  `/event/participate/${eventId}`, '').subscribe(() => {
         return null;
       },
       (error) => {
@@ -169,7 +169,7 @@ export class EventService {
   }
   deleteEvent(pageId: number): void{
     console.log(pageId);
-    this.httpClient.delete<any>(`http://localhost:8080/event/${pageId}`).subscribe();
+    this.httpClient.delete<any>(environment.apiUrl +  `/event/${pageId}`).subscribe();
 
   }
 }
