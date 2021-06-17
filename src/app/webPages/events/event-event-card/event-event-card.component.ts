@@ -4,6 +4,7 @@ import {EventService} from '../../../services/event.service';
 import {GlobalParameter} from '../../../specialClass/global-parameter';
 import {DomSanitizer} from '@angular/platform-browser';
 import {UserService} from '../../../services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-event-event-card',
@@ -17,7 +18,7 @@ export class EventEventCardComponent implements OnInit {
   region: string;
   isAuthenticate: boolean;
   isOwner = false;
-  constructor(private globalVar: GlobalParameter, private eventService: EventService, private domSanitizer: DomSanitizer, private user: UserService) { }
+  constructor(private globalVar: GlobalParameter, private eventService: EventService, private domSanitizer: DomSanitizer, private user: UserService, private route: Router) { }
 
   categories: string[] = [
     'none',

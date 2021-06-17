@@ -1,7 +1,7 @@
 <nz-comment nzAuthor="{{user.author}}" [nzDatetime]="time" xmlns="http://www.w3.org/1999/html">
   <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]='user.avatar'></nz-avatar>
   <nz-comment-content>
-    <button *ngIf="isAuthenticate && (authority == 'ADMIN')" (click)="disableComment(commentId)">Désactiver commentaire</button>
+    <button *ngIf="isAuthenticate && (authority == 'ADMIN')" class="btn btn-info" style="font-size: inherit; padding: 0" (click)="disableComment(commentId)">Désactiver ce commentaire</button>
     <p *ngIf="!isBlocked">
       {{commentContent}}
     </p>
@@ -65,6 +65,11 @@
   <div class="collapse" id="{{'anwser'+comment.id}}">
     <app-comment-writer [parentComment]="comment.id" [eventId]="eventId" [isAuthenticate]="isAuthenticate" (commentSent)="onchildresponse()" ></app-comment-writer>
   </div>
+  <nz-comment-action>
+    <button *ngIf="isAuthenticate && (authority == 'ADMIN')" class="btn btn-info" style="font-size: inherit; padding: 0" (click)="giveRightCustomeDescription()">
+      Donner le droit d'ajouter une description alternative
+    </button>
+  </nz-comment-action>
   <ng-container *ngIf="comment.commentChildren && comment.commentChildren.length">
     <div *ngFor="let subcomment of comment.commentChildren">
       <app-comment [comment]="subcomment" [isAuthenticate]="isAuthenticate" [eventId]="eventId" [childnumber]="this.childnumber+1" [authority]="authority"  (childresponse)="onchildresponse()"></app-comment>
