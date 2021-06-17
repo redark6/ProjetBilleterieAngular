@@ -27,7 +27,7 @@
                 <div class="row m-0" style="position: absolute;width: inherit">
 
                   <div class=" col-8 pr-0 d-flex justify-content-start p-0" style="z-index: 200">
-                    <button ly-button color="primary" class="btn btn-lg btn-light" (click)="_fileInput.click()">
+                    <button ly-button color="primary" [disabled]="this.userCanAddDesc" class="btn btn-lg btn-light" (click)="_fileInput.click()">
                       <ly-icon [lyMf]="1">image</ly-icon>
                       <span>Select File</span>
                     </button>
@@ -35,7 +35,7 @@
                   </div>
 
                   <div class="col-4 pl-0 d-flex justify-content-end p-0 " style="z-index: 200">
-                    <button class="btn btn-lg btn-light" (click)="removepicture()">
+                    <button class="btn btn-lg btn-light" [disabled]="this.userCanAddDesc" (click)="removepicture()">
                       <i class="fas fa-times"></i></button>
                   </div>
 
@@ -195,8 +195,9 @@
           </div>
 
           <div class="d-flex justify-content-center">
-            <button mat-raised-button color="primary" *ngIf="!this.event" [disabled]="eventForm.invalid" (click)="addEvent()" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
-            <button mat-raised-button color="primary" *ngIf="this.event" [disabled]="eventForm.invalid" (click)="ModifyEvent()" class="btn btn-block cbutton mb-5" type="submit">Modifier</button>
+            <button mat-raised-button color="primary" *ngIf="!this.event && !userCanAddDesc" [disabled]="eventForm.invalid" (click)="addEvent()" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
+            <button mat-raised-button color="primary" *ngIf="this.event && !userCanAddDesc" [disabled]="eventForm.invalid" (click)="ModifyEvent()" class="btn btn-block cbutton mb-5" type="submit">Modifier</button>
+            <button mat-raised-button color="primary" *ngIf="userCanAddDesc" [disabled]="eventForm.invalid" (click)="editAlternatifDescription()" class="btn btn-block cbutton mb-5" type="submit">{{existeUserAltDesc ? 'Modifier' : 'Créer'}}  mod</button>
 
           </div>
 
@@ -340,8 +341,11 @@
 
               <div class="col-lg-8 pl-lg-5">
                 <span class="font-weight-bold" style="font-size: 35px">Présentation</span>
-                <div>
+                <div *ngIf="!userCanAddDesc">
                   <quill-view-html [content]="description.value ? description.value : 'Votre description'"></quill-view-html>
+                </div>
+                <div *ngIf="userCanAddDesc">
+                  <quill-view-html [content]="'Votre description alternative'"></quill-view-html>
                 </div>
               </div>
 

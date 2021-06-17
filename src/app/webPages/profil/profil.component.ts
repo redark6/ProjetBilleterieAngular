@@ -8,6 +8,9 @@ import {ageMatchRange} from '../../specialClass/custom-validator';
 import {Subscription} from 'rxjs';
 import {Organiser} from '../../modeles/organiser';
 import {UserComment} from '../../modeles/user-comment';
+import {Participation} from '../../modeles/participation';
+import {EventService} from '../../services/event.service';
+import {UserCurrentRightDesc} from '../../modeles/user-current-right-desc';
 
 @Component({
   selector: 'app-profil',
@@ -20,16 +23,23 @@ export class ProfilComponent implements OnInit {
   public userProfilInfos: User;
   public userComments: UserComment[];
   closeResult = '';
+  public participations: Participation[];
   upgradeOrganiserForm: FormGroup;
   roleSubscription: Subscription;
   authority: string;
   public organiserProfilInfos: Organiser;
   updateOrganiserForm: FormGroup;
+  public eventTitle: string;
+  rightDesc: UserCurrentRightDesc[];
 
-  constructor(private user: UserService, private modalService: NgbModal, private formBuilder: FormBuilder) {
+  constructor(private user: UserService, private modalService: NgbModal, private formBuilder: FormBuilder, private eventService: EventService) {
   }
 
   ngOnInit(): void {
+
+    this.eventService.getParticipations().subscribe( value => {
+      this.participations = value;
+    });
 
     this.user.getUserProfil().subscribe(user => {
       this.userProfilInfos = user;
@@ -39,7 +49,7 @@ export class ProfilComponent implements OnInit {
       this.userComments = userComments;
     });
 
-    this.organiserProfilInfos = new Organiser('', '', '', '', '', '', '', '');
+    this.organiserProfilInfos = new Organiser('', '', '', '', '', '', '', '', '');
     this.user.getOrganiserrProfil().subscribe(organiser => {
       this.organiserProfilInfos = organiser;
     });
@@ -47,6 +57,13 @@ export class ProfilComponent implements OnInit {
     this.roleSubscription = this.user.roleListener().subscribe(state => {
       this.authority = state;
     });
+
+    this.user.getRightCustomeDescription().subscribe(value => {
+      this.rightDesc = value;
+    }, error => {
+      console.log(error);
+    });
+
 
     this.updateProfilForm = this.formBuilder.group({
         firstName: ['', Validators.compose([
@@ -268,4 +285,11 @@ export class ProfilComponent implements OnInit {
       }
     );
   }
+
+  /* getEventTitle(id): string {
+    this.eventService.get(id).subscribe( value => {
+      this.eventTitle = value.title;
+    });
+    return this.eventTitle;
+  }*/
 }

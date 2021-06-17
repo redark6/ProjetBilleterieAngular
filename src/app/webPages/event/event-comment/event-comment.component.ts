@@ -15,6 +15,7 @@ export class EventCommentComponent implements OnInit {
   @Input() eventId: number;
   comments: EventComment[];
   isAuthenticate: boolean;
+  authority: string;
   commentOrderBy: string;
   defaultcommentparam = 'dateAsc';
   constructor(private commentService: CommentService, private  user: UserService, private router: Router) { }
@@ -24,6 +25,10 @@ export class EventCommentComponent implements OnInit {
 
     this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
+    });
+
+    this.user.roleListener().subscribe(state =>  {
+      this.authority = state;
     });
 
     this.commentOrderBy = this.defaultcommentparam;

@@ -1,0 +1,30 @@
+<div class="container">
+
+  <div class="col-12 h2 font-weight-bold px-0 mx-0">
+    Nos organisateurs
+  </div>
+
+  <div class="row pt-2">
+
+    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-8">
+      <input class="form-control mr-sm-2 w-100" [(ngModel)]="userSearch" type="text" placeholder="Pseudo de l'organisateur">
+    </div>
+
+    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4 " >
+      <button class="btn btn-info my-sm-0" (click)="searchOrganisers()">Recherche</button>
+    </div>
+  </div>
+
+  <div *ngIf="organisers" class="row pt-5">
+
+    <div *ngIf="organisers.length == 0" class="col-12">
+      <h3>Ancun résultat trouvé</h3>
+    </div>
+
+    <div *ngFor="let organiser of organisers" class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-8 mx-auto mx-sm-0" >
+      <app-organiser-card [organiser]="organiser"></app-organiser-card>
+    </div>
+
+  </div>
+
+</div>

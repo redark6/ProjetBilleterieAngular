@@ -60,7 +60,14 @@ import { Error404Component } from './webPages/error404/error404.component';
 import { QuillModule } from 'ngx-quill';
 import {LyIconModule} from '@alyle/ui/icon';
 import {CropperWithDialogAppModule} from './webPages/event-form/cropper-with-dialog/cropper-with-dialog.module';
-import { MyEventComponent } from './webPages/events/my-event/my-event.component';
+import { OrganiserPageComponent } from './webPages/organiser-page/organiser-page.component';
+
+import { MyEventComponent } from './webPages/my-event/my-event.component';
+import { MyEventCardComponent } from './webPages/my-event/my-event-card/my-event-card.component';
+import {ObjectPipe} from './specialClass/object-pipe';
+import { OrganisersComponent } from './webPages/organisers/organisers.component';
+import { OrganiserCardComponent } from './webPages/organisers/organiser-card/organiser-card.component';
+
 
 
 
@@ -92,43 +99,48 @@ registerLocaleData(fr);
     EventEventCardComponent,
     Error404Component,
     MyEventComponent,
+    OrganiserPageComponent,
+    MyEventCardComponent,
+    ObjectPipe,
+    OrganisersComponent,
+    OrganiserCardComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgbModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        NgxSliderModule,
-        BrowserAnimationsModule,
-        ToastrModule.forRoot({
-            timeOut: 5000,
-            positionClass: 'toast-top-right',
-        }),
-        MatFormFieldModule,
-        MatNativeDateModule,
-        MatDatepickerModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        FormsModule,
-        MatChipsModule,
-        MatIconModule,
-        MatOptionModule,
-        MatSelectModule,
-        NzCommentModule,
-        NzFormModule,
-        NzIconModule,
-        NzAvatarModule,
-        NzButtonModule,
-        NzInputModule,
-        NzPopoverModule,
-        NzRateModule,
-        QuillModule.forRoot(),
-        LyIconModule,
-        CropperWithDialogAppModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxSliderModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+    }),
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    FormsModule,
+    MatChipsModule,
+    MatIconModule,
+    MatOptionModule,
+    MatSelectModule,
+    NzCommentModule,
+    NzFormModule,
+    NzIconModule,
+    NzAvatarModule,
+    NzButtonModule,
+    NzInputModule,
+    NzPopoverModule,
+    NzRateModule,
+    QuillModule.forRoot(),
+    LyIconModule,
+    CropperWithDialogAppModule,
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
     GlobalParameter,

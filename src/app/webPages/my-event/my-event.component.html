@@ -1,5 +1,37 @@
-<div class=" justify-content-start pl-md-5" >
-  <div *ngFor="let event of eventList"  class="col-lg-12 col-md-12 col-11 pl-5 pr-0 pl-md-0 pr-md-0">
-    <app-event-event-card [event]="event" ></app-event-event-card>
+<div class="container">
+  <div class=" justify-content-start pl-md-5" >
+
+    <div *ngFor="let item of sortedEventsObject | keyvalue">
+
+      <div *ngFor="let item2 of item.value | keyvalue"   >
+        <div class="w-100" style="background-color: #2e9fb3; border-radius: 10px">
+
+          <div class="py-1">
+        <span class="text-white font-weight-bold ml-3" style="font-size: xx-large">
+           {{monthList[item2.key] +" - " + item.key}}
+        </span>
+          </div>
+
+        </div>
+
+        <div *ngIf="item2.value.length <=4" class="row">
+          <div *ngFor="let item3 of item2.value | keyvalue"   class=" col-xl-3 col-lg-4 col-md-6 col-6  my-3 ">
+            <app-my-event-card [event]="item3.value" ></app-my-event-card>
+          </div>
+        </div>
+
+        <div *ngIf="item2.value.length > 4" class="row">
+
+          <div *ngFor="let item3 of item2.value | keyvalue"   class=" col-xl-3 col-lg-4 col-md-6 col-6  my-3 ">
+            <app-my-event-card [event]="item3.value" ></app-my-event-card>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
   </div>
 </div>

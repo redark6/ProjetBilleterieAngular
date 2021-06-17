@@ -2,18 +2,21 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Event} from '../modeles/event';
 import {SearchResult} from '../modeles/searchResult';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {EventImage} from '../modeles/eventImage';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
+import {Participation} from '../modeles/participation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
   private searchEvent = new BehaviorSubject<SearchResult>(null);
-  constructor(private httpClient: HttpClient, private router: Router) {}
+
+  constructor(private httpClient: HttpClient, private router: Router) {
+  }
 
   public get(id: number): Observable<Event> {
     return this.httpClient.get<Event>(environment.apiUrl + `/event/${id}`);
@@ -52,9 +55,10 @@ export class EventService {
 
   createEvent(value: object): Observable<Event>{
     return this.httpClient.post<Event>(environment.apiUrl + '/event/create', value);
+
   }
 
-  sendImage(form): void{
+  sendImage(form): void {
     // console.log(eventImage.image);
     this.httpClient.post<any>(environment.apiUrl +  '/event/eventimagepost', form).subscribe(() => {
       return null;
@@ -74,6 +78,7 @@ export class EventService {
   // }
 
 
+
   getImage(eventId: number): Observable<string>{
     const parametres = new HttpParams().set('eventId', eventId.toString() );
     console.log('Dans GET IMAGE');
@@ -84,6 +89,7 @@ export class EventService {
         (byteArray: ArrayBuffer) => this.arrayBufferToBase64(byteArray)
       )
     );
+
   }
 
   private arrayBufferToBase64(buffer): string {
@@ -96,11 +102,11 @@ export class EventService {
     return window.btoa(binary);
   }
 
-  searchListener(): Observable<SearchResult>{
+  searchListener(): Observable<SearchResult> {
     return this.searchEvent.asObservable();
   }
 
-  emitSearchEvent(searchResult: SearchResult): void{
+  emitSearchEvent(searchResult: SearchResult): void {
     this.searchEvent.next(searchResult);
   }
 
@@ -119,8 +125,10 @@ export class EventService {
     return this.httpClient.get<boolean>(environment.apiUrl +  `/event/isOwner/${pageId}`);
   }
 
+
   patch(id: number, value: object): Observable<any>{
     return this.httpClient.patch(environment.apiUrl +  `/event/patch/${id}`, value);
+
   }
 
   ModifyImage(form: FormData): void {
@@ -131,5 +139,37 @@ export class EventService {
         console.log(error);
 
       });
+  }
+
+
+  editAlternatifDescription(id: number, content: string): void {
+    this.httpClient.patch<string>(`http://localhost:8080/event/patchalternatifdescription/${id}`, content).subscribe(
+      value => {
+        console.log(value);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  getParticipations(): Observable<Participation[]> {
+    return this.httpClient.get<Participation[]>('http://localhost:8080/event/participations');
+  }
+
+  participate(eventId: number): void {
+    this.httpClient.post<any>(`http://localhost:8080/event/participate/${eventId}`, '').subscribe(() => {
+        return null;
+      },
+      (error) => {
+        console.log(error);
+
+      });
+  }
+  deleteEvent(pageId: number): void{
+    console.log(pageId);
+    this.httpClient.delete<any>(`http://localhost:8080/event/${pageId}`).subscribe();
+
   }
 }

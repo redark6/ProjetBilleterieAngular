@@ -11,6 +11,7 @@ import {CommentService} from '../../../../services/comment.service';
 export class CommentComponent implements OnInit {
   @Input() comment: EventComment;
   @Input() isAuthenticate: boolean;
+  @Input() authority: string;
   @Input() eventId: number;
   @Output() childresponse: EventEmitter<void> = new EventEmitter<void>();
   @Input() childnumber: number;
@@ -22,9 +23,13 @@ export class CommentComponent implements OnInit {
   likeState: number;
   commentContent: string;
   anwserId: string;
+  isBlocked: boolean;
+  commentId: number;
 
   likevisible: false;
   dislikevisible: false;
+
+  isOwner = false;
 
   user = {
     author: '',
@@ -41,9 +46,12 @@ export class CommentComponent implements OnInit {
 
     this.time =  formatDistance(new Date(),  new Date(this.comment.creationDateHours));
 
+    this.commentId = this.comment.id;
     this.user.author = this.comment.userName;
     this.user.avatar = this.comment.avatar;
     this.commentContent = this.comment.comment;
+
+    this.isBlocked = this.comment.blocked;
 
     this.anwserId = 'anwser' + this.comment.id;
   }
@@ -108,5 +116,14 @@ export class CommentComponent implements OnInit {
 
   onchildresponse(): void {
     this.childresponse.emit();
+  }
+
+  disableComment(commentId: number): void{
+    this.commentService.disableComment(commentId);
+  }
+
+  giveRightCustomeDescription(): void{
+    console.log('pass');
+    this.userService.giveRightCustomeDescription(this.comment.author, this.comment.eventId);
   }
 }

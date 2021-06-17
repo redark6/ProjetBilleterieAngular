@@ -8,6 +8,7 @@ import {Event} from '../../../modeles/event';
 })
 export class EventListComponent implements OnInit {
   @Input() eventList: Event[];
+
   constructor() { }
 
   ngOnInit(): void {

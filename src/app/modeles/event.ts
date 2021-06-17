@@ -1,3 +1,5 @@
+import {CustomeEventDescription} from './custome-event-description';
+
 export class Event {
 
     public id: number;
@@ -10,10 +12,11 @@ export class Event {
     public endDate: Date;
     public price: number;
     public nbOfTicket: number;
-
+    public customeDescription: CustomeEventDescription[];
+    public userId: string;
 
   constructor(id: number, title: string, category: number, description: string, region: number, creationDate: Date, startDate: Date,
-              endDate: Date, price: number, nbOfTicket: number) {
+              endDate: Date, price: number, nbOfTicket: number, customeDescription: CustomeEventDescription[], userId: string) {
 
         this.id = id;
         this.title = title;
@@ -25,6 +28,8 @@ export class Event {
         this.endDate = endDate;
         this.price = price;
         this.nbOfTicket = nbOfTicket;
+        this.customeDescription = customeDescription;
+        this.userId = userId;
     }
 }
 

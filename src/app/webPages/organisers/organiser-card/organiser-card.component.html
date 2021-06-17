@@ -1,0 +1,15 @@
+<a routerLink="/organiser-page/{{organiser.userName}}" class=" justify-content-center">
+  <div  class="card w-100 h-100 my-0 mx-0 pt-3"  >
+
+    <img class="card-img-top"  [src]="organiserImage ? organiserImage : './assets/images/nopicture.png'" alt="Card image cap" class="rounded-circle bg-blue square"  >
+    <hr class="mb-0">
+    <div class="card-body p-2 pb-3">
+      <h4 class="crop-title card-text text-center" style="text-decoration: underline">{{organiser.userName}}</h4>
+
+    </div>
+  </div>
+</a>
+
+
+
+

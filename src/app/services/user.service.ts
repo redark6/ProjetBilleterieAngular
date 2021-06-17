@@ -8,6 +8,9 @@ import {CookieService} from 'ngx-cookie-service';
 import {Organiser} from '../modeles/organiser';
 import {UserComment} from '../modeles/user-comment';
 import {environment} from '../../environments/environment';
+import {UserCanCustomDescription} from '../modeles/user-can-custom-description';
+import {map} from 'rxjs/operators';
+import {UserCurrentRightDesc} from '../modeles/user-current-right-desc';
 
 
 interface ReturnedErrors{
@@ -175,6 +178,52 @@ export class UserService {
   getUserComments(): Observable<UserComment[]>{
     return this.httpClient.get<UserComment[]>( environment.apiUrl + '/user/usercomments');
   }
+
+  userCanAddPersonnalDescription(id: number): Observable<UserCanCustomDescription> {
+    return this.httpClient.get<UserCanCustomDescription>(`http://localhost:8080/user/canaddpersonnaldescription/${id}`);
+  }
+  getOrganiserInfo(username: string): Observable<Organiser>{
+    return this.httpClient.get<Organiser>(`http://localhost:8080/user/organiser/${username}`);
+  }
+
+  getOrganiserListInfo( search: HttpParams): Observable<Organiser[]>{
+    console.log('pass');
+    return this.httpClient.get<Organiser[]>('http://localhost:8080/user/organiserlist', {params: search});
+  }
+
+  getOrganiserPhoto(id: string): Observable<string>{
+    const parametres = new HttpParams().set('username', id );
+    return this.httpClient.get<ArrayBuffer>('http://localhost:8080/user/organiserPhoto', {params: parametres, responseType: 'arraybuffer' as 'json'})
+      .pipe(
+        map(
+          (byteArray: ArrayBuffer) => this.arrayBufferToBase64(byteArray)
+        )
+      );
+  }
+  private arrayBufferToBase64(buffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  }
+
+  giveRightCustomeDescription(author: string, eventId: number): void {
+    this.httpClient.post<string>(`http://localhost:8080/user/giveusercustomizationeventright/${author}/${eventId}`, '').subscribe(
+      value => {
+
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getRightCustomeDescription(): Observable<UserCurrentRightDesc[]> {
+    return this.httpClient.get<UserCurrentRightDesc[]>(`http://localhost:8080/user/usercustomizationeventright`);
+  }
+
 
 }
 

@@ -80,6 +80,13 @@ a:hover{
     color: #2e9fb3;
   }
 
+  .arrowpaddingleft{
+    padding-left: 0px;
+  }
+  .arrowpaddingright{
+    padding-right: 0px;
+  }
+
 }
 @media screen and (min-width:720px) {
 
@@ -125,6 +132,13 @@ a:hover{
   .myicone{
     font-size: 40px;
     color: #2e9fb3;
+  }
+
+  .arrowpaddingleft{
+    padding-left: 100px;
+  }
+  .arrowpaddingright{
+    padding-right: 100px;
   }
 
 }
@@ -174,6 +188,13 @@ a:hover{
     color: #2e9fb3;
   }
 
+  .arrowpaddingleft{
+    padding-left: 100px;
+  }
+  .arrowpaddingright{
+    padding-right: 100px;
+  }
+
 }
 @media screen and (min-width:1140px) {
   .bg-img{
@@ -218,6 +239,73 @@ a:hover{
   .myicone{
     font-size: 60px;
     color: #2e9fb3;
+  }
+
+  .arrowpaddingleft{
+    padding-left: 100px;
+  }
+  .arrowpaddingright{
+    padding-right: 100px;
+  }
+
+}
+
+
+
+@media screen and (max-width:540px) {
+
+  .bg-img{
+    height: 300px;
+    width: 100% ;
+    object-fit: cover;
+    object-position: 100% 50%;
+
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+  }
+
+  .card-img {
+    height: 300px;
+    width: 210px ;
+  }
+
+  .card-img-container {
+    position: relative;
+    top: -240px;
+  }
+
+  .parent-container{
+    height: 400px;
+    margin-bottom: 30px;
+
+  }
+
+  .title-container{
+
+  }
+
+  .imagepos{
+     margin: auto;
+  }
+
+  .title{
+    font-size: 50px;
+    margin-bottom: 0px;
+    word-break: break-word;
+    line-height: 35px;
+
+  }
+
+  .myicone{
+    font-size: 40px;
+    color: #2e9fb3;
+  }
+
+  .arrowpaddingleft{
+    padding-left: 0px;
+  }
+  .arrowpaddingright{
+    padding-right: 0px;
   }
 
 }
