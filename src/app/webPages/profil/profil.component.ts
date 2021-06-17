@@ -10,6 +10,7 @@ import {Organiser} from '../../modeles/organiser';
 import {UserComment} from '../../modeles/user-comment';
 import {Participation} from '../../modeles/participation';
 import {EventService} from '../../services/event.service';
+import {UserCurrentRightDesc} from '../../modeles/user-current-right-desc';
 
 @Component({
   selector: 'app-profil',
@@ -29,6 +30,7 @@ export class ProfilComponent implements OnInit {
   public organiserProfilInfos: Organiser;
   updateOrganiserForm: FormGroup;
   public eventTitle: string;
+  rightDesc: UserCurrentRightDesc[];
 
   constructor(private user: UserService, private modalService: NgbModal, private formBuilder: FormBuilder, private eventService: EventService) {
   }
@@ -55,6 +57,13 @@ export class ProfilComponent implements OnInit {
     this.roleSubscription = this.user.roleListener().subscribe(state => {
       this.authority = state;
     });
+
+    this.user.getRightCustomeDescription().subscribe(value => {
+      this.rightDesc = value;
+    }, error => {
+      console.log(error);
+    });
+
 
     this.updateProfilForm = this.formBuilder.group({
         firstName: ['', Validators.compose([

@@ -58,7 +58,7 @@
             <li style="list-style-type:none">
               <div class="row">
 
-                <div class="col-4">
+                <div class="col-4 ">
                   Nom de l'évènement
                 </div>
                 <div class="col-8" >
@@ -73,7 +73,7 @@
               <div class="row">
                 <div class=" col-4 text-truncate">
                   <a routerLink="/event/{{participation.eventId}}">
-                    <u>title</u>
+                    <u>{{participation.eventName}}</u>
                   </a>
                 </div>
                 <div class="col-8 text-truncate">
@@ -122,7 +122,36 @@
 
   </div>
 
-  <div class="row">
+  <div class="row pt-3" *ngIf="rightDesc.length > 0">
+
+    <div class="container bg-grey rounded">
+
+      <ul class="px-3">
+        <li style="list-style-type:none">
+          <div class="row">
+            <div class="col-12 text-center">
+              <span >
+                Vos droit de description alternative sur les évènements :
+              </span>
+            </div>
+          </div>
+        </li>
+        <hr>
+        <li *ngFor="let right of rightDesc" style="list-style-type:none; " >
+
+          <div class="row">
+            <div class=" col-12 text-truncate text-center">
+              <a routerLink="/event-user-description/{{right.eventId}}">
+                <u>{{right.eventName}}</u>
+              </a>
+            </div>
+          </div>
+
+          <hr>
+        </li>
+      </ul>
+
+    </div>
 
   </div>
 

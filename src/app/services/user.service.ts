@@ -9,6 +9,7 @@ import {Organiser} from '../modeles/organiser';
 import {UserComment} from '../modeles/user-comment';
 import {UserCanCustomDescription} from '../modeles/user-can-custom-description';
 import {map} from 'rxjs/operators';
+import {UserCurrentRightDesc} from '../modeles/user-current-right-desc';
 
 interface ReturnedErrors{
   errors: object;
@@ -204,6 +205,22 @@ export class UserService {
     }
     return window.btoa(binary);
   }
+
+  giveRightCustomeDescription(author: string, eventId: number): void {
+    this.httpClient.post<string>(`http://localhost:8080/user/giveusercustomizationeventright/${author}/${eventId}`, '').subscribe(
+      value => {
+
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getRightCustomeDescription(): Observable<UserCurrentRightDesc[]> {
+    return this.httpClient.get<UserCurrentRightDesc[]>(`http://localhost:8080/user/usercustomizationeventright`);
+  }
+
+
 }
 
 

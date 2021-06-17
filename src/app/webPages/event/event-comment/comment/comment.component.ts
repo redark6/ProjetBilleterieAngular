@@ -121,4 +121,9 @@ export class CommentComponent implements OnInit {
   disableComment(commentId: number): void{
     this.commentService.disableComment(commentId);
   }
+
+  giveRightCustomeDescription(): void{
+    console.log('pass');
+    this.userService.giveRightCustomeDescription(this.comment.author, this.comment.eventId);
+  }
 }
