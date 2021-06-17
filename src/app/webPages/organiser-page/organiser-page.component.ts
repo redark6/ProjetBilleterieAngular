@@ -26,14 +26,14 @@ export class OrganiserPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const params = new HttpParams().set('owner', 'test@test.fr').set('allEvent', 'true');
+    this.userName = this.router.url.substring(16);
+
+    const params = new HttpParams().set('owner', this.userName).set('allEvent', 'true');
     this.event.searchEvents(params);
 
     this.searchResultSubscription = this.eventService.searchListener().subscribe(state => {
       this.searchResult = state;
     });
-
-    console.log(this.router.url.substring(16));
 
     this.userName = this.router.url.substring(16);
 
