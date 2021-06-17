@@ -1,3 +1,10 @@
 hr{
   background-color: white;
 }
+h5{
+  color: white;
+}
+
+footer{
+  flex-shrink: 0;
+}

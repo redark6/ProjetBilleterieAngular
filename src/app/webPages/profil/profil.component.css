@@ -1,4 +1,19 @@
 .tab-content{
-  padding-bottom: 100px;
-  margin-top: 20px;
+  padding-bottom: 0px;
+
 }
+
+.cog{
+}
+
+.buttonedit{
+  border: none;
+  background-color: #f4f4f4d4;
+}
+
+.buttonupgrade{
+  border: none;
+  background-color: #f4f4f4d4;
+}
+
+input.mat-input-element {height:20px}

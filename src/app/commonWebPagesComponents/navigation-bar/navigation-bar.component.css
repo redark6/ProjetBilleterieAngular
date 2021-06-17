@@ -1,3 +1,32 @@
 .nav-icon{
   height: 50px;
 }
+
+nav{
+  flex-shrink: 0;
+}
+
+.logout-icon {
+  line-height: unset;
+}
+
+.navbar-collapse{
+  flex-grow: 0;
+}
+
+li {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.customtoggler {
+   padding: .25rem .75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  color: rgba(255,255,255,.5);
+  border-color: rgba(255,255,255,.1);
+}
+

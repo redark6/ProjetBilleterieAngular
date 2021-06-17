@@ -1,0 +1,32 @@
+
+  <div class="card my-2">
+
+    <a routerLink="/event/{{event.id}}">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+        <img class="card-img-top img img2"
+             [src]="eventImage ? eventImage : './assets/images/nopicture.png'" alt="Card image cap">
+        <div class="card-text mx-0 px-4"  *ngIf="isAuthenticate && isOwner" style="position: absolute; left: 0; top: 10px">
+          <a routerLink="/event-edit/{{eventId}}">
+            <button class="btn btn-block btn-info">
+              <div class="row" style="display: block; margin: 0">
+                <span class="d-none d-sm-block"> Editer</span> <i class="fas fa-edit"></i>
+              </div>
+            </button>
+          </a>
+
+        </div>
+
+
+      </div>
+      <div class="card-body card-size col-lg-8 col-md-8 col-sm-8 col-8">
+        <h4 class="card-title text-truncate ">{{event.title}}</h4>
+        <div>{{event.price}} €</div>
+
+        <div class="p-0">{{categories[event.category]}}</div>
+        <div>{{region}}</div>
+
+      </div>
+    </div>
+    </a>
+  </div>

@@ -1,0 +1,78 @@
+.scrolling-wrapper-flexbox {
+  display: flex;
+  overflow: auto;
+  cursor: grab;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+}
+
+.scrolling-wrapper-flexbox::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 200px;
+}
+
+.scrolling-wrapper {
+  -webkit-overflow-scrolling: touch;
+}
+
+@media screen and (min-width:540px) {
+  .overflow-custom {
+  }
+
+}
+@media screen and (min-width:720px) {
+  .overflow-custom{
+  }
+
+}
+@media screen and (min-width:995px) {
+  .overflow-custom{
+    overflow-x : auto;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+}
+@media screen and (min-width:1140px) {
+  .overflow-custom {
+    overflow-x : auto;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+}
+
+.borderlimit{
+  border-right: 4px solid #90A4AE ;
+  border-left: 4px solid #90A4AE;
+  height: auto;
+  border-radius: 10px;
+
+}
+
+@keyframes example {
+  0%   {border-color:#2e9fb3; transform: scale(1);}
+  50%  {border-color: #75acb6; transform: scale(1.1);}
+  100% {border-color:#90A4AE; transform: scale(1);}
+}
+
+@keyframes test {
+  0%   {border-color:#90A4AE; }
+  50%  {border-color: #75acb6; }
+  100% {border-color:#2e9fb3; }
+}
+
+.testanime{
+  animation-name: test;
+  animation-duration: 0.8s;
+}
+
+.animation{
+  animation-name: example;
+  animation-duration: 0.5s;
+}

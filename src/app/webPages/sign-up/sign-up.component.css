@@ -1,0 +1,20 @@
+mat-form-field {
+  width: 100%;
+}
+
+.example-radio-group {
+  display: flex;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.mat-checkbox-label{
+  pointer-events:none;
+}
+
+a:not([href]):not([class]){
+  color: #1890ff;
+}
