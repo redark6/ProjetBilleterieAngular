@@ -29,6 +29,7 @@ export class EventComponent implements OnInit {
   public eventImage: any;
   public eventImageByte: string;
   public urlTweet: string;
+  public authority: string;
 
   isAuthenticate: boolean;
   isOwner = false;
@@ -39,20 +40,31 @@ export class EventComponent implements OnInit {
     'Gastronomie', 'Conférence et Forum', 'Musée et Exposition', 'Spectacle et Théâtre',
     'Autres'];
 
-  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute, private globalVar: GlobalParameter, private router: Router , private mapService: MapService, private domSanitizer: DomSanitizer) {
+  constructor(private user: UserService, private eventService: EventService, private activatedRoute: ActivatedRoute,
+              private globalVar: GlobalParameter, private router: Router , private mapService: MapService,
+              private domSanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
 
-    this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
-
-    this.eventService.isOwner(this.event.id).subscribe(value1 => {
-      this.isOwner = true;
+    this.user.roleListener().subscribe(state =>  {
+      this.authority = state;
     });
+
+    this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
 
     this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
     });
+
+    if (this.isAuthenticate === true) {
+      this.isOwner = false;
+    }
+    else {
+      this.eventService.isOwner(this.event.id).subscribe(value1 => {
+        this.isOwner = value1;
+      });
+    }
 
     const observer = new IntersectionObserver( (entries) => {
       if (entries[0].isIntersecting === true){
@@ -85,14 +97,15 @@ export class EventComponent implements OnInit {
       this.userProfilInfos = user;
     });
 
-    this.eventService.getUserRating(this.activatedRoute.snapshot.params.id).subscribe(value2 => {
-      if (value2 === null){
-        this.value2 = 0;
-      }
-      else{
-        this.value2 = value2;
-      }
-    });
+    if (this.isAuthenticate === true) {
+      this.eventService.getUserRating(this.activatedRoute.snapshot.params.id).subscribe(value2 => {
+        if (value2 === null) {
+          this.value2 = 0;
+        } else {
+          this.value2 = value2;
+        }
+      });
+    }
 
     console.log('AVANT CALL');
     this.eventService.getImage(this.eventId).subscribe((image) => {
@@ -174,6 +187,7 @@ export class EventComponent implements OnInit {
     function initMapError(): void {
       console.log('failur');
 
+
       const mapy = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
         center: { lat: 24.886, lng: -70.268 },
@@ -206,7 +220,17 @@ export class EventComponent implements OnInit {
     this.event = this.activatedRoute.snapshot.data.event;
   }
 
+  deleteEvent(): void{
+    this.eventService.deleteEvent(this.eventId);
+    this.router.navigate(['/home']);
+  }
+
   gotomap(): void {
     document.getElementById('map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  reservation(): void {
+    this.eventService.participate(this.eventId);
+    this.router.navigate(['home']);
   }
 }

@@ -37,6 +37,9 @@ export class CommentService {
     this.searchComment.next(eventComment);
   }
 
+  disableComment(commentId: number): void {
+    this.httpClient.patch<number>(`http://localhost:8080/comment/${commentId}`, null).subscribe();
+  }
 }
 
 

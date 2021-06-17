@@ -9,7 +9,7 @@ export class EventComment {
   public eventId: number;
   public comment: string;
   public lastModification: Date;
-  public isBlocked: boolean;
+  public blocked: boolean;
   public isOwnedByCurrentUser: boolean;
   public commentChildren: EventComment[];
   public numberOfLike: number;
@@ -31,7 +31,7 @@ export class EventComment {
     this.eventId = eventId;
     this.comment = comment ;
     this.lastModification = lastModification;
-    this.isBlocked = isBlocked;
+    this.blocked = isBlocked;
     this.isOwnedByCurrentUser = isOwnedByCurrentUser;
     this.commentChildren = commentChildren;
     this.numberOfLike = numberOfLike ;

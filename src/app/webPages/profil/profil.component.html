@@ -1,4 +1,3 @@
-
 <div *ngIf="userProfilInfos" class="container">
 
   <div class="row mb-4">
@@ -55,9 +54,34 @@
       </ul>
       <div class="tab-content bg-grey" id="myTabContent" style="overflow: auto; height: 260px">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-          <ul>
+          <ul class="px-3">
             <li style="list-style-type:none">
+              <div class="row">
 
+                <div class="col-4">
+                  Nom de l'évènement
+                </div>
+                <div class="col-8" >
+                  Nombre de Tickets
+                </div>
+
+              </div>
+            </li>
+            <hr>
+            <li *ngFor="let participation of participations" style="list-style-type:none; " >
+
+              <div class="row">
+                <div class=" col-4 text-truncate">
+                  <a routerLink="/event/{{participation.eventId}}">
+                    <u>title</u>
+                  </a>
+                </div>
+                <div class="col-8 text-truncate">
+                  {{" : " + participation.boughtticket}}
+                </div>
+              </div>
+
+              <hr>
             </li>
           </ul>
         </div>
@@ -116,57 +140,57 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-    <div class="modal-body" [formGroup]="updateProfilForm"  >
+        <div class="modal-body" [formGroup]="updateProfilForm"  >
 
-        <div class="mx-5">
+          <div class="mx-5">
 
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <input [class.is-invalid] = "updateProfilForm.get('firstName').invalid && updateProfilForm.get('firstName').touched"
-                     type="text" class="form-control" formControlName="firstName"  placeholder="Prénom"/>
-              <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty">
-                <small *ngIf="firstName.errors?.required" class="text-danger">Ce champ est requis</small>
-                <small *ngIf="firstName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
-                <small *ngIf="firstName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
-
-              </div>
+            <div class="row">
               <div class="col-md-6 mb-3">
-                <input [class.is-invalid] = "updateProfilForm.get('lastName').invalid && updateProfilForm.get('lastName').touched"
-                       type="text" class="form-control" formControlName="lastName" placeholder="Nom"/>
-                <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty">
-                  <small *ngIf="lastName.errors?.required" class="text-danger">Ce champ est requis</small>
-                  <small *ngIf="lastName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
-                  <small *ngIf="lastName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+                <input [class.is-invalid] = "updateProfilForm.get('firstName').invalid && updateProfilForm.get('firstName').touched"
+                       type="text" class="form-control" formControlName="firstName"  placeholder="Prénom"/>
+                <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty">
+                  <small *ngIf="firstName.errors?.required" class="text-danger">Ce champ est requis</small>
+                  <small *ngIf="firstName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
+                  <small *ngIf="firstName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+
+                </div>
+                <div class="col-md-6 mb-3">
+                  <input [class.is-invalid] = "updateProfilForm.get('lastName').invalid && updateProfilForm.get('lastName').touched"
+                         type="text" class="form-control" formControlName="lastName" placeholder="Nom"/>
+                  <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty">
+                    <small *ngIf="lastName.errors?.required" class="text-danger">Ce champ est requis</small>
+                    <small *ngIf="lastName.errors?.minlength" class="text-danger">La taille minimale est de 2 caractères</small>
+                    <small *ngIf="lastName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="mb-3">
-              <div class="input-group">
-                <input [class.is-invalid] = "updateProfilForm.get('userName').invalid && updateProfilForm.get('userName').touched"
-                       type="text" class="form-control" formControlName="userName" value="zzzz" placeholder="Nom d'utilisateur"/>
+              <div class="mb-3">
+                <div class="input-group">
+                  <input [class.is-invalid] = "updateProfilForm.get('userName').invalid && updateProfilForm.get('userName').touched"
+                         type="text" class="form-control" formControlName="userName" value="zzzz" placeholder="Nom d'utilisateur"/>
+                </div>
+                <div *ngIf="(userName.invalid && userName.touched) || userName.dirty">
+                  <small *ngIf="userName.errors?.required" class="text-danger">Ce champ est requis</small>
+                  <small *ngIf="userName.errors?.minlength" class="text-danger">La taille minimale est de 4 caractères</small>
+                  <small *ngIf="userName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
+                  <small *ngIf="userName.errors?.incorrect" class="text-danger">Ce nom d'utilisateur est déjas pris</small>
+
+                </div>
               </div>
-              <div *ngIf="(userName.invalid && userName.touched) || userName.dirty">
-                <small *ngIf="userName.errors?.required" class="text-danger">Ce champ est requis</small>
-                <small *ngIf="userName.errors?.minlength" class="text-danger">La taille minimale est de 4 caractères</small>
-                <small *ngIf="userName.errors?.maxlength" class="text-danger">La taille maximal est de 50 caractères</small>
-                <small *ngIf="userName.errors?.incorrect" class="text-danger">Ce nom d'utilisateur est déjas pris</small>
 
-              </div>
+
+
+
             </div>
+          </div>
 
 
 
-
+          <div class="modal-footer">
+            <button [disabled]="updateProfilForm.invalid" type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click');">Enregistrer</button>
           </div>
         </div>
-
-
-
-        <div class="modal-footer">
-          <button [disabled]="updateProfilForm.invalid" type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click');">Enregistrer</button>
-        </div>
-      </div>
       </div>
       <div ngif class="tab-pane" *ngIf="authority == 'ORG'" id="p2">
         <div class="modal-header" >
@@ -175,29 +199,29 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-    <div class="modal-body" [formGroup]="updateOrganiserForm">
-      <div >
-        <input
-          type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
-        <input
-          type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
-        <input
-          type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
-        <input
-          type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
-        <input
-          type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
-        <input
-          type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
-        <input
-          type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
-        <input
-          type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
-      </div>
-      <div class="modal-footer">
-        <button [disabled]="updateOrganiserForm.invalid" type="submit" class="btn btn-outline-primary" (click)="updateOrganiser() && modal.close('Save click')">Enregistrer</button>
-      </div>
-    </div>
+        <div class="modal-body" [formGroup]="updateOrganiserForm">
+          <div >
+            <input
+              type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
+            <input
+              type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
+            <input
+              type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
+            <input
+              type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
+            <input
+              type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
+            <input
+              type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
+            <input
+              type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
+            <input
+              type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="updateOrganiserForm.invalid" type="submit" class="btn btn-outline-primary" (click)="updateOrganiser() && modal.close('Save click')">Enregistrer</button>
+          </div>
+        </div>
 
       </div>
     </div>
@@ -219,31 +243,30 @@
 
         <div class="row">
 
-            <input
-              type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
+          <input
+            type="text" class="form-control" formControlName="jobTitle"  placeholder="Titre du poste"/>
 
-          </div>
-            <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
-            <input
-                   type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
-            <input
-                 type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
-            <input
-                 type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
-            <input
-                 type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
-             <input
-                 type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
-             <input
-                 type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
+        </div>
+        <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Téléphone portable"/>
+        <input
+          type="text" class="form-control" formControlName="website" value="zzzz" placeholder="Site Web"/>
+        <input
+          type="text" class="form-control" formControlName="company" value="zzzz" placeholder="Entreprise"/>
+        <input
+          type="text" class="form-control" formControlName="blog" value="zzzz" placeholder="Blog"/>
+        <input
+          type="text" class="form-control" formControlName="proAddress" value="zzzz" placeholder="Adresse professionnelle"/>
+        <input
+          type="text" class="form-control" formControlName="proCity" value="zzzz" placeholder="Ville professionnelle"/>
+        <input
+          type="text" class="form-control" formControlName="proCountry" value="zzzz" placeholder="Pays professionnel"/>
       </div>
 
 
-    <div class="modal-footer">
-      <button [disabled]="upgradeOrganiserForm.invalid" type="submit" class="btn btn-outline-primary" (click)="modal2.close('Save click');">Devenir Organisateur</button>
-    </div>
+      <div class="modal-footer">
+        <button [disabled]="upgradeOrganiserForm.invalid" type="submit" class="btn btn-outline-primary" (click)="modal2.close('Save click');">Devenir Organisateur</button>
+      </div>
     </div>
   </ng-template>
 
 </div>
-

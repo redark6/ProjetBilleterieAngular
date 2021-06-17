@@ -15,6 +15,6 @@
 
   <hr>
   <div *ngIf="comments">
-    <app-comment-list [eventId]="eventId" [comments]="comments" [isAuthenticate]="isAuthenticate" (childresponse)="onCommentSent()"></app-comment-list>
+    <app-comment-list [eventId]="eventId" [comments]="comments" [isAuthenticate]="isAuthenticate" [authority]="authority" (childresponse)="onCommentSent()"></app-comment-list>
   </div>
 </div>
