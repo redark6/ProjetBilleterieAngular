@@ -102,9 +102,9 @@
           <span style="font-size: 35px">Informations</span>
 
           <div class="ml-3">
-
-            <button routerLink="/event-edit/{{eventId}}"  style="width: min-content;" *ngIf="isAuthenticate && isOwner" class="btn btn-block btn-info h-100"> <i class="fas fa-edit"></i> </button>
-
+            <a routerLink="/event-edit/{{eventId}}">
+            <button style="width: min-content;" *ngIf="isAuthenticate && isOwner" class="btn btn-block btn-info h-100"> <i class="fas fa-edit"></i> </button>
+            </a>
             <a *ngIf="isAuthenticate && authority == 'ADMIN'" class="buttondelete offset-md-2" data-toggle="modal" data-target="#exampleModal" >
             <i class="fas fa-trash"></i>
           </a>

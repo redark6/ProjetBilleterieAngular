@@ -44,13 +44,7 @@ export class HomeEventListCategoryComponent implements OnInit, AfterContentInit 
 
   ngOnInit(): void {
 
-    let paramlist = new HttpParams();
-
-    Object.keys(this.params).forEach(function(item) {
-      paramlist = paramlist.set(item, this.params[item]);
-    });
-
-    this.eventService.searchEventsForHome(paramlist).subscribe(
+    this.eventService.searchEventsForHome(this.params).subscribe(
       value => {
         this.searchResult = value.eventList;
         if (this.searchResult.length < 4){
