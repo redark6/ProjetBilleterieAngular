@@ -45,4 +45,7 @@ export class MyEventCardComponent implements OnInit {
     const finaldate = date.toISOString().substring(0, 10);
     return finaldate;
   }
+  stop(event): void {
+    event.stopPropagation();
+  }
 }

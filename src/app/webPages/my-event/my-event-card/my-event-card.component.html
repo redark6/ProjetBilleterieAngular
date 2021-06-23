@@ -9,7 +9,7 @@
           <div class="card-text"> <b>lieux : </b>{{region}}</div>
           <div class="card-text"> <b>crée le : </b>{{sanitizeDate(event.creationDate)}}</div>
           <div class="card-text">
-            <a routerLink="/event-edit/{{eventId}}">
+            <a (click)="stop($event)" routerLink="/event-edit/{{eventId}}">
             <button class="btn btn-block btn-info"> Editer <i class="fas fa-edit"></i> </button>
             </a>
           </div>
