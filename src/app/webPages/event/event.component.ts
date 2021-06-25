@@ -47,11 +47,11 @@ export class EventComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
+
     this.user.roleListener().subscribe(state =>  {
       this.authority = state;
     });
-
-    this.activatedRoute.data.subscribe((data: { event: Event }) => this.event = data.event);
 
     this.user.authListener().subscribe(state => {
       this.isAuthenticate = state;
