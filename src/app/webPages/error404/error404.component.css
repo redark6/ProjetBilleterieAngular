@@ -1,3 +1,11 @@
 .blue-icon{
   filter: invert(54%) sepia(26%) saturate(1019%) hue-rotate(141deg) brightness(110%) contrast(95%);
 }
+.fadecustom{
+  border: solid;
+  border-width: 1vh;
+  border-color: #e9fcff;
+  margin: 25px 10px;
+  background: #e9fcff;
+  box-shadow: 0 0 15px 10px #e9fcff;
+}

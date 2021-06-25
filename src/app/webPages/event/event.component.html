@@ -87,7 +87,7 @@
 
       <h2 class="mb-1 font-weight-bold text-white">Prix: {{event.price + ' €'}} </h2>
       <h2 class="mb-1 font-weight-bold text-white">Places restantes: {{event.nbOfTicket}} </h2>
-      <h2 class="m-0 p-0 litlesize "><button class="btn btn-outline-light btn-lg litlesize"(click)="reservation()">Réserver</button></h2>
+      <h2 class="m-0 p-0 litlesize "><button  [disabled]="!event.active" class="btn btn-outline-light btn-lg litlesize"(click)="reservation()">Réserver</button></h2>
 
     </div>
 
