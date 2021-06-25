@@ -292,4 +292,6 @@ export class ProfilComponent implements OnInit {
     });
     return this.eventTitle;
   }*/
+
+
 }
