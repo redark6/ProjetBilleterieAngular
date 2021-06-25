@@ -23,6 +23,7 @@ export class MyEventCardComponent implements OnInit {
   public eventId: number;
   public eventImage: any;
   region: string;
+  activatedState: string;
   constructor(private route: Router, private eventService: EventService, private globalVar: GlobalParameter, private domSanitizer: DomSanitizer ) { }
 
   ngOnInit(): void {
@@ -37,6 +38,7 @@ export class MyEventCardComponent implements OnInit {
 
     this.region = this.globalVar.regionList[this.event.region - 1].regionName;
 
+    this.boutonActiveChange(this.event.active);
   }
 
   sanitizeDate(datereceived): any {
@@ -44,5 +46,26 @@ export class MyEventCardComponent implements OnInit {
     date.setMinutes(Math.abs(date.getTimezoneOffset()));
     const finaldate = date.toISOString().substring(0, 10);
     return finaldate;
+  }
+
+  eventManagment(event): void {
+    this.eventService.eventManagment(event).subscribe(value => {
+      this.event.active = value;
+      this.boutonActiveChange(value);
+    });
+  }
+
+  stop(event): void {
+    event.stopPropagation();
+  }
+
+  boutonActiveChange(check: boolean): void{
+
+    if (check === true){
+      this.activatedState = 'Desactiver';
+    }
+    if (check === false){
+      this.activatedState = 'Activer';
+    }
   }
 }

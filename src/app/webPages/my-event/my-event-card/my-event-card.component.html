@@ -1,5 +1,6 @@
-<a routerLink="/event/{{event.id}}" class=" justify-content-center">
+
   <div  class="card w-100 h-100 my-0 mx-0"  >
+    <a routerLink="/event/{{event.id}}" class=" justify-content-center">
     <img class="card-img-top"  [src]="eventImage ? eventImage : './assets/images/nopicture.png'" alt="Card image cap">
     <div class="card-body p-2">
       <h5 class="crop-title card-text">{{event.title}}</h5>
@@ -9,14 +10,17 @@
           <div class="card-text"> <b>lieux : </b>{{region}}</div>
           <div class="card-text"> <b>crée le : </b>{{sanitizeDate(event.creationDate)}}</div>
           <div class="card-text">
-            <a routerLink="/event-edit/{{eventId}}">
+            <a (click)="stop($event)" routerLink="/event-edit/{{eventId}}">
             <button class="btn btn-block btn-info"> Editer <i class="fas fa-edit"></i> </button>
             </a>
-              <button *ngIf="event.active" (click)="" class="btn btn-block btn-info"> Désactiver </button>
-              <button *ngIf="!event.active" (click)="" class="btn btn-block btn-info"> Activer </button>
+
           </div>
         </div>
       </div>
     </div>
-  </div>
 </a>
+    <div class="card-body p-2 col-12">
+    <button (click)="eventManagment(event)"  class="btn btn-block btn-info mt-2"> {{activatedState}} </button>
+    </div>
+  </div>
+

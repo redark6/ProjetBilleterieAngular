@@ -165,4 +165,8 @@ export class EventService {
     this.httpClient.delete<any>(`http://localhost:8080/event/${pageId}`).subscribe();
 
   }
+
+  eventManagment(value: object): Observable<boolean>{
+    return this.httpClient.patch<boolean>(`http://localhost:8080/event/eventManagment`, value);
+  }
 }
