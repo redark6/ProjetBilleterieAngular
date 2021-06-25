@@ -48,10 +48,9 @@ const routes: Routes = [
   { path: 'error404', component: Error404Component },
   {path: 'myevent', component: MyEventComponent},
   { path: 'organisers', component: OrganisersComponent},
-  { path: 'organiser-page/:username', component: OrganiserPageComponent}
-
-  // { path: 'not-found', component: Error404Component },
-  // { path: '**', redirectTo: 'not-found' }
+  { path: 'organiser-page/:username', component: OrganiserPageComponent},
+   { path: 'not-found', component: Error404Component },
+   { path: '**', redirectTo: '/not-found' }
 ];
 
 
