@@ -197,7 +197,7 @@
           <div class="d-flex justify-content-center">
             <button mat-raised-button color="primary" *ngIf="!this.event && !userCanAddDesc" [disabled]="eventForm.invalid" (click)="addEvent()" class="btn btn-block cbutton mb-5" type="submit">Créer</button>
             <button mat-raised-button color="primary" *ngIf="this.event && !userCanAddDesc" [disabled]="eventForm.invalid" (click)="ModifyEvent()" class="btn btn-block cbutton mb-5" type="submit">Modifier</button>
-            <button mat-raised-button color="primary" *ngIf="userCanAddDesc" [disabled]="eventForm.invalid" (click)="editAlternatifDescription()" class="btn btn-block cbutton mb-5" type="submit">{{existeUserAltDesc ? 'Modifier' : 'Créer'}}  mod</button>
+            <button mat-raised-button color="primary" *ngIf="userCanAddDesc" [disabled]="eventForm.invalid" (click)="editAlternatifDescription()" class="btn btn-block cbutton mb-5" type="submit">{{existeUserAltDesc ? 'Modifier' : 'Créer'}}</button>
 
           </div>
 

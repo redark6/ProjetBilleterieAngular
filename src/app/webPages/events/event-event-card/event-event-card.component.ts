@@ -48,4 +48,8 @@ export class EventEventCardComponent implements OnInit {
     });
   }
 
+  stop(event): void {
+    event.stopPropagation();
+  }
+
 }
