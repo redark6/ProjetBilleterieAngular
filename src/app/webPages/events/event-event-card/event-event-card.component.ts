@@ -40,7 +40,7 @@ export class EventEventCardComponent implements OnInit {
 
 
     this.eventService.isOwner(this.event.id).subscribe(value1 => {
-      this.isOwner = true;
+      this.isOwner = value1;
     });
 
     this.user.authListener().subscribe(state => {
