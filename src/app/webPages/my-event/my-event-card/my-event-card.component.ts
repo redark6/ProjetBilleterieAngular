@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {EventService} from '../../../services/event.service';
 import {GlobalParameter} from '../../../specialClass/global-parameter';
 import {DomSanitizer} from '@angular/platform-browser';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-my-event-card',
@@ -24,7 +25,8 @@ export class MyEventCardComponent implements OnInit {
   public eventImage: any;
   region: string;
   activatedState: string;
-  constructor(private route: Router, private eventService: EventService, private globalVar: GlobalParameter, private domSanitizer: DomSanitizer ) { }
+  closeResult = '';
+  constructor(private route: Router, private eventService: EventService, private globalVar: GlobalParameter, private domSanitizer: DomSanitizer, private modalService: NgbModal ) { }
 
   ngOnInit(): void {
 
@@ -66,6 +68,24 @@ export class MyEventCardComponent implements OnInit {
     }
     if (check === false){
       this.activatedState = 'Activer';
+    }
+  }
+
+  open(content): void {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
     }
   }
 }
