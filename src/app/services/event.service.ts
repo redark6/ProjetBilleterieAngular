@@ -174,6 +174,6 @@ export class EventService {
   }
 
   eventManagment(value: object): Observable<boolean>{
-    return this.httpClient.patch<boolean>(`http://localhost:8080/event/eventManagment`, value);
+    return this.httpClient.patch<boolean>(environment.apiUrl +  `/event/eventManagment`, value);
   }
 }
