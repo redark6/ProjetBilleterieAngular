@@ -14,9 +14,10 @@ export class Event {
     public nbOfTicket: number;
     public customeDescription: CustomeEventDescription[];
     public userId: string;
+    public active: boolean;
 
   constructor(id: number, title: string, category: number, description: string, region: number, creationDate: Date, startDate: Date,
-              endDate: Date, price: number, nbOfTicket: number, customeDescription: CustomeEventDescription[], userId: string) {
+              endDate: Date, price: number, nbOfTicket: number, customeDescription: CustomeEventDescription[], userId: string, active: boolean) {
 
         this.id = id;
         this.title = title;
@@ -30,6 +31,7 @@ export class Event {
         this.nbOfTicket = nbOfTicket;
         this.customeDescription = customeDescription;
         this.userId = userId;
+        this.active = active;
     }
 }
 
