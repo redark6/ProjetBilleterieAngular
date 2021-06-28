@@ -16,7 +16,6 @@ export class HomeEventListCategoryComponent implements OnInit, AfterContentInit 
   @Input() identifiant: string;
   @Input() text: string;
   @Input() params: HttpParams;
-  paddingleft
 
   rightbarid;
   leftbarid;
@@ -34,7 +33,7 @@ export class HomeEventListCategoryComponent implements OnInit, AfterContentInit 
 
   numbers: number[];
   constructor(private eventService: EventService, private activatedRoute: ActivatedRoute ) {
-    this.numbers = [1, 2, 3, 4,5,6,7,8,9,10,11,12];
+    this.numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   }
 

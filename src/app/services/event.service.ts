@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {EventImage} from '../modeles/eventImage';
 import {map} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 import {Participation} from '../modeles/participation';
 
 @Injectable({
@@ -18,15 +19,15 @@ export class EventService {
   }
 
   public get(id: number): Observable<Event> {
-    return this.httpClient.get<Event>(`http://localhost:8080/event/${id}`);
+    return this.httpClient.get<Event>(environment.apiUrl + `/event/${id}`);
   }
 
   public getRating(id: number): Observable<number> {
-    return this.httpClient.get<number>(`http://localhost:8080/rate/${id}`);
+    return this.httpClient.get<number>(environment.apiUrl + `/rate/${id}`);
   }
 
   searchEvents(params: HttpParams): void {
-    this.httpClient.get<SearchResult>(`http://localhost:8080/event/search`, {params}).subscribe(
+    this.httpClient.get<SearchResult>(environment.apiUrl + `/event/search`, {params}).subscribe(
       value => {
         this.emitSearchEvent(value);
       },
@@ -37,11 +38,11 @@ export class EventService {
   }
 
   searchEventsForHome(params: HttpParams): Observable<SearchResult> {
-    return this.httpClient.get<SearchResult>(`http://localhost:8080/event/search`, {params});
+    return this.httpClient.get<SearchResult>(environment.apiUrl + `/event/search`, {params});
   }
 
   rate(rating: object): void {
-    this.httpClient.post<any>(`http://localhost:8080/rate`, rating).subscribe(
+    this.httpClient.post<any>(environment.apiUrl + `/rate`, rating).subscribe(
       () => {
         return null;
       },
@@ -52,14 +53,16 @@ export class EventService {
     );
   }
 
-  createEvent(value: object): Observable<Event> {
-    return this.httpClient.post<Event>('http://localhost:8080/event/create', value);
+  createEvent(value: object): Observable<Event>{
+    return this.httpClient.post<Event>(environment.apiUrl + '/event/create', value);
+
   }
 
   sendImage(form): void {
     // console.log(eventImage.image);
-    this.httpClient.post<any>('http://localhost:8080/event/eventimagepost', form).subscribe(() => {
-        return null;
+    this.httpClient.post<any>(environment.apiUrl +  '/event/eventimagepost', form).subscribe(() => {
+      return null;
+
       },
       (error) => {
         console.log(error);
@@ -75,17 +78,18 @@ export class EventService {
   // }
 
 
-  getImage(eventId: number): Observable<string> {
-    const parametres = new HttpParams().set('eventId', eventId.toString());
-    return this.httpClient.get<ArrayBuffer>('http://localhost:8080/event/eventimageget', {
-      params: parametres,
-      responseType: 'arraybuffer' as 'json'
-    })
-      .pipe(
-        map(
-          (byteArray: ArrayBuffer) => this.arrayBufferToBase64(byteArray)
-        )
-      );
+
+  getImage(eventId: number): Observable<string>{
+    const parametres = new HttpParams().set('eventId', eventId.toString() );
+    console.log('Dans GET IMAGE');
+
+    return this.httpClient.get<ArrayBuffer>(environment.apiUrl +  `/event/eventimageget`, {params: parametres, responseType: 'arraybuffer' as 'json'})
+  .pipe(
+      map(
+        (byteArray: ArrayBuffer) => this.arrayBufferToBase64(byteArray)
+      )
+    );
+
   }
 
   private arrayBufferToBase64(buffer): string {
@@ -107,25 +111,28 @@ export class EventService {
   }
 
   getUserRating(id: number): Observable<number> {
-    return this.httpClient.get<number>(`http://localhost:8080/rate/userRating/${id}`);
+    return this.httpClient.get<number>(environment.apiUrl +  `/rate/userRating/${id}`);
+
   }
 
 
   getUserEvents(): Observable<Event[]> {
-    return this.httpClient.get<Event[]>('http://localhost:8080/event/myevent');
+    return this.httpClient.get<Event[]>(environment.apiUrl +  '/event/myevent');
 
   }
 
   isOwner(pageId: number): Observable<boolean> {
-    return this.httpClient.get<boolean>(`http://localhost:8080/event/isOwner/${pageId}`);
+    return this.httpClient.get<boolean>(environment.apiUrl +  `/event/isOwner/${pageId}`);
   }
 
-  patch(id: number, value: object): Observable<any> {
-    return this.httpClient.patch(`http://localhost:8080/event/patch/${id}`, value);
+
+  patch(id: number, value: object): Observable<any>{
+    return this.httpClient.patch(environment.apiUrl +  `/event/patch/${id}`, value);
+
   }
 
   ModifyImage(form: FormData): void {
-    this.httpClient.patch<any>('http://localhost:8080/event/eventimagemodify', form).subscribe(() => {
+    this.httpClient.patch<any>(environment.apiUrl +  '/event/eventimagemodify', form).subscribe(() => {
         return null;
       },
       (error) => {
@@ -136,7 +143,7 @@ export class EventService {
 
 
   editAlternatifDescription(id: number, content: string): void {
-    this.httpClient.patch<string>(`http://localhost:8080/event/patchalternatifdescription/${id}`, content).subscribe(
+    this.httpClient.patch<string>(environment.apiUrl +  `/event/patchalternatifdescription/${id}`, content).subscribe(
       value => {
         console.log(value);
       },
@@ -148,11 +155,11 @@ export class EventService {
 
 
   getParticipations(): Observable<Participation[]> {
-    return this.httpClient.get<Participation[]>('http://localhost:8080/event/participations');
+    return this.httpClient.get<Participation[]>(environment.apiUrl +  '/event/participations');
   }
 
   participate(eventId: number): void {
-    this.httpClient.post<any>(`http://localhost:8080/event/participate/${eventId}`, '').subscribe(() => {
+    this.httpClient.post<any>(environment.apiUrl +  `/event/participate/${eventId}`, '').subscribe(() => {
         return null;
       },
       (error) => {
@@ -162,7 +169,7 @@ export class EventService {
   }
   deleteEvent(pageId: number): void{
     console.log(pageId);
-    this.httpClient.delete<any>(`http://localhost:8080/event/${pageId}`).subscribe();
+    this.httpClient.delete<any>(environment.apiUrl +  `/event/${pageId}`).subscribe();
 
   }
 

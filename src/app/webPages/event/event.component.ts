@@ -51,6 +51,7 @@ export class EventComponent implements OnInit {
 
     this.user.roleListener().subscribe(state =>  {
       this.authority = state;
+
     });
 
     this.user.authListener().subscribe(state => {

@@ -7,9 +7,11 @@ import {User} from '../modeles/user';
 import {CookieService} from 'ngx-cookie-service';
 import {Organiser} from '../modeles/organiser';
 import {UserComment} from '../modeles/user-comment';
+import {environment} from '../../environments/environment';
 import {UserCanCustomDescription} from '../modeles/user-can-custom-description';
 import {map} from 'rxjs/operators';
 import {UserCurrentRightDesc} from '../modeles/user-current-right-desc';
+
 
 interface ReturnedErrors{
   errors: object;
@@ -32,7 +34,8 @@ export class UserService {
 
   login(value: object): void{
     const parametres = new HttpParams().set('remember-me', 'true' );
-    this.httpClient.post<any>('http://localhost:8080/login', value, {params: parametres}).subscribe(
+    this.httpClient.post<any>(environment.apiUrl +  '/login', value, {params: parametres}).subscribe(
+
       () => {
         this.globalVar.isAuthenticate = true;
         this.emitAuthStatus(true);
@@ -48,7 +51,7 @@ export class UserService {
   }
 
   logout(): void{
-    this.httpClient.post<any>('http://localhost:8080/logout', '').subscribe(
+    this.httpClient.post<any>( environment.apiUrl + '/logout', '').subscribe(
       () => {
         this.globalVar.isAuthenticate = false;
         this.emitAuthStatus(false);
@@ -62,7 +65,7 @@ export class UserService {
   }
 
   register(value: object): void{
-    this.httpClient.post<any>('http://localhost:8080/user/create', value).subscribe(
+    this.httpClient.post<any>( environment.apiUrl + '/user/create', value).subscribe(
       () => {
         return this.router.navigate(['home']);
       },
@@ -73,15 +76,15 @@ export class UserService {
   }
 
   getUserProfil(): Observable<User>{
-    return this.httpClient.get<User>('http://localhost:8080/user/logeduser');
+    return this.httpClient.get<User>( environment.apiUrl + '/user/logeduser');
   }
 
   getOrganiserrProfil(): Observable<Organiser>{
-    return this.httpClient.get<Organiser>('http://localhost:8080/user/logedorganiser');
+    return this.httpClient.get<Organiser>( environment.apiUrl +  '/user/logedorganiser');
   }
 
  patch(value: object): void{
-    this.httpClient.patch('http://localhost:8080/user/patch', value).subscribe(
+    this.httpClient.patch( environment.apiUrl + '/user/patch', value).subscribe(
       () => {
         console.log('oui');
       },
@@ -92,7 +95,7 @@ export class UserService {
  }
 
   patchOrganiser(value: object): void{
-    this.httpClient.patch('http://localhost:8080/user/patchOrganiser', value).subscribe(
+    this.httpClient.patch(environment.apiUrl +  '/user/patchOrganiser', value).subscribe(
       () => {
         console.log('oui');
       },
@@ -103,7 +106,7 @@ export class UserService {
   }
 
   isSessionValid(): void{
-    this.httpClient.get<boolean>('http://localhost:8080/user/sessionvalid').subscribe(
+    this.httpClient.get<boolean>( environment.apiUrl +  '/user/sessionvalid').subscribe(
       (value) => {
         console.log(value);
         this.globalVar.isAuthenticate = value;
@@ -118,7 +121,7 @@ export class UserService {
   }
 
   getAuthority(): void{
-    this.httpClient.get<Authority>('http://localhost:8080/user/authority').subscribe(
+    this.httpClient.get<Authority>( environment.apiUrl + '/user/authority').subscribe(
       (authority) => {
         if (authority[0] !== undefined ){
           this.globalVar.userAuthority = authority[0].authority;
@@ -137,7 +140,7 @@ export class UserService {
   patchProfilPicture(picture): Observable<User> {
     const uploadData = new FormData();
     uploadData.append('myFile', picture, picture.name);
-    return this.httpClient.post<User>('http://localhost:8080/user/patchpicture', uploadData);
+    return this.httpClient.post<User>( environment.apiUrl +  '/user/patchpicture', uploadData);
   }
 
 
@@ -160,7 +163,8 @@ export class UserService {
 
 
   upgradeOrganiser(value: object): void{
-    this.httpClient.post<any>('http://localhost:8080/user/upgradeToOrganiser', value).subscribe(
+
+    this.httpClient.post<any>( environment.apiUrl + '/user/upgradeToOrganiser', value).subscribe(
       () => {
         this.getAuthority();
         return this.router.navigate(['profil']);
@@ -172,24 +176,24 @@ export class UserService {
   }
 
   getUserComments(): Observable<UserComment[]>{
-    return this.httpClient.get<UserComment[]>('http://localhost:8080/user/usercomments');
+    return this.httpClient.get<UserComment[]>( environment.apiUrl + '/user/usercomments');
   }
 
   userCanAddPersonnalDescription(id: number): Observable<UserCanCustomDescription> {
-    return this.httpClient.get<UserCanCustomDescription>(`http://localhost:8080/user/canaddpersonnaldescription/${id}`);
+    return this.httpClient.get<UserCanCustomDescription>(environment.apiUrl +  `/user/canaddpersonnaldescription/${id}`);
   }
   getOrganiserInfo(username: string): Observable<Organiser>{
-    return this.httpClient.get<Organiser>(`http://localhost:8080/user/organiser/${username}`);
+    return this.httpClient.get<Organiser>(environment.apiUrl +  `/user/organiser/${username}`);
   }
 
   getOrganiserListInfo( search: HttpParams): Observable<Organiser[]>{
     console.log('pass');
-    return this.httpClient.get<Organiser[]>('http://localhost:8080/user/organiserlist', {params: search});
+    return this.httpClient.get<Organiser[]>(environment.apiUrl +  '/user/organiserlist', {params: search});
   }
 
   getOrganiserPhoto(id: string): Observable<string>{
     const parametres = new HttpParams().set('username', id );
-    return this.httpClient.get<ArrayBuffer>('http://localhost:8080/user/organiserPhoto', {params: parametres, responseType: 'arraybuffer' as 'json'})
+    return this.httpClient.get<ArrayBuffer>(environment.apiUrl +  '/user/organiserPhoto', {params: parametres, responseType: 'arraybuffer' as 'json'})
       .pipe(
         map(
           (byteArray: ArrayBuffer) => this.arrayBufferToBase64(byteArray)
@@ -207,7 +211,7 @@ export class UserService {
   }
 
   giveRightCustomeDescription(author: string, eventId: number): void {
-    this.httpClient.post<string>(`http://localhost:8080/user/giveusercustomizationeventright/${author}/${eventId}`, '').subscribe(
+    this.httpClient.post<string>(environment.apiUrl +  `/user/giveusercustomizationeventright/${author}/${eventId}`, '').subscribe(
       value => {
 
       }, error => {
@@ -217,7 +221,7 @@ export class UserService {
   }
 
   getRightCustomeDescription(): Observable<UserCurrentRightDesc[]> {
-    return this.httpClient.get<UserCurrentRightDesc[]>(`http://localhost:8080/user/usercustomizationeventright`);
+    return this.httpClient.get<UserCurrentRightDesc[]>(environment.apiUrl +  `/user/usercustomizationeventright`);
   }
 
 
