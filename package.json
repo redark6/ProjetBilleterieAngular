@@ -2,7 +2,7 @@
   "name": "projet-billeterie-angular",
   "version": "0.0.0",
   "engines": {
-    "node": "14.15",
+    "node": "14.17.0",
     "npm": "6.4.1"
   },
   "scripts": {
@@ -13,7 +13,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build -prod"
+    "postinstall": "ng build"
   },
   "private": true,
   "dependencies": {
