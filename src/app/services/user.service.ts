@@ -12,7 +12,6 @@ import {UserCanCustomDescription} from '../modeles/user-can-custom-description';
 import {map} from 'rxjs/operators';
 import {UserCurrentRightDesc} from '../modeles/user-current-right-desc';
 
-
 interface ReturnedErrors{
   errors: object;
 }
