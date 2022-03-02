@@ -6,7 +6,7 @@
     "npm": "6.4.1"
   },
   "scripts": {
-    "heroku-postbuild": "cd ANGULAR_APP_FOLDER && npm install",
+    "heroku-postbuild": "cd ProjetBilleterieAngular && npm install",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
