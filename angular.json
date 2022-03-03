@@ -22,7 +22,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-			  "src/assets/loaderio-0b4b8f806350b3c991be41c414032cc0.txt",
+			  "src/loaderio-0b4b8f806350b3c991be41c414032cc0.txt",
               {
                 "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
