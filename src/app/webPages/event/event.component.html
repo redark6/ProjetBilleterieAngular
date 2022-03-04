@@ -1,13 +1,13 @@
 <div>
   <div class="parent-container">
     <div>
-      <img class="bg-img" [src]="eventImage ? eventImage : './assets/images/nopicture.png'" alt="profile image"/>
+      <img class="bg-img" [src]="eventImage ? eventImage : 'https://storage.cloud.google.com/images-rra/nopicture.png'" alt="profile image"/>
     </div>
 
     <div class="container card-img-container" style="z-index: 500;">
       <div class="row">
         <div class="imagepos">
-          <img class="card-img" [src]="eventImage ? eventImage : './assets/images/nopicture.png'" alt="profile image"/>
+          <img class="card-img" [src]="eventImage ? eventImage : 'https://storage.cloud.google.com/images-rra/nopicture.png'" alt="profile image"/>
         </div>
 
         <div class="title-container col-xl-8 col-lg-8 col-md-8 col-sm-8">
@@ -106,7 +106,7 @@
             <a routerLink="/event-edit/{{eventId}}">
             <button style="width: min-content;" *ngIf="isAuthenticate && isOwner" class="btn btn-block btn-info h-100"> <i class="fas fa-edit"></i> </button>
             </a>
-            
+
             <a *ngIf="isAuthenticate && authority == 'ADMIN'" class="buttondelete offset-md-2" data-toggle="modal" data-target="#exampleModal" >
             <i class="fas fa-trash"></i>
           </a>

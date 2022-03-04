@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-4 col-4">
         <img class="card-img-top img img2"
-             [src]="eventImage ? eventImage : './assets/images/nopicture.png'" alt="Card image cap">
+             [src]="eventImage ? eventImage : 'https://storage.cloud.google.com/images-rra/nopicture.png'" alt="Card image cap">
         <div class="card-text mx-0 px-4"  *ngIf="isAuthenticate && isOwner" style="position: absolute; left: 0; top: 10px">
             <a routerLink="/event-edit/{{eventId}}" (click)="stop($event)">
               <button class="btn btn-block btn-info">
