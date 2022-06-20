@@ -1,74 +1,140 @@
-<div [formGroup]="registerForm" class="container col-10 col-sm-10 col-md-8 col-lg-7 col-xl-5 py-5 bg-grey shadow rounded ">
-  <div class="mx-5">
-
-  <h1 class="mb-3">Inscription</h1>
-  <div class="row">
-    <div class="col-md-6 mb-3">
-      <input formControlName='firstName' type="text" class="form-control" placeholder="Prénom" value="">
-      <div class="invalid-feedback">
-        Valid first name is required.
-      </div>
-    </div>
-    <div class="col-md-6 mb-3">
-      <input formControlName="lastName" type="text" class="form-control"  placeholder="Nom" value="" >
-      <div class="invalid-feedback">
-        Valid last name is required.
-      </div>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <div class="input-group">
-      <input formControlName="userName" type="text" class="form-control" placeholder="Nom d'utilisateur">
-      <div class="invalid-feedback" style="width: 100%;">
-        Your username is required.
-      </div>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <input formControlName="email" type="email" class="form-control" placeholder="Adresse-mail">
-    <div class="invalid-feedback">
-      Please enter a valid email address.
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <input formControlName="birthDate" class="form-control" type="date">
-    <div class="invalid-feedback">
-      Please enter a birth date.
-    </div>
-  </div>
-
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <input formControlName="password" type="password" class="form-control" placeholder="Mot de passe">
-        <div class="invalid-feedback">
-          Valid password is required.
+  <div [formGroup]="registerForm" class="container col-10 col-sm-10 col-md-8 col-lg-7 col-xl-5 py-5 bg-grey shadow rounded ">
+    <div class="mx-5">
+      <h1 class="mb-3">Inscription</h1>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Prénom</mat-label>
+            <input matInput type="text" formControlName="firstName" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="firstName.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="firstName.errors?.minlength">La taille minimale est de 2 caractères</mat-error>
+            <mat-error *ngIf="firstName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Nom</mat-label>
+            <input matInput type="text" formControlName="lastName" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="lastName.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="lastName.errors?.minlength">La taille minimale est de 2 caractères</mat-error>
+            <mat-error *ngIf="lastName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+          </mat-form-field>
         </div>
       </div>
-      <div class="col-md-6 mb-3">
-        <input formControlName="passwordConfirm" type="password" class="form-control" placeholder="Confirmer le Mot de passe">
-        <div class="invalid-feedback">
-          Valid password is required.
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Nom d'utilisateur</mat-label>
+            <input matInput type="text" formControlName="userName" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="userName.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="userName.errors?.minlength">La taille minimale est de 4 caractères</mat-error>
+            <mat-error *ngIf="userName.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+            <mat-error *ngIf="userName.errors?.incorrect">Ce nom d'utilisateur est déjas pris</mat-error>
+          </mat-form-field>
         </div>
-        <div *ngIf="this.registerForm.get('passwordConfirm').value != this.registerForm.get('password').value"
-             class="text-danger">
-          Nope frere
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy">
+            <mat-label>Date de naissance</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthDate" [errorStateMatcher]="matcher" (dateChange)="date($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="birthDate.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="birthDate.errors?.birthDateInvalid ||birthDate.errors?.incorrect">Vous devez avoir entre 18 et 122 ans</mat-error>
+          </mat-form-field>
         </div>
       </div>
 
+
+      <label id="example-radio-group-label">Vous êtes un :</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group" formControlName="role" >
+        <mat-radio-button class="example-radio-button" *ngFor="let role of roles" [value]="role">
+          {{role}}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <div  *ngIf="registerForm.value.role == 'Organisateur'">Appears
+      </div>
+
+      <div class="mb-3">
+        <mat-form-field appearance="legacy" >
+          <mat-label>Adresse-mail</mat-label>
+          <input matInput type="email" formControlName="email" [errorStateMatcher]="matcher">
+          <mat-error *ngIf="email.errors?.required">Ce champ est requis</mat-error>
+          <mat-error *ngIf="email.errors?.pattern">Veuillez entrer un email valide</mat-error>
+          <mat-error *ngIf="email.errors?.minlength">La taille minimale est de 5 caractères</mat-error>
+          <mat-error *ngIf="email.errors?.maxlength">La taille maximal est de 50 caractères</mat-error>
+          <mat-error *ngIf="email.errors?.incorrect">Cet email est déjas pris</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Mot de passe</mat-label>
+            <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="password.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="password.errors?.minlength">La taille minimale est de 8 caractères</mat-error>
+            <mat-error *ngIf="password.errors?.maxlength">La taille maximal est de 16 caractères</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="legacy" >
+            <mat-label>Confirmer le Mot de passe</mat-label>
+            <input matInput type="password" formControlName="passwordConfirm" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="passwordConfirm.errors?.required">Ce champ est requis</mat-error>
+            <mat-error *ngIf="passwordConfirm.errors?.minlength">La taille minimale est de 8 caractères</mat-error>
+            <mat-error *ngIf="passwordConfirm.errors?.maxlength">La taille maximal est de 16 caractères</mat-error>
+            <mat-error *ngIf="passwordConfirm.errors?.passwordsmatch">Les mots de passe doivent correspondrent</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="legacy" >
+          <input matInput [hidden]="true" name="myModel">
+          <mat-checkbox matInput color="primary" formControlName="useTerms" class="example-margin">
+            <span (click)="printDebug($event)" (mousedown)="$event.stopPropagation()">Accepter les <a (click)="open(content)">conditions</a></span>
+          </mat-checkbox>
+          <mat-error *ngIf="useTerms.errors?.required">Ce champ est requis</mat-error>
+        </mat-form-field>
+
+      </div>
+
+
+      <button mat-raised-button color="primary" [disabled]="registerForm.invalid || useTerms.value !== true" (click)="addUser()" class="btn btn-block" type="submit">S'inscrire</button>
+
     </div>
-
-    <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="acceptconditions">
-      <label class="form-check-label" for="acceptconditions">Accepter les conditions</label>
-    </div>
-
-
-    <button [disabled]="registerForm.invalid || this.registerForm.get('passwordConfirm').value != this.registerForm.get('password').value"
-            (click)="addUser()" class="btn btn-primary btn-lg btn-block" type="submit">S'inscrire</button>
-
-    <a>{{this.registerForm.get('birthDate').value}}</a>
   </div>
-</div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Conditions d'utilisation</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="mx-5">
+
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultricies porta pharetra. Sed et mi hendrerit, pharetra sem vel, suscipit ex. Nunc ante ante, iaculis id elit quis, egestas rutrum justo. Suspendisse aliquam dolor sed imperdiet placerat. Ut ut interdum erat. Donec porta a nibh et interdum. Sed id cursus justo. Aenean scelerisque sapien vitae metus ornare commodo. Integer ac dolor non dui scelerisque mollis. Vivamus id dui risus.
+        </p>
+        <p>
+          Phasellus vel augue sollicitudin, consectetur odio et, venenatis lacus. Suspendisse venenatis sit amet orci non condimentum. Donec nisl turpis, sagittis sit amet vulputate ac, viverra id velit. Donec venenatis odio eget massa convallis ultricies. Phasellus iaculis, purus eget scelerisque tincidunt, tortor risus viverra arcu, eget accumsan ex leo porttitor ex. In posuere dui sed leo consectetur sodales. Curabitur est nisl, egestas quis sapien in, auctor elementum orci. Mauris dignissim ultrices mollis. Proin non pellentesque erat, eget hendrerit purus.
+        </p>
+        <p>
+          Pellentesque porta volutpat hendrerit. Proin nibh velit, ultricies ac aliquam vel, semper sit amet ante. Nam semper odio sem, at maximus leo fringilla ut. Aenean at fringilla magna. Sed a pharetra justo, sit amet suscipit augue. Nullam at elit lacus. Nunc odio enim, pellentesque nec mollis ullamcorper, facilisis sit amet ipsum. Quisque semper purus in accumsan vehicula. Nullam viverra nunc ipsum, nec pretium augue imperdiet id. Sed non dolor a nisi placerat lobortis eget quis ante. Suspendisse consequat lobortis nulla sit amet fringilla. Suspendisse potenti. Vestibulum in nisl urna. Mauris nec condimentum sapien. Morbi mollis sit amet magna et tempor.
+        </p>
+        <p>
+          Nunc bibendum sit amet nunc at aliquam. Praesent commodo sagittis facilisis. Duis tristique tincidunt mollis. Pellentesque accumsan euismod massa, nec semper sem pulvinar vel. Duis maximus quam sit amet sapien dignissim, hendrerit dapibus tortor placerat. Nullam condimentum bibendum quam, eu euismod ipsum porttitor vel. Nam sit amet ligula quis dolor tempus fermentum sit amet vestibulum ex. Ut tincidunt arcu ac eros finibus molestie. Sed posuere, eros a eleifend luctus, nisi urna consectetur justo, in viverra neque nisi a ex. Vivamus id porta ipsum. Morbi euismod ipsum a gravida bibendum. Cras non tellus vulputate, pharetra diam ut, tristique nunc. Cras viverra tincidunt massa, id ullamcorper odio sagittis eu. Vestibulum euismod cursus felis, laoreet lobortis odio vestibulum vitae. Proin gravida aliquam iaculis. Cras porttitor iaculis viverra.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-primary" (click)="modal.close('Save click');">Accepter les conditions</button>
+      </div>
+    </div>
+
+
+  </ng-template>

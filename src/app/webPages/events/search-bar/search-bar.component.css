@@ -1,0 +1,62 @@
+.search-bar{
+  border-radius: 5px;
+}
+
+.example-chip-list {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 80%;
+}
+
+:host {
+  width: inherit;
+  height: inherit;
+}
+
+#container{
+  margin-right: 0;
+  margin-left: 0;
+}
+
+hr{
+  width: 90%;
+}
+
+@media screen and (min-width:540px) {
+  .displayifsize {
+  }
+  .notdisplayifsize{
+    display: none;
+  }
+
+}
+@media screen and (min-width:720px) {
+  .displayifsize {
+  }
+  .notdisplayifsize{
+    display: none;
+  }
+
+}
+@media screen and (min-width:995px) {
+
+  .displayifsize {
+    display: none;
+  }
+  .notdisplayifsize{
+    display: none;
+  }
+
+}
+@media screen and (min-width:1140px) {
+  .displayifsize {
+    display: none;
+  }
+  .notdisplayifsize{
+    display: none;
+  }
+}
+
+

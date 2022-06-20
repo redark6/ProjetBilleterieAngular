@@ -1,0 +1,70 @@
+.img{
+  max-height: 166px; /* height of container */
+
+  min-height: 166px; /* height of container */
+
+  object-fit: cover;
+  
+  border-top-left-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 5px;
+  object-position: 100% 50%;
+
+}
+.card-size{
+  width: unset;
+  height: 166px;
+}
+
+.crop-title {
+  -webkit-line-clamp: 2;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.price{
+  height: 40px;
+  width: 40px;
+}
+
+.card-img-top {
+  height: 30vh;
+  object-fit: cover;
+}
+
+/* Equal-height card images, cf. https://stackoverflow.com/a/47698201/1375163*/
+.card{
+  object-fit: cover;
+}
+
+@media screen and (max-width:1980px) {
+  .img2 {
+    max-width: 17vw;
+    min-width: 17vw;
+  }
+}
+@media screen and (max-width:1200px) {
+  .img2{
+    max-width: 18vw;
+    min-width: 18vw;
+  }
+}
+@media screen and (max-width:992px) {
+  .img2{
+    max-width: 22vw;
+    min-width: 22vw;
+  }
+}
+@media screen and (max-width:767px) {
+  .img2 {
+    max-width: none;
+    min-width: unset;
+  }
+
+}
+
+a{
+  color: black;
+}

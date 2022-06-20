@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AuthenticationService} from '../../service/authentication.service';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {UserService} from '../../services/user.service';
+import {MyErrorStateMatcher} from '../../specialClass/my-error-state-matcher';
+import {HandleErrorsService} from '../../specialClass/handle-errors.service';
 
 @Component({
   selector: 'app-login',
@@ -11,27 +12,49 @@ import {AuthenticationService} from '../../service/authentication.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  loginError = false;
+  loginErrorMessage: string;
+  matcher = new MyErrorStateMatcher();
 
-  constructor(private authenticate: AuthenticationService, private router: Router) {
-    this.loginForm = new FormGroup({
-      email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
-    });
+  // tslint:disable-next-line:max-line-length
+  constructor(private user: UserService, private formBuilder: FormBuilder, private error: HandleErrorsService) {
+
   }
 
   ngOnInit(): void {
+
+    this.error.error403Event
+      .subscribe((data: object) => {
+        this.showLoginError();
+        this.loginForm.setErrors({incorrect: true});
+      });
+
+
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.compose([
+        Validators.required,
+        Validators.email,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
+      ])],
+      password: ['', [Validators.required]]
+    });
+  }
+
+  get email(): AbstractControl {
+    return this.loginForm.get('email');
+  }
+
+  get password(): AbstractControl {
+    return this.loginForm.get('password');
   }
 
   login(): void {
-    this.authenticate.authenticate(this.loginForm.value).subscribe(
-      (cookie) => {
-        return this.router.navigate(['home']);
-      },
-      (error) => {
-        return;
-      }
+    this.user.login(this.loginForm.value);
+  }
 
-    );
+  showLoginError(): void{
+    this.loginError = true;
+    this.loginErrorMessage = 'Identifiant ou mot de passe incorrect';
   }
 
 }

@@ -1,0 +1,129 @@
+<div class="displayifsize">
+  <app-navigation-bar></app-navigation-bar>
+</div>
+
+<div id="container" [formGroup]="searchForm" class="container-fluid bg-grey rounded pt-3 h-100  ">
+  <div class="pt-3 pb-3">
+    <!--
+    <mat-form-field appearance="legacy" >
+      <mat-label>Localisation</mat-label>
+      <input matInput type="text" formControlName="location">
+    </mat-form-field>
+    -->
+
+    <div class="py-0 d-flex justify-content-center">
+      <mat-form-field appearance="legacy" >
+        <mat-label>Que cherchez-vous ?</mat-label>
+        <input matInput type="text" formControlName="search" >
+      </mat-form-field>
+    </div>
+
+    <hr class="d-lg-none">
+
+    <div class=" py-0 d-flex justify-content-center">
+      <mat-form-field appearance="legacy">
+        <mat-label>Catégories</mat-label>
+        <mat-select formControlName="category" >
+          <mat-option>None</mat-option>
+          <mat-option [value]="1">Cour et Atelier</mat-option>
+          <mat-option [value]="2">Festival</mat-option>
+          <mat-option [value]="3">Salon</mat-option>
+          <mat-option [value]="4">Action solidaire</mat-option>
+          <mat-option [value]="5">Concert</mat-option>
+          <mat-option [value]="6">Gastronomie</mat-option>
+          <mat-option [value]="7">Conférence et Forum</mat-option>
+          <mat-option [value]="8">Musée et Exposition</mat-option>
+          <mat-option [value]="9">Spectacle et Théâtre</mat-option>
+          <mat-option [value]="10">Autres</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <hr class="d-lg-none">
+
+    <div class=" py-0 d-flex justify-content-center">
+      <mat-form-field appearance="legacy">
+        <mat-label>Où ?</mat-label>
+        <mat-select formControlName="region" >
+          <mat-option [value]="null">aucune</mat-option>
+          <mat-option *ngFor=" let region of regionList" [value]="region.regionId">{{region.regionName + ' ('+region.regionId+')'}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <hr class="d-lg-none">
+
+    <div class=" py-0 d-flex justify-content-center">
+      <mat-form-field appearance="legacy">
+        <mat-label>Quand ?</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input type="datetime"
+                 auto-close="true"
+                 view="date"
+                 min-view="date" matStartDate placeholder="Début" formControlName="startDate" >
+          <input matEndDate placeholder="Fin" formControlName="endDate">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+
+    <hr class="d-lg-none">
+
+    <div class="pb-3 d-flex justify-content-center " >
+      <div class="d-inline-flex"  style="width: 80%">
+        <div class="col-6  justify-content-center px-0 pr-2">
+          <mat-form-field appearance="standard" class="w-100 c1">
+            <mat-label>Prix min</mat-label>
+            <input type="number" min="0" max="500" matInput formControlName="minPrice">
+          </mat-form-field>
+        </div>
+
+        <div class="col-6  justify-content-center px-0 pl-2">
+          <mat-form-field appearance="standard" class=" w-100 c1">
+            <mat-label>Prix max</mat-label>
+            <input type="number" min="0" max="500" matInput formControlName="maxPrice">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <!--
+    <mat-form-field class="example-chip-list">
+      <mat-label>Favorite Fruits</mat-label>
+      <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
+                  [removable]="removable" (removed)="remove(fruit)">
+          {{fruit.name}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="New fruit..."
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+    </mat-form-field>
+    -->
+
+    <hr class="d-lg-none">
+
+    <div class=" py-0 d-flex justify-content-center">
+      <mat-form-field appearance="legacy">
+        <mat-label>Trie</mat-label>
+        <mat-select formControlName="orderBy" >
+          <mat-option [value]="'recent'">Plus récent</mat-option>
+          <mat-option [value]="'former'">Plus ancien</mat-option>
+          <mat-option [value]="'incprice'">Prix croissant</mat-option>
+          <mat-option [value]="'decprice'">Prix décroissant</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <hr class="d-lg-none">
+    <div class="pt-3">
+      <button mat-raised-button color="primary" type="submit" (click)="search();" class="btn btn-block d-none d-lg-block">Rechercher</button>
+      <button mat-raised-button color="primary" type="submit" (click)="search();hideSearchBar();" class="btn btn-block d-lg-none">Rechercher</button>
+    </div>
+  </div>
+</div>
+

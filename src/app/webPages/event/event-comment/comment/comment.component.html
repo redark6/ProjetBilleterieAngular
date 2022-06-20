@@ -1,0 +1,80 @@
+<nz-comment nzAuthor="{{user.author}}" [nzDatetime]="time" xmlns="http://www.w3.org/1999/html">
+  <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]='user.avatar'></nz-avatar>
+  <nz-comment-content>
+    <button *ngIf="isAuthenticate && (authority == 'ADMIN')" class="btn btn-info" style="font-size: inherit; padding: 0" (click)="disableComment(commentId)">Désactiver ce commentaire</button>
+    <p *ngIf="!isBlocked">
+      {{commentContent}}
+    </p>
+    <p class="font-italic" *ngIf="isBlocked">
+      Ce commentaire est indisponible
+    </p>
+  </nz-comment-content>
+  <nz-comment-action >
+    <span *ngIf="!isAuthenticate">
+    <i nz-tooltip nzTitle="Like"  nz-icon nzType="like" [nzTheme]="likeState == 1 ? 'twotone' : 'outline'"
+       nz-popover
+       nzPopoverTitle="Vous aimez ?"
+       [(nzPopoverVisible)]="likevisible"
+       (nzPopoverVisibleChange)="change($event)"
+       nzPopoverTrigger="click"
+       [nzPopoverContent]="likepopover"></i>
+
+      <ng-template #likepopover>
+        <button class="ml-4" mat-raised-button color="primary" routerLink="/login">connexion</button>
+      </ng-template>
+
+    </span>
+
+    <span *ngIf="isAuthenticate">
+      <i nz-tooltip nzTitle="Like" nz-icon nzType="like" [nzTheme]="likeState == 1 ? 'twotone' : 'outline'"
+         (click)="like()">
+      </i>
+    </span>
+
+    <span class="count like">{{ likes }}</span>
+
+  </nz-comment-action>
+  <nz-comment-action>
+    <span *ngIf="!isAuthenticate">
+      <i nz-tooltip nzTitle="Dislike" nz-icon nzType="dislike" [nzTheme]="dislikes == -1 ? 'twotone' : 'outline'"
+         nz-popover
+         nzPopoverTitle="Vous n'aimez pas ?"
+         [(nzPopoverVisible)]="dislikevisible"
+         (nzPopoverVisibleChange)="change($event)"
+         nzPopoverTrigger="click"
+         [nzPopoverContent]="dislikepopover">
+      </i>
+
+      <ng-template #dislikepopover>
+        <button class="ml-4" mat-raised-button color="primary" routerLink="/login">connexion</button>
+      </ng-template>
+
+    </span>
+    <span *ngIf="isAuthenticate">
+      <i nz-tooltip nzTitle="Dislike" nz-icon nzType="dislike" [nzTheme]="dislikes == -1 ? 'twotone' : 'outline'"
+         (click)="dislike()">
+      </i>
+    </span>
+    <span class="count dislike">{{ dislikes }}</span>
+  </nz-comment-action>
+  <nz-comment-action *ngIf="childnumber < 5">
+    <a class="response" data-toggle="collapse" href="{{'#anwser'+comment.id}}" role="button">
+      Repondre
+    </a>
+  </nz-comment-action>
+  <div class="collapse" id="{{'anwser'+comment.id}}">
+    <app-comment-writer [parentComment]="comment.id" [eventId]="eventId" [isAuthenticate]="isAuthenticate" (commentSent)="onchildresponse()" ></app-comment-writer>
+  </div>
+  <nz-comment-action>
+    <button *ngIf="isAuthenticate && (authority == 'ADMIN')" class="btn btn-info" style="font-size: inherit; padding: 0" (click)="giveRightCustomeDescription()">
+      Donner le droit d'ajouter une description alternative
+    </button>
+  </nz-comment-action>
+  <ng-container *ngIf="comment.commentChildren && comment.commentChildren.length">
+    <div *ngFor="let subcomment of comment.commentChildren">
+      <app-comment [comment]="subcomment" [isAuthenticate]="isAuthenticate" [eventId]="eventId" [childnumber]="this.childnumber+1" [authority]="authority"  (childresponse)="onchildresponse()"></app-comment>
+    </div>
+  </ng-container>
+</nz-comment>
+<div class="divider"></div>
+
